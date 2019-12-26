@@ -1,36 +1,100 @@
 <template>
     <div class="aside">
-        <el-menu>
-            <el-submenu index="1">
-                <template slot="title">
-                    <i class="el-icon-location"/>
-                </template>
-                <span slot="title">分组一</span>
-                <el-menu-item index="1-1">选项1</el-menu-item>
-                <el-menu-item index="1-2">选项2</el-menu-item>
-                <el-menu-item index="1-3">选项3</el-menu-item>
-            </el-submenu>
-            <el-menu-item index="2">
-                <i class="el-icon-menu"/>
-                <span slot="title">导航二</span>
-            </el-menu-item>
-            <el-menu-item index="3" disabled>
-                <i class="el-icon-document"/>
-                <span slot="title">导航三</span>
-            </el-menu-item>
-            <el-menu-item index="4">
-                <i class="el-icon-setting"/>
-                <span slot="title">导航四</span>
-            </el-menu-item>
+        <el-menu background-color="#304156" text-color="#BFCBD9"
+                 active-text-color="#409EFF">
+            <el-scrollbar style="height: 100%;">
+                <div class="media">
+                    <el-avatar class="avatar" :src="auth.picture"/>
+                    <div class="media-body profile">
+                        <div class="username">
+                            姓名：{{ auth.username }}
+                        </div>
+                        <div class="rolename">
+                            职位：{{ auth.role.name }}
+                        </div>
+                    </div>
+                </div>
+                <el-submenu index="1">
+                    <template slot="title">
+                        <i class="el-icon-menu"/>
+                        <span>签到中心</span>
+                    </template>
+                    <el-menu-item index="1-1">签到</el-menu-item>
+                    <el-menu-item index="1-2">签到记录</el-menu-item>
+                    <el-menu-item index="1-3">签到设置</el-menu-item>
+                </el-submenu>
+                <el-submenu index="2">
+                    <template slot="title">
+                        <i class="el-icon-s-custom"/>
+                        <span>个人中心</span>
+                    </template>
+                    <el-menu-item index="2-1">个人信息</el-menu-item>
+                    <el-menu-item index="2-2">修改资料</el-menu-item>
+                    <el-menu-item index="2-3">修改密码</el-menu-item>
+                </el-submenu>
+                <el-submenu index="3">
+                    <template slot="title">
+                        <i class="el-icon-folder"/>
+                        <span>网盘</span>
+                    </template>
+                    <el-menu-item index="3-1">公共网盘</el-menu-item>
+                    <el-menu-item index="3-2">我的网盘</el-menu-item>
+                </el-submenu>
+                <el-submenu index="4">
+                    <template slot="title">
+                        <i class="el-icon-chat-dot-square"/>
+                        <span>会议中心</span>
+                    </template>
+                    <el-menu-item index="4-1">申请会议</el-menu-item>
+                    <el-menu-item index="4-2">审批状态</el-menu-item>
+                </el-submenu>
+                <el-submenu index="5">
+                    <template slot="title">
+                        <i class="el-icon-finished"/>
+                        <span>我的职位</span>
+                    </template>
+                    <el-menu-item index="5-1">职位申请</el-menu-item>
+                    <el-menu-item index="5-2">审批职位</el-menu-item>
+                    <el-menu-item index="5-3">职位调度</el-menu-item>
+                </el-submenu>
+            </el-scrollbar>
         </el-menu>
     </div>
 </template>
 
 <script>
+    import {mapState} from 'vuex'
+
     export default {
         name: "Aside",
+        computed: mapState([
+            'auth'
+        ])
+
     }
 </script>
 
 <style scoped>
+    .aside {
+        height: 100%;
+    }
+
+    .avatar {
+        margin: 20px 0 10px 20px
+    }
+
+    .username {
+        font-size: 12px;
+        margin: 24px 0 5px 0;
+        color: #BFCBD9;
+    }
+
+    .rolename {
+        font-size: 12px;
+        color: #BFCBD9;
+    }
+
+    .el-menu {
+        height: 100%;
+    }
 </style>

@@ -25,11 +25,11 @@ ul {
     margin: 0;
 }
 
-.media{
+.media {
     display: flex;
 }
 
-.media-body{
+.media-body {
     flex: 1;
     margin-left: 20px;
 }

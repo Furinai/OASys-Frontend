@@ -11,8 +11,4 @@
 </script>
 
 <style scoped>
-    .header {
-        border-bottom: 1px solid #eee;
-        width: 100%;
-    }
 </style>
