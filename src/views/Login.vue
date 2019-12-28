@@ -21,8 +21,8 @@
 
 <script>
     import qs from 'qs'
-    import {getAuth, login} from '../utils/api';
     import {setAuth} from '../utils/auth';
+    import {getAuth, login} from '../utils/api';
 
     export default {
         name: 'Login',
@@ -52,9 +52,6 @@
                 load: false
             }
         },
-        props: [
-            'LoginDialog'
-        ],
         methods: {
             onSubmit(forms) {
                 this.$refs[forms].validate((valid) => {
@@ -64,7 +61,7 @@
                             this.load = false;
                             if (response && response.status === 'success') {
                                 getAuth().then(response => {
-                                    setAuth(JSON.stringify(response.object))
+                                    setAuth(response.object)
                                 });
                                 this.$message.success(response.message)
                                 this.$router.push({name: 'index'})

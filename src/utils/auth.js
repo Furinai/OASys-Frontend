@@ -6,7 +6,7 @@ export function initAuth() {
 }
 
 export function setAuth(auth) {
-    localStorage.setItem('auth', auth);
+    localStorage.setItem('auth', JSON.stringify(auth));
     store.dispatch('setAuth', auth)
 }
 

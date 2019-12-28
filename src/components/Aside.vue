@@ -1,30 +1,30 @@
 <template>
     <div class="aside">
         <el-menu background-color="#304156" text-color="#BFCBD9"
-                 active-text-color="#409EFF">
+                 active-text-color="#409EFF" :router="true">
             <el-scrollbar style="height: 100%;">
                 <div class="media">
-                    <el-avatar class="avatar" :src="auth.picture"/>
+                    <el-avatar v-if="auth" class="avatar" :src="auth.picture"/>
                     <div class="media-body profile">
-                        <div class="username">
+                        <div v-if="auth" class="username">
                             姓名：{{ auth.username }}
                         </div>
-                        <div class="rolename">
+                        <div v-if="auth" class="rolename">
                             职位：{{ auth.role.name }}
                         </div>
                     </div>
                 </div>
                 <el-submenu index="1">
-                    <template slot="title">
+                    <template #title>
                         <i class="el-icon-menu"/>
-                        <span>签到中心</span>
+                        <span>考勤</span>
                     </template>
-                    <el-menu-item index="1-1">签到</el-menu-item>
-                    <el-menu-item index="1-2">签到记录</el-menu-item>
+                    <el-menu-item index="/sign">签到签退</el-menu-item>
+                    <el-menu-item index="/sign-record">签到记录</el-menu-item>
                     <el-menu-item index="1-3">签到设置</el-menu-item>
                 </el-submenu>
                 <el-submenu index="2">
-                    <template slot="title">
+                    <template #title>
                         <i class="el-icon-s-custom"/>
                         <span>个人中心</span>
                     </template>
@@ -33,7 +33,7 @@
                     <el-menu-item index="2-3">修改密码</el-menu-item>
                 </el-submenu>
                 <el-submenu index="3">
-                    <template slot="title">
+                    <template #title>
                         <i class="el-icon-folder"/>
                         <span>网盘</span>
                     </template>
@@ -41,7 +41,7 @@
                     <el-menu-item index="3-2">我的网盘</el-menu-item>
                 </el-submenu>
                 <el-submenu index="4">
-                    <template slot="title">
+                    <template #title>
                         <i class="el-icon-chat-dot-square"/>
                         <span>会议中心</span>
                     </template>
@@ -49,7 +49,7 @@
                     <el-menu-item index="4-2">审批状态</el-menu-item>
                 </el-submenu>
                 <el-submenu index="5">
-                    <template slot="title">
+                    <template #title>
                         <i class="el-icon-finished"/>
                         <span>我的职位</span>
                     </template>
@@ -70,7 +70,6 @@
         computed: mapState([
             'auth'
         ])
-
     }
 </script>
 

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {removeAuth} from './auth';
 import {Message, MessageBox} from 'element-ui';
+import router from "../router";
 
 axios.interceptors.request.use(
     config => {
@@ -24,6 +25,7 @@ axios.interceptors.response.use(
         switch (error.response.status) {
             case 401:
                 removeAuth();
+                router.push({name: 'login'});
                 Message.error(error.response.data.message);
                 break;
             case 403:
