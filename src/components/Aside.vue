@@ -21,7 +21,7 @@
                     </template>
                     <el-menu-item index="/sign">签到签退</el-menu-item>
                     <el-menu-item index="/sign-record">签到记录</el-menu-item>
-                    <el-menu-item index="1-3">签到设置</el-menu-item>
+                    <el-menu-item index="/sign-setting">签到设置</el-menu-item>
                 </el-submenu>
                 <el-submenu index="2">
                     <template #title>

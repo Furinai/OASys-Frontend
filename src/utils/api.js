@@ -28,6 +28,14 @@ export function signOut() {
     return get('/api/signOut')
 }
 
+export function getAttendanceTime() {
+    return get('/api/getAttendanceTime')
+}
+
+export function setAttendanceTime(params) {
+    return get('/api/setAttendanceTime', params)
+}
+
 export function addArticle(data) {
     return post('/api/article', data)
 }

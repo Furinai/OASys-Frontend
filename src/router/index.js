@@ -6,6 +6,7 @@ import Index from "../views/Index";
 import Login from "../views/Login";
 import Sign from "../views/Sign";
 import SignRecord from "../views/SignRecord"
+import SignSetting from "../views/SignSetting"
 import NotFound from "../views/NotFound";
 
 Vue.use(VueRouter);
@@ -29,6 +30,11 @@ const routes = [
                 path: '/sign-record',
                 name: 'sign-record',
                 component: SignRecord,
+            },
+            {
+                path: '/sign-setting',
+                name: 'sign-setting',
+                component: SignSetting,
             },
         ]
     },

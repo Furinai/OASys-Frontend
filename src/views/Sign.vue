@@ -2,8 +2,8 @@
     <div class="sign">
         <div class="time">{{ currentTime | formatTime }}</div>
         <div class="date">{{ currentDate | formatDate }}</div>
-        <div class="begin">上班时间：09:00</div>
-        <div class="end">上班时间：17:00</div>
+        <div class="begin">上班时间：{{ attendanceTime[0] }}</div>
+        <div class="end">下班时间：{{ attendanceTime[1] }}</div>
         <div class="button">
             <el-button-group>
                 <el-button type="primary" icon="el-icon-arrow-left" @click="signIn" :disabled=isSignIn>签到</el-button>
@@ -36,26 +36,28 @@
 </template>
 
 <script>
-    import {getAttendance, signIn, signOut} from "../utils/api";
+    import {getAttendance, getAttendanceTime, signIn, signOut} from "../utils/api";
 
     export default {
         name: "Sign",
         data() {
             return {
                 attendance: {},
+                attendanceTime: [],
                 currentDate: new Date(),
                 currentTime: new Date(),
             }
         },
         created() {
-            this.getAttendance()
+            this.getAttendance();
+            this.getAttendanceTime();
         },
         computed: {
             isSignIn() {
                 return this.attendance != null
             },
             isSignOut() {
-                if (this.attendance == null){
+                if (this.attendance == null) {
                     return false
                 }
                 return this.attendance.signOut
@@ -77,6 +79,13 @@
                 getAttendance().then(response => {
                     if (response && response.status == 'success') {
                         this.attendance = response.object
+                    }
+                })
+            },
+            getAttendanceTime() {
+                getAttendanceTime().then(response => {
+                    if (response && response.status == 'success') {
+                        this.attendanceTime = response.object
                     }
                 })
             },
