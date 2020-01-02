@@ -37,8 +37,8 @@
                         <i class="el-icon-folder"/>
                         <span>网盘</span>
                     </template>
-                    <el-menu-item index="3-1">公共网盘</el-menu-item>
-                    <el-menu-item index="3-2">我的网盘</el-menu-item>
+                    <el-menu-item index="company-net-disk">公共网盘</el-menu-item>
+                    <el-menu-item index="personal-net-disk">我的网盘</el-menu-item>
                 </el-submenu>
                 <el-submenu index="4">
                     <template #title>
@@ -50,12 +50,28 @@
                 </el-submenu>
                 <el-submenu index="5">
                     <template #title>
+                        <i class="el-icon-tickets"/>
+                        <span>请假</span>
+                    </template>
+                    <el-menu-item index="5-1">请假</el-menu-item>
+                    <el-menu-item index="5-2">审批请假</el-menu-item>
+                </el-submenu>
+                <el-submenu index="6">
+                    <template #title>
                         <i class="el-icon-finished"/>
                         <span>我的职位</span>
                     </template>
-                    <el-menu-item index="5-1">职位申请</el-menu-item>
-                    <el-menu-item index="5-2">审批职位</el-menu-item>
-                    <el-menu-item index="5-3">职位调度</el-menu-item>
+                    <el-menu-item index="6-1">职位申请</el-menu-item>
+                    <el-menu-item index="6-2">审批职位</el-menu-item>
+                    <el-menu-item index="6-3">职位调度</el-menu-item>
+                </el-submenu>
+                <el-submenu index="7">
+                    <template #title>
+                        <i class="el-icon-document-copy"/>
+                        <span>论坛</span>
+                    </template>
+                    <el-menu-item index="7-1">发布帖子</el-menu-item>
+                    <el-menu-item index="7-2">查看帖子</el-menu-item>
                 </el-submenu>
             </el-scrollbar>
         </el-menu>

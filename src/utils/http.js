@@ -24,8 +24,8 @@ axios.interceptors.response.use(
     error => {
         switch (error.response.status) {
             case 401:
-                removeAuth();
                 router.push({name: 'login'});
+                removeAuth();
                 Message.error(error.response.data.message);
                 break;
             case 403:

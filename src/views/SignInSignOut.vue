@@ -50,7 +50,6 @@
         },
         created() {
             this.getAttendance();
-            this.getAttendanceTime();
         },
         computed: {
             isSignIn() {
@@ -79,6 +78,7 @@
                 getAttendance().then(response => {
                     if (response && response.status == 'success') {
                         this.attendance = response.object
+                        this.getAttendanceTime();
                     }
                 })
             },
