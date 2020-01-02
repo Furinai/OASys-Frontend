@@ -8,7 +8,7 @@ import SignInSignOut from "../views/SignInSignOut";
 import SignRecord from "../views/SignRecord"
 import SignSetting from "../views/SignSetting"
 import PersonalNetDisk from "../views/PersonalNetDisk";
-import CompanyNetDisk from "../views/CompanyNetDisk";
+import PublicNetDisk from "../views/PublicNetDisk";
 import NotFound from "../views/NotFound";
 
 Vue.use(VueRouter);
@@ -44,9 +44,9 @@ const routes = [
                 component: PersonalNetDisk,
             },
             {
-                path: '/company-net-disk',
-                name: 'company-net-disk',
-                component: CompanyNetDisk,
+                path: '/public-net-disk',
+                name: 'public-net-disk',
+                component: PublicNetDisk,
             },
         ]
     },

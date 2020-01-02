@@ -37,7 +37,7 @@
                         <i class="el-icon-folder"/>
                         <span>网盘</span>
                     </template>
-                    <el-menu-item index="company-net-disk">公共网盘</el-menu-item>
+                    <el-menu-item index="public-net-disk">公共网盘</el-menu-item>
                     <el-menu-item index="personal-net-disk">我的网盘</el-menu-item>
                 </el-submenu>
                 <el-submenu index="4">
