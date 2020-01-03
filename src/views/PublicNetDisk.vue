@@ -1,6 +1,6 @@
 <template>
-    <div class="net-disk">
-        <Files/>
+    <div class="public-net-disk">
+        <Files personal="0"/>
     </div>
 </template>
 
@@ -9,7 +9,7 @@
 
     export default {
         name: "PublicNetDisk",
-        components:{
+        components: {
             Files
         }
     }

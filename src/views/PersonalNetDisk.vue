@@ -1,12 +1,17 @@
 <template>
-    <div class="net-disk">
-
+    <div class="personal-net-disk">
+        <Files personal="1"/>
     </div>
 </template>
 
 <script>
+    import Files from "../components/Files"
+
     export default {
-        name: "PersonalNetDisk"
+        name: "PersonalNetDisk",
+        components: {
+            Files
+        }
     }
 </script>
 

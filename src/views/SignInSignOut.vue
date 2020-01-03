@@ -76,7 +76,7 @@
         methods: {
             getAttendance() {
                 getAttendance().then(response => {
-                    if (response && response.status == 'success') {
+                    if (response && response.status === 'success') {
                         this.attendance = response.object
                         this.getAttendanceTime();
                     }

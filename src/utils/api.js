@@ -13,11 +13,11 @@ export function getAuth() {
 }
 
 export function getAttendances() {
-    return get('/api/attendances')
+    return get('/api/getAttendances')
 }
 
 export function getAttendance() {
-    return get('/api/attendance')
+    return get('/api/getAttendance')
 }
 
 export function signIn() {
@@ -36,6 +36,10 @@ export function setAttendanceTime(params) {
     return get('/api/setAttendanceTime', params)
 }
 
-export function addArticle(data) {
-    return post('/api/article', data)
+export function getFiles(params) {
+    return get('/api/getFiles', params)
+}
+
+export function addFolder(params) {
+    return get('/api/addFolder', params)
 }
