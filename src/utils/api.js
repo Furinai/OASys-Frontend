@@ -43,3 +43,11 @@ export function getFiles(params) {
 export function addFolder(params) {
     return get('/api/addFolder', params)
 }
+
+export function renameFile(params) {
+    return get('/api/renameFile', params)
+}
+
+export function deleteFile(data) {
+    return post('/api/deleteFile', data)
+}
