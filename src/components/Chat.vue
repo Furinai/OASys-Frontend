@@ -63,10 +63,12 @@
         },
         watch: {
             messages() {
-                var div = this.$refs['elscrollbar'].$refs['wrap'];
-                this.$nextTick(() => {
-                    div.scrollTop = div.scrollHeight
-                })
+                if (this.chatDialog === true) {
+                    var div = this.$refs['elscrollbar'].$refs['wrap'];
+                    this.$nextTick(() => {
+                        div.scrollTop = div.scrollHeight
+                    })
+                }
             }
         },
         computed: mapState(
@@ -78,6 +80,7 @@
                 this.webSocket.onmessage = this.webSocketMessage;
             },
             webSocketMessage(event) {
+                this.id = event.data.id
                 this.messages.push(JSON.parse(event.data))
                 if (this.chatDialog === false) {
                     this.unreadCount++
@@ -105,8 +108,8 @@
 <style scoped>
     .open-button {
         position: fixed;
-        bottom: 40px;
-        right: 60px;
+        bottom: 25px;
+        right: 40px;
     }
 
     .send-button {

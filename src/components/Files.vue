@@ -122,6 +122,7 @@
                 files: [],
                 search: "",
                 history: [],
+                current: [1],
                 selection: [],
                 newName: "",
                 folderName: "",
@@ -142,7 +143,7 @@
                 return this.path.join(" / ")
             },
             parentId() {
-                return this.files.length > 0 ? this.files[0].parentId : 1
+                return this.current[this.current.length - 1];
             },
             ...mapState(['auth'])
         },
@@ -159,14 +160,15 @@
             toFolder(file) {
                 this.getFiles(file.id);
                 this.path.push(file.name);
+                this.current.push(file.id);
                 this.history.push(file.parentId);
             },
             toParent() {
-                if (this.path.length === 1) {
+                if (this.history.length === 0) {
                     this.$message.error("已经是根目录")
                 } else {
-                    var parentId = this.history.pop();
-                    this.getFiles(parentId);
+                    this.getFiles(this.history.pop());
+                    this.current.pop();
                     this.path.pop();
                 }
             },
@@ -174,16 +176,16 @@
                 this.addFolderDialog = true
             },
             submitAddFolder() {
-                var parentId = this.parentId;
                 var personal = this.personal;
                 var folderName = this.folderName;
+                var parentId = this.current[this.current.length - 1];
                 if (folderName === null || folderName.trim() === "") {
                     this.$message.error("文件夹名称不能为空！")
                 } else {
                     addFolder({folderName, personal, parentId}).then(response => {
                         if (response && response.status === 'success') {
                             this.$message.success(response.message)
-                            this.getFiles(this.files[0].parentId)
+                            this.getFiles(parentId)
                             this.addFolderDialog = false
                             this.folderName = null
                         }
@@ -195,11 +197,11 @@
             },
             uploadSuccess(response) {
                 this.$message.success(response.message);
-                this.getFiles(this.files[0].parentId)
+                this.getFiles(this.current[this.current.length - 1])
                 this.uploadFileDialog = false
             },
             handleCurrentChange(pageNumber) {
-                var parentId = this.parentId;
+                var parentId = this.current[this.current.length - 1];
                 this.getFiles(parentId, pageNumber);
             },
             downloadFile() {
@@ -248,7 +250,7 @@
                             deleteFile(ids).then(response => {
                                 if (response && response.status === 'success') {
                                     this.$message.success(response.message);
-                                    this.getFiles(this.files[0].parentId)
+                                    this.getFiles(this.current[this.current.length - 1])
                                 }
                             })
                         }
