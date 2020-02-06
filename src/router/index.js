@@ -9,6 +9,8 @@ import SignRecord from "../views/SignRecord"
 import SignSetting from "../views/SignSetting"
 import PersonalNetDisk from "../views/PersonalNetDisk";
 import PublicNetDisk from "../views/PublicNetDisk";
+import AskLeave from "../views/AskLeave";
+import CheckLeave from "../views/CheckLeave"
 import NotFound from "../views/NotFound";
 
 Vue.use(VueRouter);
@@ -47,6 +49,16 @@ const routes = [
                 path: '/public-net-disk',
                 name: 'public-net-disk',
                 component: PublicNetDisk,
+            },
+            {
+                path: '/ask-leave',
+                name: 'ask-leave',
+                component: AskLeave,
+            },
+            {
+                path: '/check-leave',
+                name: 'check-leave',
+                component: CheckLeave,
             },
         ]
     },

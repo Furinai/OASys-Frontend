@@ -46,15 +46,15 @@
                         <span>会议中心</span>
                     </template>
                     <el-menu-item index="4-1">申请会议</el-menu-item>
-                    <el-menu-item index="4-2">审批状态</el-menu-item>
+                    <el-menu-item index="4-2">审批会议</el-menu-item>
                 </el-submenu>
                 <el-submenu index="5">
                     <template #title>
                         <i class="el-icon-tickets"/>
                         <span>请假</span>
                     </template>
-                    <el-menu-item index="5-1">请假</el-menu-item>
-                    <el-menu-item index="5-2">审批请假</el-menu-item>
+                    <el-menu-item index="ask-leave">请假</el-menu-item>
+                    <el-menu-item index="check-leave">审批请假</el-menu-item>
                 </el-submenu>
                 <el-submenu index="6">
                     <template #title>

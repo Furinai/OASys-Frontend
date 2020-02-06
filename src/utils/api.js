@@ -51,3 +51,15 @@ export function renameFile(params) {
 export function deleteFile(data) {
     return post('/api/deleteFile', data)
 }
+
+export function askLeave(data) {
+    return post('/api/askLeave', data)
+}
+
+export function checkLeave(data) {
+    return post('/api/checkLeave', data)
+}
+
+export function getLeaves(params) {
+    return get('/api/getLeaves', params)
+}
