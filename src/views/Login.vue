@@ -11,7 +11,6 @@
                 <el-input type="password" v-model="forms.password" placeholder="密码"
                           @keyup.enter.native="onSubmit(forms)"/>
             </el-form-item>
-            <el-checkbox v-model="forms.remember">保持登录</el-checkbox>
             <el-form-item>
                 <el-button type="primary" @click="onSubmit(forms)" :loading="load" round>登录</el-button>
             </el-form-item>
@@ -30,8 +29,7 @@
             return {
                 forms: {
                     username: '',
-                    password: '',
-                    remember: false
+                    password: ''
                 },
                 rules: {
                     username: [
@@ -99,9 +97,5 @@
 
     .el-button {
         width: 100%;
-    }
-
-    .el-checkbox {
-        margin-bottom: 15px;
     }
 </style>
