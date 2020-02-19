@@ -41,7 +41,6 @@
         name: "Chat",
         data() {
             return {
-                id: 0,
                 text: "",
                 messages: [],
                 unreadCount: 0,
@@ -49,17 +48,10 @@
                 chatDialog: false,
             }
         },
-        created() {
+        mounted() {
             if ('WebSocket' in window) {
                 this.initWebSocket();
             }
-        },
-        mounted() {
-            window.addEventListener(
-                'beforeunload', function () {
-                    this.webSocket.close()
-                }
-            )
         },
         watch: {
             messages() {
@@ -80,7 +72,6 @@
                 this.webSocket.onmessage = this.webSocketMessage;
             },
             webSocketMessage(event) {
-                this.id = event.data.id
                 this.messages.push(JSON.parse(event.data))
                 if (this.chatDialog === false) {
                     this.unreadCount++
@@ -88,12 +79,7 @@
             },
             sendMessage() {
                 if (this.text !== null && this.text.trim() !== "") {
-                    var message = new Object();
-                    message.id = this.id++
-                    message.text = this.text
-                    message.picture = this.auth.picture
-                    message.username = this.auth.username
-                    this.webSocket.send(JSON.stringify(message))
+                    this.webSocket.send(this.text)
                     this.text = null
                 }
             },
