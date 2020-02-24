@@ -5,7 +5,7 @@
             <el-table-column label="选择" width="50">
                 <template slot-scope="scope">
                     <el-radio v-model="selection"
-                              :label="scope.row.id"
+                              :label="scope.row"
                               :disabled="scope.row.status!==0">
                     </el-radio>
                 </template>
@@ -105,9 +105,11 @@
                         inputPattern: /\S/,
                         inputErrorMessage: '审批意见不能为空'
                     }).then(({value}) => {
-                        var id = this.selection
+                        var username = this.selection.user.username
+                        var id = this.selection.id
+                        var user = {username}
                         var comment = value
-                        checkLeave({id, comment, status}).then(response => {
+                        checkLeave({id, user, comment, status}).then(response => {
                             if (response && response.status === 'success') {
                                 this.$message.success(response.message);
                                 this.getLeaves();
