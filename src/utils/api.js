@@ -63,3 +63,11 @@ export function checkLeave(data) {
 export function getLeaves(params) {
     return get('/api/getLeaves', params)
 }
+
+export function getNotices() {
+    return get('/api/getNotices')
+}
+
+export function markRead(data) {
+    return post('/api/markRead', data)
+}

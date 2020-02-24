@@ -1,9 +1,10 @@
 <template>
     <div class="header">
         <ul class="nav-list">
-            <li  v-if="auth" class="nav">
-                欢迎您，{{ auth.username }}
+            <li v-if="auth" class="nav">
+                欢迎您，{{ auth.username }}，
             </li>
+            <notice/>
             <li class="nav">
                 <a href="javascript:" @click="logout">
                     退出登录
@@ -17,9 +18,11 @@
     import {mapState} from "vuex";
     import {logout} from "../utils/api";
     import {removeAuth} from "../utils/auth";
+    import Notice from "./Notice";
 
     export default {
         name: "Header",
+        components: {Notice},
         computed: mapState([
             'auth'
         ]),
@@ -55,7 +58,7 @@
     }
 
     .nav {
-        margin-left: 20px;
+        margin-left: 10px;
     }
 
     a {
