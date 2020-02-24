@@ -58,7 +58,7 @@
             getNotices() {
                 getNotices().then(response => {
                     if (response && response.status === 'success') {
-                        this.notices = response.object;
+                        this.notices = response.object.reverse();
                     }
                 })
             },
