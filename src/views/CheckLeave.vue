@@ -52,7 +52,7 @@
         </el-table>
         <div class="menu">
             <el-pagination background layout="prev, pager, next" :pager-count="5" :total="total"
-                           :hide-on-single-page="true" @current-change="handleCurrentChange">
+                           :hide-on-single-page="false" @current-change="handleCurrentChange">
             </el-pagination>
             <el-button type="success" size="small" @click="agree">通过</el-button>
             <el-button type="danger" size="mini" @click="refuse">拒绝</el-button>
@@ -143,7 +143,6 @@
     }
 
     .menu {
-
         margin-top: 20px;
         display: flex;
     }
