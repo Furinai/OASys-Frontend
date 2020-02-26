@@ -71,3 +71,24 @@ export function getNotices() {
 export function markRead(data) {
     return post('/api/markRead', data)
 }
+
+export function getUsers(params) {
+    return get('/api/getUsers', params)
+}
+
+export function getRoles() {
+    return get('/api/getRoles')
+}
+
+export function addUser(data) {
+    return post('/api/addUser', data)
+}
+
+export function updateUser(data) {
+    return post('/api/updateUser', data)
+}
+
+export function deleteUser(data) {
+    return post('/api/deleteUser', data)
+}
+

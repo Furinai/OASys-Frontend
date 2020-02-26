@@ -73,6 +73,14 @@
                     <el-menu-item index="7-1">发布帖子</el-menu-item>
                     <el-menu-item index="7-2">查看帖子</el-menu-item>
                 </el-submenu>
+                <el-submenu index="8">
+                    <template #title>
+                        <i class="el-icon-user"/>
+                        <span>员工管理</span>
+                    </template>
+                    <el-menu-item index="/add-user">添加员工</el-menu-item>
+                    <el-menu-item index="/edit-user">管理员工</el-menu-item>
+                </el-submenu>
             </el-scrollbar>
         </el-menu>
     </div>

@@ -1,16 +1,18 @@
-import Vue from 'vue'
+import Vue from 'vue';
 import store from "../store";
-import VueRouter from 'vue-router'
+import VueRouter from 'vue-router';
 import Admin from "../layout/Admin";
 import Index from "../views/Index";
 import Login from "../views/Login";
 import SignInSignOut from "../views/SignInSignOut";
-import SignRecord from "../views/SignRecord"
-import SignSetting from "../views/SignSetting"
+import SignRecord from "../views/SignRecord";
+import SignSetting from "../views/SignSetting";
 import PersonalNetDisk from "../views/PersonalNetDisk";
 import PublicNetDisk from "../views/PublicNetDisk";
 import AskLeave from "../views/AskLeave";
 import CheckLeave from "../views/CheckLeave"
+import AddUser from "../views/AddUser";
+import EditUser from "../views/EditUser";
 import NotFound from "../views/NotFound";
 
 Vue.use(VueRouter);
@@ -59,6 +61,16 @@ const routes = [
                 path: '/check-leave',
                 name: 'check-leave',
                 component: CheckLeave,
+            },
+            {
+                path: '/add-user',
+                name: 'add-user',
+                component: AddUser,
+            },
+            {
+                path: '/edit-user',
+                name: 'edit-user',
+                component: EditUser,
             },
         ]
     },
