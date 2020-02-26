@@ -43,7 +43,7 @@
         created() {
             this.getNotices();
         },
-        updated() {
+        mounted() {
             if ('WebSocket' in window) {
                 this.initWebSocket();
             }

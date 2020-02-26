@@ -48,7 +48,7 @@
                 chatDialog: false,
             }
         },
-        updated() {
+        mounted() {
             if ('WebSocket' in window) {
                 this.initWebSocket();
             }
