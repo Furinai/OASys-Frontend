@@ -10,7 +10,7 @@ import SignSetting from "../views/SignSetting";
 import PersonalNetDisk from "../views/PersonalNetDisk";
 import PublicNetDisk from "../views/PublicNetDisk";
 import AskLeave from "../views/AskLeave";
-import CheckLeave from "../views/CheckLeave"
+import CheckLeave from "../views/CheckLeave";
 import AddUser from "../views/AddUser";
 import EditUser from "../views/EditUser";
 import NotFound from "../views/NotFound";

@@ -8,9 +8,7 @@
                 <Header/>
             </el-header>
             <el-main>
-                <keep-alive>
-                    <router-view/>
-                </keep-alive>
+                <router-view/>
                 <Chat/>
             </el-main>
         </el-container>
