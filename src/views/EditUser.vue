@@ -17,7 +17,7 @@
                     prop="picture"
                     label="头像"
                     align="center"
-                    width="150">
+                    width="100">
                 <template slot-scope="scope">
                     <el-avatar :src="scope.row.picture"
                                size="small"/>
@@ -33,13 +33,13 @@
                     prop="role.name"
                     label="角色"
                     align="center"
-                    width="150">
+                    width="100">
             </el-table-column>
             <el-table-column
                     prop="email"
                     label="邮箱"
                     align="center"
-                    width="250">
+                    width="200">
             </el-table-column>
             <el-table-column
                     prop="synopsis"
