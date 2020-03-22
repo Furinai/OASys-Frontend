@@ -1,13 +1,13 @@
 <template>
     <div class="add-user">
         <el-form :model="forms" :rules="rules" :ref="forms">
-            <el-form-item prop="email">
+            <el-form-item label="邮箱" prop="email">
                 <el-input type="email" v-model="forms.email" placeholder="邮箱"/>
             </el-form-item>
-            <el-form-item prop="username">
+            <el-form-item label="姓名" prop="username">
                 <el-input type="text" v-model="forms.username" placeholder="用户名"/>
             </el-form-item>
-            <el-form-item prop="password">
+            <el-form-item label="密码" prop="password">
                 <el-input type="password" v-model="forms.password" placeholder="密码"/>
             </el-form-item>
             <el-form-item>
