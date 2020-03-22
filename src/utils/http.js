@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {removeAuth} from './auth';
+import {initAuth, removeAuth} from './auth';
 import {Message, MessageBox} from 'element-ui';
 import router from "../router";
 
@@ -24,9 +24,11 @@ axios.interceptors.response.use(
     error => {
         switch (error.response.status) {
             case 401:
-                router.push({name: 'login'});
-                removeAuth();
-                Message.error(error.response.data.message);
+                if (initAuth() != null) {
+                    Message.error(error.response.data.message);
+                    router.push({name: 'login'});
+                    removeAuth();
+                }
                 break;
             case 403:
                 Message.error(error.response.data.message);
