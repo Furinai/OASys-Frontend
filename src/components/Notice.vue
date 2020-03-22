@@ -10,7 +10,7 @@
                 <el-table-column
                         prop="createTime"
                         label="时间"
-                        width="140">
+                        width="160">
                 </el-table-column>
                 <el-table-column
                         prop="content"
@@ -44,14 +44,23 @@
             this.getNotices();
         },
         mounted() {
-            if ('WebSocket' in window) {
-                this.initWebSocket();
+            if (this.auth && 'WebSocket' in window) {
+                this.initWebSocket()
             }
         },
         computed: {
             ...mapState(['auth']),
             unreadCount() {
                 return this.notices.length
+            }
+        },
+        watch: {
+            auth(value) {
+                if ('WebSocket' in window) {
+                    if (value) {
+                        this.initWebSocket()
+                    }
+                }
             }
         },
         methods: {
@@ -66,7 +75,7 @@
                 if (this.$refs.multipleTable.selection < 1) {
                     this.$message.error("至少选择一个！")
                 } else {
-                    var ids = new Array();
+                    var ids = [];
                     this.$refs.multipleTable.selection.forEach(item => {
                         ids.push(item.id)
                     })
@@ -83,7 +92,7 @@
                 this.webSocket.onmessage = this.webSocketMessage;
             },
             webSocketMessage(event) {
-                this.notices.push(JSON.parse(event.data))
+                this.notices.unshift(JSON.parse(event.data))
             },
         }
     }

@@ -49,17 +49,24 @@
             }
         },
         mounted() {
-            if ('WebSocket' in window) {
-                this.initWebSocket();
+            if (this.auth && 'WebSocket' in window) {
+                this.initWebSocket()
             }
         },
         watch: {
             messages() {
                 if (this.chatDialog === true) {
-                    var div = this.$refs['elscrollbar'].$refs['wrap'];
+                    const div = this.$refs['elscrollbar'].$refs['wrap'];
                     this.$nextTick(() => {
                         div.scrollTop = div.scrollHeight
                     })
+                }
+            },
+            auth(value) {
+                if ('WebSocket' in window) {
+                    if (value) {
+                        this.initWebSocket()
+                    }
                 }
             }
         },
