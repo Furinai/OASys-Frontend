@@ -148,7 +148,7 @@
                         if (this.$refs.multipleTable.selection < 1) {
                             this.$message.error("至少选择一个用户！")
                         } else {
-                            var ids = new Array();
+                            var ids = [];
                             this.$refs.multipleTable.selection.forEach(item => {
                                 ids.push(item.id)
                             })
