@@ -1,6 +1,6 @@
-import axios from 'axios'
-import {initAuth, removeAuth} from './auth';
-import {Message, MessageBox} from 'element-ui';
+import axios from "axios"
+import {initAuth, removeAuth} from "./auth";
+import {Message, MessageBox} from "element-ui";
 import router from "../router";
 
 axios.interceptors.request.use(
@@ -16,7 +16,7 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
     response => {
-        if (response.data.status === 'error') {
+        if (response.data.status === "error") {
             Message.error(response.data.message)
         }
         return response.data
@@ -26,7 +26,7 @@ axios.interceptors.response.use(
             case 401:
                 if (initAuth() != null) {
                     Message.error(error.response.data.message);
-                    router.push({name: 'login'});
+                    router.push({name: "login"});
                     removeAuth();
                 }
                 break;
@@ -43,7 +43,7 @@ export function get(url, params) {
     return axios({
         url,
         params,
-        method: 'get',
+        method: "get",
     })
 }
 
@@ -51,6 +51,6 @@ export function post(url, data) {
     return axios({
         url,
         data,
-        method: 'post',
+        method: "post",
     })
 }

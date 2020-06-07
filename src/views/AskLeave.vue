@@ -31,10 +31,10 @@
                 reason: "",
                 type: "",
                 options: [
-                    {value: '事假'},
-                    {value: '病假'},
-                    {value: '婚假'},
-                    {value: '产假'},
+                    {value: "事假"},
+                    {value: "病假"},
+                    {value: "婚假"},
+                    {value: "产假"},
                 ]
             }
         },
@@ -44,7 +44,7 @@
                     this.$message.error("请填写请假理由！")
                 } else if (this.duration.length < 2) {
                     this.$message.error("请选择请假日期！")
-                } else if (this.type === "") {
+                } else if (this.type == "") {
                     this.$message.error("请选择请假类别！")
                 } else {
                     var reason = this.reason
@@ -52,7 +52,7 @@
                     var beginDate = this.duration[0]
                     var endDate = this.duration[1]
                     askLeave({reason, type, beginDate, endDate}).then(response => {
-                        if (response && response.status == 'success') {
+                        if (response && response.status === "success") {
                             this.$message.success(response.message)
                         }
                     })

@@ -35,7 +35,7 @@
 </template>
 
 <script>
-    import {mapState} from 'vuex'
+    import {mapState} from "vuex"
 
     export default {
         name: "Chat",
@@ -49,21 +49,21 @@
             }
         },
         mounted() {
-            if (this.auth && 'WebSocket' in window) {
+            if (this.auth && "WebSocket" in window) {
                 this.initWebSocket()
             }
         },
         watch: {
             messages() {
-                if (this.chatDialog === true) {
-                    const div = this.$refs['elscrollbar'].$refs['wrap'];
+                if (this.chatDialog == true) {
+                    const div = this.$refs["elscrollbar"].$refs["wrap"]
                     this.$nextTick(() => {
                         div.scrollTop = div.scrollHeight
                     })
                 }
             },
             auth(value) {
-                if ('WebSocket' in window) {
+                if ("WebSocket" in window) {
                     if (value) {
                         this.initWebSocket()
                     }
@@ -71,16 +71,16 @@
             }
         },
         computed: mapState(
-            ['auth']
+            ["auth"]
         ),
         methods: {
             initWebSocket() {
-                this.webSocket = new WebSocket("ws://localhost/chat");
-                this.webSocket.onmessage = this.webSocketMessage;
+                this.webSocket = new WebSocket("ws://localhost/chat")
+                this.webSocket.onmessage = this.webSocketMessage
             },
             webSocketMessage(event) {
                 this.messages.push(JSON.parse(event.data))
-                if (this.chatDialog === false) {
+                if (this.chatDialog == false) {
                     this.unreadCount++
                 }
             },
@@ -91,7 +91,7 @@
                 }
             },
             openDialog() {
-                this.chatDialog = true;
+                this.chatDialog = true
                 this.unreadCount = 0
             }
         }
@@ -166,7 +166,7 @@
     }
 
     .text::after {
-        content: '';
+        content: "";
         position: absolute;
         left: -10px;
         top: 12px;

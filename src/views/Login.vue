@@ -19,31 +19,31 @@
 </template>
 
 <script>
-    import qs from 'qs'
-    import {setAuth} from '../utils/auth';
-    import {getAuth, login} from '../utils/api';
+    import qs from "qs"
+    import {setAuth} from "../utils/auth";
+    import {getAuth, login} from "../utils/api";
 
     export default {
-        name: 'Login',
+        name: "Login",
         data() {
             return {
                 forms: {
-                    username: '',
-                    password: ''
+                    username: "",
+                    password: ""
                 },
                 rules: {
                     username: [
                         {
                             required: true,
-                            message: '请输入用户名',
-                            trigger: 'blur'
+                            message: "请输入用户名",
+                            trigger: "blur"
                         }
                     ],
                     password: [
                         {
                             required: true,
-                            message: '请输入密码',
-                            trigger: 'blur'
+                            message: "请输入密码",
+                            trigger: "blur"
                         }
                     ]
                 },
@@ -56,17 +56,17 @@
                     if (valid) {
                         this.load = true
                         login(qs.stringify(forms)).then(response => {
-                            this.load = false;
-                            if (response && response.status === 'success') {
+                            this.load = false
+                            if (response && response.status === "success") {
                                 getAuth().then(response => {
                                     setAuth(response.object)
-                                });
+                                })
                                 this.$message.success(response.message)
-                                this.$router.push({name: 'index'})
+                                this.$router.push({name: "index"})
                             }
                         })
                     }
-                });
+                })
             }
         }
     }

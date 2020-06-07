@@ -25,43 +25,43 @@
         data() {
             return {
                 forms: {
-                    email: '',
-                    username: '',
-                    password: ''
+                    email: "",
+                    username: "",
+                    password: ""
                 },
                 rules: {
                     email: [
                         {
-                            type: 'email',
+                            type: "email",
                             required: true,
-                            message: '请输入正确的邮箱',
-                            trigger: 'blur'
+                            message: "请输入正确的邮箱",
+                            trigger: "blur"
                         }
                     ],
                     username: [
                         {
                             required: true,
-                            message: '请输入用户名',
-                            trigger: 'blur'
+                            message: "请输入用户名",
+                            trigger: "blur"
                         },
                         {
                             min: 2,
                             max: 10,
-                            message: '长度在2到10个字符',
-                            trigger: 'blur'
+                            message: "长度在2到10个字符",
+                            trigger: "blur"
                         }
                     ],
                     password: [
                         {
                             required: true,
-                            message: '请输入密码',
-                            trigger: 'blur'
+                            message: "请输入密码",
+                            trigger: "blur"
                         },
                         {
                             min: 6,
                             max: 20,
-                            message: '长度在6到20个字符',
-                            trigger: 'blur'
+                            message: "长度在6到20个字符",
+                            trigger: "blur"
                         }
                     ]
                 },
@@ -72,12 +72,12 @@
                 this.$refs[forms].validate((valid) => {
                     if (valid) {
                         addUser(forms).then(response => {
-                            if (response && response.status === 'success') {
+                            if (response && response.status === "success") {
                                 this.$message.success(response.message)
                             }
                         })
                     }
-                });
+                })
             }
         }
     }

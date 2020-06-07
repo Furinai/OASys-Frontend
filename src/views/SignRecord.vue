@@ -2,9 +2,9 @@
     <el-calendar>
         <template slot="dateCell" slot-scope="{date, data}">
             <p>
-                {{ data.day.split('-').slice(1).join('-') }}
+                {{ data.day.split("-").slice(1).join("-") }}
                 <span v-for="date in attendances" :key="date">
-                {{ data.day === date ? '✔️' : '' }}
+                {{ data.day == date ? "✔️" : "" }}
                 </span>
             </p>
         </template>
@@ -27,7 +27,7 @@
         methods: {
             getAttendances() {
                 getAttendances().then(response => {
-                    if (response && response.status === 'success') {
+                    if (response && response.status === "success") {
                         this.attendances = response.object
                     }
                 })

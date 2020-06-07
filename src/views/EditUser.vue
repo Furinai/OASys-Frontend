@@ -109,63 +109,63 @@
             }
         },
         created() {
-            this.getUsers();
-            this.getRoles();
+            this.getUsers()
+            this.getRoles()
         },
         methods: {
             getUsers(pageNumber) {
                 getUsers({pageNumber}).then(response => {
-                    if (response && response.status === 'success') {
-                        this.total = response.total;
-                        this.users = response.object;
+                    if (response && response.status === "success") {
+                        this.total = response.total
+                        this.users = response.object
                     }
                 })
             },
             getRoles() {
                 getRoles({}).then(response => {
-                    if (response && response.status === 'success') {
-                        this.roles = response.object;
+                    if (response && response.status === "success") {
+                        this.roles = response.object
                     }
                 })
             },
             handleEdit(row) {
-                this.user = row;
-                this.user.password = null;
-                this.dialogVisible = true;
+                this.user = row
+                this.user.password = null
+                this.dialogVisible = true
             },
             updateUser() {
                 updateUser(this.user).then(response => {
-                    if (response && response.status === 'success') {
-                        this.$message.success(response.message);
-                        this.dialogVisible=false;
-                        this.getUsers();
+                    if (response && response.status === "success") {
+                        this.$message.success(response.message)
+                        this.dialogVisible=false
+                        this.getUsers()
                     }
                 })
             },
             deleteUser() {
-                this.$confirm('永久删除这些用户, 是否继续?')
+                this.$confirm("永久删除这些用户, 是否继续?")
                     .then(() => {
                         if (this.$refs.multipleTable.selection < 1) {
                             this.$message.error("至少选择一个用户！")
                         } else {
-                            var ids = [];
+                            var ids = []
                             this.$refs.multipleTable.selection.forEach(item => {
                                 ids.push(item.id)
                             })
                             deleteUser(ids).then(response => {
-                                if (response && response.status === 'success') {
-                                    this.$message.success(response.message);
-                                    this.getUsers();
+                                if (response && response.status === "success") {
+                                    this.$message.success(response.message)
+                                    this.getUsers()
                                 }
                             })
                         }
                     })
                     .catch(() => {
-                        this.$message.info('已取消删除')
-                    });
+                        this.$message.info("已取消删除")
+                    })
             },
             handleCurrentChange(pageNumber) {
-                this.getUsers(pageNumber);
+                this.getUsers(pageNumber)
             }
         }
     }

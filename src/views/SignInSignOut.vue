@@ -49,7 +49,7 @@
             }
         },
         created() {
-            this.getAttendance();
+            this.getAttendance()
         },
         computed: {
             isSignIn() {
@@ -76,22 +76,22 @@
         methods: {
             getAttendance() {
                 getAttendance().then(response => {
-                    if (response && response.status === 'success') {
+                    if (response && response.status === "success") {
                         this.attendance = response.object
-                        this.getAttendanceTime();
+                        this.getAttendanceTime()
                     }
                 })
             },
             getAttendanceTime() {
                 getAttendanceTime().then(response => {
-                    if (response && response.status == 'success') {
+                    if (response && response.status === "success") {
                         this.attendanceTime = response.object
                     }
                 })
             },
             signIn() {
                 signIn().then(response => {
-                    if (response && response.status == 'success') {
+                    if (response && response.status === "success") {
                         this.$message.success(response.message)
                         this.getAttendance()
                     }
@@ -99,7 +99,7 @@
             },
             signOut() {
                 signOut().then(response => {
-                    if (response && response.status == 'success') {
+                    if (response && response.status === "success") {
                         this.$message.success(response.message)
                         this.getAttendance()
                     }
@@ -110,17 +110,17 @@
             formatTime(value) {
                 var hours = value.getHours()
                 var minutes = value.getMinutes()
-                if (hours < 10) hours = "0" + hours;
-                if (minutes < 10) minutes = "0" + minutes;
+                if (hours < 10) hours = "0" + hours
+                if (minutes < 10) minutes = "0" + minutes
                 return hours + ":" + minutes
             },
             formatDate(value) {
                 var year = value.getFullYear()
                 var month = value.getMonth() + 1
                 var date = value.getDate()
-                if (year < 10) year = "0" + year;
-                if (month < 10) month = "0" + month;
-                if (date < 10) date = "0" + date;
+                if (year < 10) year = "0" + year
+                if (month < 10) month = "0" + month
+                if (date < 10) date = "0" + date
                 return year + "年" + month + "月" + date + "日"
             }
         },

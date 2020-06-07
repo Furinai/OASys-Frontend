@@ -73,14 +73,14 @@
             }
         },
         created() {
-            this.getLeaves();
+            this.getLeaves()
         },
         methods: {
             getLeaves(pageNumber) {
                 getLeaves({pageNumber}).then(response => {
-                    if (response && response.status === 'success') {
-                        this.total = response.total;
-                        this.leaves = response.object;
+                    if (response && response.status === "success") {
+                        this.total = response.total
+                        this.leaves = response.object
                     }
                 })
             },
@@ -91,47 +91,47 @@
             },
             formatter(row) {
                 if (row.status === 1) {
-                    return '通过';
+                    return "通过"
                 } else if (row.status === 2) {
-                    return '拒绝';
+                    return "拒绝"
                 }
-                return '未审核';
+                return "未审核"
             },
             check(status) {
                 if (this.selection === 0) {
-                    this.$message.error("请选择要操作的项目！");
+                    this.$message.error("请选择要操作的项目！")
                 } else {
-                    this.$prompt('请输入审核意见', '提示', {
+                    this.$prompt("请输入审核意见", "提示", {
                         inputPattern: /\S/,
-                        inputErrorMessage: '审批意见不能为空'
+                        inputErrorMessage: "审批意见不能为空"
                     }).then(({value}) => {
-                        var username = this.selection.user.username
-                        var id = this.selection.id
-                        var user = {username}
-                        var comment = value
+                        const username = this.selection.user.username;
+                        const id = this.selection.id;
+                        const user = {username};
+                        const comment = value;
                         checkLeave({id, user, comment, status}).then(response => {
-                            if (response && response.status === 'success') {
-                                this.$message.success(response.message);
-                                this.getLeaves();
+                            if (response && response.status === "success") {
+                                this.$message.success(response.message)
+                                this.getLeaves()
                             }
                         })
 
                     }).catch(() => {
                         this.$message({
-                            type: 'info',
-                            message: '取消操作！'
-                        });
-                    });
+                            type: "info",
+                            message: "取消操作！"
+                        })
+                    })
                 }
             },
             agree() {
-                this.check(1);
+                this.check(1)
             },
             refuse() {
-                this.check(2);
+                this.check(2)
             },
             handleCurrentChange(pageNumber) {
-                this.getLeaves(pageNumber);
+                this.getLeaves(pageNumber)
             }
         }
     }

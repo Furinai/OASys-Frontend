@@ -1,6 +1,6 @@
-import Vue from 'vue';
+import Vue from "vue";
 import store from "../store";
-import VueRouter from 'vue-router';
+import VueRouter from "vue-router";
 import Admin from "../layout/Admin";
 import Index from "../views/Index";
 import Login from "../views/Login";
@@ -19,84 +19,84 @@ Vue.use(VueRouter);
 
 const routes = [
     {
-        path: '/',
+        path: "/",
         component: Admin,
         children: [
             {
-                path: '',
-                name: 'index',
+                path: "",
+                name: "index",
                 component: Index,
             },
             {
-                path: '/sign',
-                name: 'sign',
+                path: "/sign",
+                name: "sign",
                 component: SignInSignOut,
             },
             {
-                path: '/sign-record',
-                name: 'sign-record',
+                path: "/sign-record",
+                name: "sign-record",
                 component: SignRecord,
             },
             {
-                path: '/sign-setting',
-                name: 'sign-setting',
+                path: "/sign-setting",
+                name: "sign-setting",
                 component: SignSetting,
             },
             {
-                path: '/personal-net-disk',
-                name: 'personal-net-disk',
+                path: "/personal-net-disk",
+                name: "personal-net-disk",
                 component: PersonalNetDisk,
             },
             {
-                path: '/public-net-disk',
-                name: 'public-net-disk',
+                path: "/public-net-disk",
+                name: "public-net-disk",
                 component: PublicNetDisk,
             },
             {
-                path: '/ask-leave',
-                name: 'ask-leave',
+                path: "/ask-leave",
+                name: "ask-leave",
                 component: AskLeave,
             },
             {
-                path: '/check-leave',
-                name: 'check-leave',
+                path: "/check-leave",
+                name: "check-leave",
                 component: CheckLeave,
             },
             {
-                path: '/add-user',
-                name: 'add-user',
+                path: "/add-user",
+                name: "add-user",
                 component: AddUser,
             },
             {
-                path: '/edit-user',
-                name: 'edit-user',
+                path: "/edit-user",
+                name: "edit-user",
                 component: EditUser,
             },
         ]
     },
     {
-        name: 'login',
-        path: '/login',
+        name: "login",
+        path: "/login",
         component: Login
     },
     {
-        path: '*',
+        path: "*",
         component: NotFound
     }
 ];
 
 const router = new VueRouter({
-    mode: 'history',
+    mode: "history",
     routes
 });
 
 router.beforeEach((to, from, next) => {
-    if (store.state.auth || to.name === 'login') {
+    if (store.state.auth || to.name == "login") {
         next();
-    } else if (from.name === 'login' && to.name === 'index') {
+    } else if (from.name == "login" && to.name == "index") {
         next();
     } else {
-        router.push({name: 'login'})
+        router.push({name: "login"})
     }
 });
 

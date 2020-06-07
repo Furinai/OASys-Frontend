@@ -87,12 +87,12 @@
 </template>
 
 <script>
-    import {mapState} from 'vuex'
+    import {mapState} from "vuex";
 
     export default {
         name: "Aside",
         computed: mapState([
-            'auth'
+            "auth"
         ])
     }
 </script>

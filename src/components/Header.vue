@@ -24,23 +24,23 @@
         name: "Header",
         components: {Notice},
         computed: mapState([
-            'auth'
+            "auth"
         ]),
         methods: {
             logout() {
-                this.$confirm('确定注销？', '提示', {type: 'warning',})
+                this.$confirm("确定注销？", "提示", {type: "warning",})
                     .then(() => {
                         logout().then(response => {
-                            if (response && response.status === 'success') {
-                                removeAuth();
-                                this.$router.push({name: 'login'});
+                            if (response && response.status === "success") {
+                                removeAuth()
+                                this.$router.push({name: "login"})
                                 this.$message.success(response.message)
                             }
                         })
                     })
                     .catch(() => {
-                        this.$message.warning('已取消！')
-                    });
+                        this.$message.warning("已取消！")
+                    })
             }
         },
     }
