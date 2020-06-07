@@ -40,11 +40,11 @@
         },
         methods: {
             onSubmit() {
-                if (this.reason == null || this.reason.trim() == "") {
+                if (this.reason == null || this.reason.trim() === "") {
                     this.$message.error("请填写请假理由！")
                 } else if (this.duration.length < 2) {
                     this.$message.error("请选择请假日期！")
-                } else if (this.type == "") {
+                } else if (this.type === "") {
                     this.$message.error("请选择请假类别！")
                 } else {
                     var reason = this.reason

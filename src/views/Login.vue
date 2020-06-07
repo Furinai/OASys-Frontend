@@ -19,7 +19,7 @@
 </template>
 
 <script>
-    import qs from "qs"
+    import qs from "qs";
     import {setAuth} from "../utils/auth";
     import {getAuth, login} from "../utils/api";
 

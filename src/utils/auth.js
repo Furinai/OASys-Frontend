@@ -1,4 +1,4 @@
-import store from "../store"
+import store from "../store";
 
 export function initAuth() {
     const auth = localStorage.getItem("auth");

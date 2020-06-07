@@ -86,7 +86,7 @@
             },
             selectable(row) {
                 if (row.status == 0) {
-                    return true;
+                    return true
                 }
             },
             formatter(row) {
@@ -105,10 +105,10 @@
                         inputPattern: /\S/,
                         inputErrorMessage: "审批意见不能为空"
                     }).then(({value}) => {
-                        const username = this.selection.user.username;
-                        const id = this.selection.id;
-                        const user = {username};
-                        const comment = value;
+                        const username = this.selection.user.username
+                        const id = this.selection.id
+                        const user = {username}
+                        const comment = value
                         checkLeave({id, user, comment, status}).then(response => {
                             if (response && response.status === "success") {
                                 this.$message.success(response.message)

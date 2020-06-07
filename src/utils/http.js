@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "axios";
 import {initAuth, removeAuth} from "./auth";
 import {Message, MessageBox} from "element-ui";
 import router from "../router";
