@@ -85,7 +85,7 @@
                 })
             },
             selectable(row) {
-                if (row.status == 0) {
+                if (row.status === 0) {
                     return true
                 }
             },
