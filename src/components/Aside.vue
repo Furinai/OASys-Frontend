@@ -4,7 +4,7 @@
                  active-text-color="#409EFF" :router="true">
             <el-scrollbar style="height: 100%;">
                 <div class="media">
-                    <el-avatar v-if="auth" class="avatar" :src="auth.picture"/>
+                    <el-avatar v-if="auth" class="avatar" :src="auth.avatar"/>
                     <div class="media-body profile">
                         <div v-if="auth" class="username">
                             姓名：{{ auth.username }}
@@ -87,37 +87,37 @@
 </template>
 
 <script>
-    import {mapState} from "vuex";
+import {mapState} from "vuex";
 
-    export default {
-        name: "Aside",
-        computed: mapState([
-            "auth"
-        ])
-    }
+export default {
+    name: "Aside",
+    computed: mapState([
+        "auth"
+    ])
+}
 </script>
 
 <style scoped>
-    .aside {
-        height: 100%;
-    }
+.aside {
+    height: 100%;
+}
 
-    .avatar {
-        margin: 20px 0 10px 20px
-    }
+.avatar {
+    margin: 20px 0 10px 20px
+}
 
-    .username {
-        font-size: 12px;
-        margin: 24px 0 5px 0;
-        color: #BFCBD9;
-    }
+.username {
+    font-size: 12px;
+    margin: 24px 0 5px 0;
+    color: #BFCBD9;
+}
 
-    .rolename {
-        font-size: 12px;
-        color: #BFCBD9;
-    }
+.rolename {
+    font-size: 12px;
+    color: #BFCBD9;
+}
 
-    .el-menu {
-        height: 100%;
-    }
+.el-menu {
+    height: 100%;
+}
 </style>

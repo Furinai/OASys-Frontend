@@ -18,78 +18,78 @@
 </template>
 
 <script>
-    import {addUser} from "../utils/api";
+import {addUser} from "@/utils/api";
 
-    export default {
-        name: "AddUser",
-        data() {
-            return {
-                forms: {
-                    email: "",
-                    username: "",
-                    password: ""
-                },
-                rules: {
-                    email: [
-                        {
-                            type: "email",
-                            required: true,
-                            message: "请输入正确的邮箱",
-                            trigger: "blur"
-                        }
-                    ],
-                    username: [
-                        {
-                            required: true,
-                            message: "请输入用户名",
-                            trigger: "blur"
-                        },
-                        {
-                            min: 2,
-                            max: 10,
-                            message: "长度在2到10个字符",
-                            trigger: "blur"
-                        }
-                    ],
-                    password: [
-                        {
-                            required: true,
-                            message: "请输入密码",
-                            trigger: "blur"
-                        },
-                        {
-                            min: 6,
-                            max: 20,
-                            message: "长度在6到20个字符",
-                            trigger: "blur"
-                        }
-                    ]
-                },
-            }
-        },
-        methods: {
-            onSubmit(forms) {
-                this.$refs[forms].validate((valid) => {
-                    if (valid) {
-                        addUser(forms).then(response => {
-                            if (response && response.status === "success") {
-                                this.$message.success(response.message)
-                            }
-                        })
+export default {
+    name: "AddUser",
+    data() {
+        return {
+            forms: {
+                email: "",
+                username: "",
+                password: ""
+            },
+            rules: {
+                email: [
+                    {
+                        type: "email",
+                        required: true,
+                        message: "请输入正确的邮箱",
+                        trigger: "blur"
                     }
-                })
-            }
+                ],
+                username: [
+                    {
+                        required: true,
+                        message: "请输入用户名",
+                        trigger: "blur"
+                    },
+                    {
+                        min: 2,
+                        max: 10,
+                        message: "长度在2到10个字符",
+                        trigger: "blur"
+                    }
+                ],
+                password: [
+                    {
+                        required: true,
+                        message: "请输入密码",
+                        trigger: "blur"
+                    },
+                    {
+                        min: 6,
+                        max: 20,
+                        message: "长度在6到20个字符",
+                        trigger: "blur"
+                    }
+                ]
+            },
+        }
+    },
+    methods: {
+        onSubmit(forms) {
+            this.$refs[forms].validate((valid) => {
+                if (valid) {
+                    addUser(forms).then(response => {
+                        if (response.status === "success") {
+                            this.$message.success(response.message)
+                        }
+                    })
+                }
+            })
         }
     }
+}
 </script>
 
 <style scoped>
-    .add-user {
-        text-align: center;
-    }
+.add-user {
+    text-align: center;
+}
 
-    .el-form {
-        max-width: 400px;
-        margin: 150px auto auto;
-    }
+.el-form {
+    max-width: 400px;
+    margin: 100px auto;
+}
 </style>

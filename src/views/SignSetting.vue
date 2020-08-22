@@ -13,57 +13,57 @@
 </template>
 
 <script>
-    import {getAttendanceTime, setAttendanceTime} from "../utils/api";
+import {getAttendanceTime, setAttendanceTime} from "../utils/api";
 
-    export default {
-        name: "SignSetting",
-        data() {
-            return {
-                attendanceTime: [],
-            }
+export default {
+    name: "SignSetting",
+    data() {
+        return {
+            attendanceTime: [],
+        }
+    },
+    created() {
+        this.getAttendanceTime()
+    },
+    methods: {
+        getAttendanceTime() {
+            getAttendanceTime().then(response => {
+                if (response && response.status === "success") {
+                    this.attendanceTime = response.object
+                }
+            })
         },
-        created() {
-            this.getAttendanceTime()
-        },
-        methods: {
-            getAttendanceTime() {
-                getAttendanceTime().then(response => {
-                    if (response && response.status === "success") {
-                        this.attendanceTime = response.object
-                    }
-                })
-            },
-            onSubmit() {
-                var begin = this.attendanceTime[0]
-                var end = this.attendanceTime[1]
-                setAttendanceTime({begin, end}).then(response => {
-                    if (response && response.status === "success") {
-                        this.$message.success(response.message)
-                    }
-                })
-            }
+        onSubmit() {
+            var begin = this.attendanceTime[0]
+            var end = this.attendanceTime[1]
+            setAttendanceTime({begin, end}).then(response => {
+                if (response && response.status === "success") {
+                    this.$message.success(response.message)
+                }
+            })
         }
     }
+}
 </script>
 
 <style scoped>
-    h2 {
-        margin: 80px 0 40px;
-    }
+h2 {
+    margin: 80px 0 40px;
+}
 
-    .begin {
-        margin-top: 40px;
-    }
+.begin {
+    margin-top: 40px;
+}
 
-    .end {
-        margin: 20px 0 40px;
-    }
+.end {
+    margin: 20px 0 40px;
+}
 
-    .submit {
-        margin: 40px;
-    }
+.submit {
+    margin: 40px;
+}
 
-    .sign-setting {
-        text-align: center;
-    }
+.sign-setting {
+    text-align: center;
+}
 </style>

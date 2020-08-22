@@ -16,29 +16,29 @@
 </template>
 
 <script>
-    import Aside from "../components/Aside";
-    import Header from "../components/Header";
-    import Chat from "../components/Chat";
+import Aside from "../components/Aside";
+import Header from "../components/Header";
+import Chat from "../components/Chat";
 
-    export default {
-        name: "Admin",
-        components: {
-            Aside,
-            Header,
-            Chat
-        }
+export default {
+    name: "Admin",
+    components: {
+        Aside,
+        Header,
+        Chat
     }
+}
 </script>
 
 <style scoped>
-    .el-header {
-        border-bottom: 1px solid #eee;
-        line-height: 50px;
-        width: 100%;
-        box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
-    }
+.el-header {
+    border-bottom: 1px solid #eee;
+    line-height: 50px;
+    width: 100%;
+    box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
+}
 
-    .el-container {
-        height: 100%;
-    }
+.el-container {
+    height: 100%;
+}
 </style>

@@ -68,7 +68,7 @@
                     width="150">
             </el-table-column>
             <el-table-column
-                    prop="createTime"
+                    prop="createdTime"
                     label="创建时间"
                     align="center">
             </el-table-column>
@@ -111,164 +111,164 @@
 </template>
 
 <script>
-    import {addFolder, getFiles, renameFile, deleteFile} from "../utils/api";
-    import {mapState} from "vuex";
+import {addFolder, getFiles, renameFile, deleteFile} from "../utils/api";
+import {mapState} from "vuex";
 
-    export default {
-        name: "Files",
-        data() {
-            return {
-                total: 0,
-                files: [],
-                search: "",
-                history: [],
-                current: [1],
-                selection: [],
-                newName: "",
-                folderName: "",
-                path: [" / 根目录"],
-                addFolderDialog: false,
-                uploadFileDialog: false,
-                renameFileDialog: false,
+export default {
+    name: "Files",
+    data() {
+        return {
+            total: 0,
+            files: [],
+            search: "",
+            history: [],
+            current: [1],
+            selection: [],
+            newName: "",
+            folderName: "",
+            path: [" / 根目录"],
+            addFolderDialog: false,
+            uploadFileDialog: false,
+            renameFileDialog: false,
+        }
+    },
+    props: [
+        "personal"
+    ],
+    created() {
+        this.getFiles(1)
+    },
+    computed: {
+        currentPath() {
+            return this.path.join(" / ")
+        },
+        parentId() {
+            return this.current[this.current.length - 1]
+        },
+        ...mapState(["auth"])
+    },
+    methods: {
+        getFiles(parentId, pageNumber) {
+            var personal = this.personal
+            getFiles({parentId, personal, pageNumber}).then(response => {
+                if (response && response.status === "success") {
+                    this.total = response.total
+                    this.files = response.object
+                }
+            })
+        },
+        toFolder(file) {
+            this.getFiles(file.id)
+            this.path.push(file.name)
+            this.current.push(file.id)
+            this.history.push(file.parentId)
+        },
+        toParent() {
+            if (this.history.length === 0) {
+                this.$message.error("已经是根目录")
+            } else {
+                this.getFiles(this.history.pop())
+                this.current.pop()
+                this.path.pop()
             }
         },
-        props: [
-            "personal"
-        ],
-        created() {
-            this.getFiles(1)
+        addFolder() {
+            this.addFolderDialog = true
         },
-        computed: {
-            currentPath() {
-                return this.path.join(" / ")
-            },
-            parentId() {
-                return this.current[this.current.length - 1]
-            },
-            ...mapState(["auth"])
-        },
-        methods: {
-            getFiles(parentId, pageNumber) {
-                var personal = this.personal
-                getFiles({parentId, personal, pageNumber}).then(response => {
+        submitAddFolder() {
+            var personal = this.personal
+            var folderName = this.folderName
+            var parentId = this.current[this.current.length - 1]
+            if (folderName == null || folderName.trim() === "") {
+                this.$message.error("文件夹名称不能为空！")
+            } else {
+                addFolder({folderName, personal, parentId}).then(response => {
                     if (response && response.status === "success") {
-                        this.total = response.total
-                        this.files = response.object
+                        this.$message.success(response.message)
+                        this.getFiles(parentId)
+                        this.addFolderDialog = false
+                        this.folderName = null
                     }
                 })
-            },
-            toFolder(file) {
-                this.getFiles(file.id)
-                this.path.push(file.name)
-                this.current.push(file.id)
-                this.history.push(file.parentId)
-            },
-            toParent() {
-                if (this.history.length === 0) {
-                    this.$message.error("已经是根目录")
-                } else {
-                    this.getFiles(this.history.pop())
-                    this.current.pop()
-                    this.path.pop()
-                }
-            },
-            addFolder() {
-                this.addFolderDialog = true
-            },
-            submitAddFolder() {
-                var personal = this.personal
-                var folderName = this.folderName
-                var parentId = this.current[this.current.length - 1]
-                if (folderName == null || folderName.trim() === "") {
-                    this.$message.error("文件夹名称不能为空！")
-                } else {
-                    addFolder({folderName, personal, parentId}).then(response => {
-                        if (response && response.status === "success") {
-                            this.$message.success(response.message)
-                            this.getFiles(parentId)
-                            this.addFolderDialog = false
-                            this.folderName = null
-                        }
-                    })
-                }
-            },
-            uploadFile() {
-                this.uploadFileDialog = true
-            },
-            uploadSuccess(response) {
-                this.$message.success(response.message)
-                this.getFiles(this.current[this.current.length - 1])
-                this.uploadFileDialog = false
-            },
-            handleCurrentChange(pageNumber) {
-                var parentId = this.current[this.current.length - 1]
-                this.getFiles(parentId, pageNumber)
-            },
-            downloadFile() {
-                this.$refs.multipleTable.selection.forEach((item) => {
-                    if (item.type !== "文件夹") {
-                        var link = document.createElement("a")
-                        var name = item.name + "." + item.type
-                        link.setAttribute("download", name)
-                        link.href = item.path
-                        link.click()
-                    }
-                })
-            },
-            renameFile() {
-                this.selection = this.$refs.multipleTable.selection
-                this.renameFileDialog = true
-            },
-            submitRenameFile() {
-                if (this.selection.length < 1) {
-                    this.$message.error("至少选择一个文件或文件夹！")
-                } else if (this.selection.length > 1) {
-                    this.$message.error("一次只能对一个文件或文件夹重命名！")
-                } else {
-                    var newName = this.newName
-                    var id = this.selection[0].id
-                    renameFile({id, newName}).then(response => {
-                        if (response && response.status === "success") {
-                            this.$message.success(response.message)
-                            this.getFiles(this.files[0].parentId)
-                            this.renameFileDialog = false
-                            this.newName = null
-                        }
-                    })
-                }
-            },
-            deleteFile() {
-                this.$confirm("永久删除这些文件, 是否继续?")
-                    .then(() => {
-                        if (this.$refs.multipleTable.selection < 1) {
-                            this.$message.error("至少选择一个文件或文件夹！")
-                        } else {
-                            var ids = []
-                            this.$refs.multipleTable.selection.forEach(item => {
-                                ids.push(item.id)
-                            })
-                            deleteFile(ids).then(response => {
-                                if (response && response.status === "success") {
-                                    this.$message.success(response.message)
-                                    this.getFiles(this.current[this.current.length - 1])
-                                }
-                            })
-                        }
-                    })
-                    .catch(() => {
-                        this.$message.info("已取消删除")
-                    })
             }
+        },
+        uploadFile() {
+            this.uploadFileDialog = true
+        },
+        uploadSuccess(response) {
+            this.$message.success(response.message)
+            this.getFiles(this.current[this.current.length - 1])
+            this.uploadFileDialog = false
+        },
+        handleCurrentChange(pageNumber) {
+            var parentId = this.current[this.current.length - 1]
+            this.getFiles(parentId, pageNumber)
+        },
+        downloadFile() {
+            this.$refs.multipleTable.selection.forEach((item) => {
+                if (item.type !== "文件夹") {
+                    var link = document.createElement("a")
+                    var name = item.name + "." + item.type
+                    link.setAttribute("download", name)
+                    link.href = item.path
+                    link.click()
+                }
+            })
+        },
+        renameFile() {
+            this.selection = this.$refs.multipleTable.selection
+            this.renameFileDialog = true
+        },
+        submitRenameFile() {
+            if (this.selection.length < 1) {
+                this.$message.error("至少选择一个文件或文件夹！")
+            } else if (this.selection.length > 1) {
+                this.$message.error("一次只能对一个文件或文件夹重命名！")
+            } else {
+                var newName = this.newName
+                var id = this.selection[0].id
+                renameFile({id, newName}).then(response => {
+                    if (response && response.status === "success") {
+                        this.$message.success(response.message)
+                        this.getFiles(this.files[0].parentId)
+                        this.renameFileDialog = false
+                        this.newName = null
+                    }
+                })
+            }
+        },
+        deleteFile() {
+            this.$confirm("永久删除这些文件, 是否继续?")
+                .then(() => {
+                    if (this.$refs.multipleTable.selection < 1) {
+                        this.$message.error("至少选择一个文件或文件夹！")
+                    } else {
+                        var ids = []
+                        this.$refs.multipleTable.selection.forEach(item => {
+                            ids.push(item.id)
+                        })
+                        deleteFile(ids).then(response => {
+                            if (response && response.status === "success") {
+                                this.$message.success(response.message)
+                                this.getFiles(this.current[this.current.length - 1])
+                            }
+                        })
+                    }
+                })
+                .catch(() => {
+                    this.$message.info("已取消删除")
+                })
         }
     }
+}
 </script>
 
 <style scoped>
-    .path {
-        float: right
-    }
+.path {
+    float: right
+}
 
-    .search {
-        float: right
-    }
+.search {
+    float: right
+}
 </style>

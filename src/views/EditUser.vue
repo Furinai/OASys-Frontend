@@ -14,12 +14,12 @@
                     width="100">
             </el-table-column>
             <el-table-column
-                    prop="picture"
+                    prop="avatar"
                     label="头像"
                     align="center"
                     width="100">
                 <template slot-scope="scope">
-                    <el-avatar :src="scope.row.picture"
+                    <el-avatar :src="scope.row.avatar"
                                size="small"/>
                 </template>
             </el-table-column>
@@ -71,7 +71,7 @@
                 </el-form-item>
                 <el-form-item label="密码" prop="password">
                     <el-input type="password" v-model="user.password"
-                    placeholder="不需要修改密码则留空"/>
+                              placeholder="不需要修改密码则留空"/>
                 </el-form-item>
                 <el-form-item label="角色" prop="role_id">
                     <el-select v-model="user.role.id">
@@ -93,91 +93,91 @@
 </template>
 
 <script>
-    import {getUsers, getRoles, updateUser, deleteUser} from "../utils/api";
+import {getUsers, getRoles, updateUser, deleteUser} from "../utils/api";
 
-    export default {
-        name: "EditUser",
-        data() {
-            return {
-                users: [],
-                roles: [],
-                total: 0,
-                user: {
-                    role: {}
-                },
-                dialogVisible: false,
-            }
+export default {
+    name: "EditUser",
+    data() {
+        return {
+            users: [],
+            roles: [],
+            total: 0,
+            user: {
+                role: {}
+            },
+            dialogVisible: false,
+        }
+    },
+    created() {
+        this.getUsers()
+        this.getRoles()
+    },
+    methods: {
+        getUsers(pageNumber) {
+            getUsers({pageNumber}).then(response => {
+                if (response && response.status === "success") {
+                    this.total = response.total
+                    this.users = response.object
+                }
+            })
         },
-        created() {
-            this.getUsers()
-            this.getRoles()
+        getRoles() {
+            getRoles({}).then(response => {
+                if (response && response.status === "success") {
+                    this.roles = response.object
+                }
+            })
         },
-        methods: {
-            getUsers(pageNumber) {
-                getUsers({pageNumber}).then(response => {
-                    if (response && response.status === "success") {
-                        this.total = response.total
-                        this.users = response.object
+        handleEdit(row) {
+            this.user = row
+            this.user.password = null
+            this.dialogVisible = true
+        },
+        updateUser() {
+            updateUser(this.user).then(response => {
+                if (response && response.status === "success") {
+                    this.$message.success(response.message)
+                    this.dialogVisible = false
+                    this.getUsers()
+                }
+            })
+        },
+        deleteUser() {
+            this.$confirm("永久删除这些用户, 是否继续?")
+                .then(() => {
+                    if (this.$refs.multipleTable.selection < 1) {
+                        this.$message.error("至少选择一个用户！")
+                    } else {
+                        var ids = []
+                        this.$refs.multipleTable.selection.forEach(item => {
+                            ids.push(item.id)
+                        })
+                        deleteUser(ids).then(response => {
+                            if (response && response.status === "success") {
+                                this.$message.success(response.message)
+                                this.getUsers()
+                            }
+                        })
                     }
                 })
-            },
-            getRoles() {
-                getRoles({}).then(response => {
-                    if (response && response.status === "success") {
-                        this.roles = response.object
-                    }
+                .catch(() => {
+                    this.$message.info("已取消删除")
                 })
-            },
-            handleEdit(row) {
-                this.user = row
-                this.user.password = null
-                this.dialogVisible = true
-            },
-            updateUser() {
-                updateUser(this.user).then(response => {
-                    if (response && response.status === "success") {
-                        this.$message.success(response.message)
-                        this.dialogVisible=false
-                        this.getUsers()
-                    }
-                })
-            },
-            deleteUser() {
-                this.$confirm("永久删除这些用户, 是否继续?")
-                    .then(() => {
-                        if (this.$refs.multipleTable.selection < 1) {
-                            this.$message.error("至少选择一个用户！")
-                        } else {
-                            var ids = []
-                            this.$refs.multipleTable.selection.forEach(item => {
-                                ids.push(item.id)
-                            })
-                            deleteUser(ids).then(response => {
-                                if (response && response.status === "success") {
-                                    this.$message.success(response.message)
-                                    this.getUsers()
-                                }
-                            })
-                        }
-                    })
-                    .catch(() => {
-                        this.$message.info("已取消删除")
-                    })
-            },
-            handleCurrentChange(pageNumber) {
-                this.getUsers(pageNumber)
-            }
+        },
+        handleCurrentChange(pageNumber) {
+            this.getUsers(pageNumber)
         }
     }
+}
 </script>
 
 <style scoped>
-    .el-pagination {
-        margin-right: auto;
-    }
+.el-pagination {
+    margin-right: auto;
+}
 
-    .menu {
-        margin-top: 20px;
-        display: flex;
-    }
+.menu {
+    margin-top: 20px;
+    display: flex;
+}
 </style>

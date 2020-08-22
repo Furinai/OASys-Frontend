@@ -4,12 +4,12 @@
     </div>
 </template>
 <script>
-    export default {
-        name: "App",
-    }
+export default {
+    name: "App",
+}
 </script>
 <style>
-    #app{
-        height: 100%;
-    }
+#app {
+    height: 100%;
+}
 </style>

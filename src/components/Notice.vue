@@ -8,7 +8,7 @@
                         width="40">
                 </el-table-column>
                 <el-table-column
-                        prop="createTime"
+                        prop="createdTime"
                         label="时间"
                         width="160">
                 </el-table-column>
@@ -29,78 +29,78 @@
 </template>
 
 <script>
-    import {mapState} from "vuex";
-    import {getNotices, markRead} from "../utils/api";
+import {mapState} from "vuex";
+import {getNotices, markRead} from "../utils/api";
 
-    export default {
-        name: "Notice",
-        data() {
-            return {
-                notices: [],
-                webSocket: null,
-            }
-        },
-        created() {
-            this.getNotices()
-        },
-        mounted() {
-            if (this.auth && "WebSocket" in window) {
-                this.initWebSocket()
-            }
-        },
-        computed: {
-            ...mapState(["auth"]),
-            unreadCount() {
-                return this.notices.length
-            }
-        },
-        watch: {
-            auth(value) {
-                if ("WebSocket" in window) {
-                    if (value) {
-                        this.initWebSocket()
-                    }
+export default {
+    name: "Notice",
+    data() {
+        return {
+            notices: [],
+            webSocket: null,
+        }
+    },
+    created() {
+        this.getNotices()
+    },
+    mounted() {
+        if (this.auth && "WebSocket" in window) {
+            this.initWebSocket()
+        }
+    },
+    computed: {
+        ...mapState(["auth"]),
+        unreadCount() {
+            return this.notices.length
+        }
+    },
+    watch: {
+        auth(value) {
+            if ("WebSocket" in window) {
+                if (value) {
+                    this.initWebSocket()
                 }
             }
+        }
+    },
+    methods: {
+        getNotices() {
+            getNotices().then(response => {
+                if (response && response.status === "success") {
+                    this.notices = response.object.reverse()
+                }
+            })
         },
-        methods: {
-            getNotices() {
-                getNotices().then(response => {
+        markRead() {
+            if (this.$refs.multipleTable.selection < 1) {
+                this.$message.error("至少选择一个！")
+            } else {
+                var ids = []
+                this.$refs.multipleTable.selection.forEach(item => {
+                    ids.push(item.id)
+                })
+                markRead(ids).then(response => {
                     if (response && response.status === "success") {
-                        this.notices = response.object.reverse()
+                        this.$message.success(response.message)
+                        this.getNotices()
                     }
                 })
-            },
-            markRead() {
-                if (this.$refs.multipleTable.selection < 1) {
-                    this.$message.error("至少选择一个！")
-                } else {
-                    var ids = []
-                    this.$refs.multipleTable.selection.forEach(item => {
-                        ids.push(item.id)
-                    })
-                    markRead(ids).then(response => {
-                        if (response && response.status === "success") {
-                            this.$message.success(response.message)
-                            this.getNotices()
-                        }
-                    })
-                }
-            },
-            initWebSocket() {
-                this.webSocket = new WebSocket("ws://localhost/notice")
-                this.webSocket.onmessage = this.webSocketMessage
-            },
-            webSocketMessage(event) {
-                this.notices.unshift(JSON.parse(event.data))
-            },
-        }
+            }
+        },
+        initWebSocket() {
+            this.webSocket = new WebSocket("ws://localhost/notice")
+            this.webSocket.onmessage = this.webSocketMessage
+        },
+        webSocketMessage(event) {
+            this.notices.unshift(JSON.parse(event.data))
+        },
     }
+}
 </script>
 
 <style scoped>
-    .mark {
-        text-align: right;
-        margin-top: 10px;
-    }
+.mark {
+    text-align: right;
+    margin-top: 10px;
+}
 </style>

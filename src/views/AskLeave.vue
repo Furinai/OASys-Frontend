@@ -21,62 +21,62 @@
 </template>
 
 <script>
-    import {askLeave} from "../utils/api";
+import {askLeave} from "../utils/api";
 
-    export default {
-        name: "AskLeave",
-        data() {
-            return {
-                duration: [],
-                reason: "",
-                type: "",
-                options: [
-                    {value: "事假"},
-                    {value: "病假"},
-                    {value: "婚假"},
-                    {value: "产假"},
-                ]
-            }
-        },
-        methods: {
-            onSubmit() {
-                if (this.reason == null || this.reason.trim() === "") {
-                    this.$message.error("请填写请假理由！")
-                } else if (this.duration.length < 2) {
-                    this.$message.error("请选择请假日期！")
-                } else if (this.type === "") {
-                    this.$message.error("请选择请假类别！")
-                } else {
-                    var reason = this.reason
-                    var type = this.type
-                    var beginDate = this.duration[0]
-                    var endDate = this.duration[1]
-                    askLeave({reason, type, beginDate, endDate}).then(response => {
-                        if (response && response.status === "success") {
-                            this.$message.success(response.message)
-                        }
-                    })
-                }
+export default {
+    name: "AskLeave",
+    data() {
+        return {
+            duration: [],
+            reason: "",
+            type: "",
+            options: [
+                {value: "事假"},
+                {value: "病假"},
+                {value: "婚假"},
+                {value: "产假"},
+            ]
+        }
+    },
+    methods: {
+        onSubmit() {
+            if (this.reason == null || this.reason.trim() === "") {
+                this.$message.error("请填写请假理由！")
+            } else if (this.duration.length < 2) {
+                this.$message.error("请选择请假日期！")
+            } else if (this.type === "") {
+                this.$message.error("请选择请假类别！")
+            } else {
+                var reason = this.reason
+                var type = this.type
+                var beginDate = this.duration[0]
+                var endDate = this.duration[1]
+                askLeave({reason, type, beginDate, endDate}).then(response => {
+                    if (response && response.status === "success") {
+                        this.$message.success(response.message)
+                    }
+                })
             }
         }
     }
+}
 </script>
 
 <style scoped>
-    .ask-leave {
-        text-align: center;
-        margin-top: 80px;
-    }
+.ask-leave {
+    text-align: center;
+    margin-top: 80px;
+}
 
-    .el-textarea {
-        width: 348px;
-    }
+.el-textarea {
+    width: 348px;
+}
 
-    .el-select {
-        width: 348px;
-    }
+.el-select {
+    width: 348px;
+}
 
-    .el-select-dropdown__list {
-        margin-bottom: 12px;
-    }
+.el-select-dropdown__list {
+    margin-bottom: 12px;
+}
 </style>

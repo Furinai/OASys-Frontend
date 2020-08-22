@@ -13,22 +13,22 @@
 </template>
 
 <script>
-    export default {
-        name: "NotFound"
-    }
+export default {
+    name: "NotFound"
+}
 </script>
 <style scoped>
-    .image {
-        width: 100%;
-        margin: 100px 0;
-    }
+.image {
+    width: 100%;
+    margin: 100px 0;
+}
 
-    .text {
-        font-size: 20px;
-        text-align: center;
-    }
+.text {
+    font-size: 20px;
+    text-align: center;
+}
 
-    .text a {
-        color: #409EFF;
-    }
+.text a {
+    color: #409EFF;
+}
 </style>

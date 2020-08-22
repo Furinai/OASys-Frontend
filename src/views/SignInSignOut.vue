@@ -36,125 +36,125 @@
 </template>
 
 <script>
-    import {getAttendance, getAttendanceTime, signIn, signOut} from "../utils/api";
+import {getAttendance, getAttendanceTime, signIn, signOut} from "../utils/api";
 
-    export default {
-        name: "Sign",
-        data() {
-            return {
-                attendance: {},
-                attendanceTime: [],
-                currentDate: new Date(),
-                currentTime: new Date(),
+export default {
+    name: "Sign",
+    data() {
+        return {
+            attendance: {},
+            attendanceTime: [],
+            currentDate: new Date(),
+            currentTime: new Date(),
+        }
+    },
+    created() {
+        this.getAttendance()
+    },
+    computed: {
+        isSignIn() {
+            return this.attendance != null
+        },
+        isSignOut() {
+            if (this.attendance == null) {
+                return false
             }
+            return this.attendance.signOut
         },
-        created() {
-            this.getAttendance()
-        },
-        computed: {
-            isSignIn() {
-                return this.attendance != null
-            },
-            isSignOut() {
-                if (this.attendance == null) {
-                    return false
-                }
-                return this.attendance.signOut
-            },
-            active() {
-                if (this.attendance == null) {
-                    return 0
+        active() {
+            if (this.attendance == null) {
+                return 0
+            } else {
+                if (this.attendance.signOut) {
+                    return 2
                 } else {
-                    if (this.attendance.signOut) {
-                        return 2
-                    } else {
-                        return 1
-                    }
+                    return 1
                 }
             }
+        }
+    },
+    methods: {
+        getAttendance() {
+            getAttendance().then(response => {
+                if (response && response.status === "success") {
+                    this.attendance = response.object
+                    this.getAttendanceTime()
+                }
+            })
         },
-        methods: {
-            getAttendance() {
-                getAttendance().then(response => {
-                    if (response && response.status === "success") {
-                        this.attendance = response.object
-                        this.getAttendanceTime()
-                    }
-                })
-            },
-            getAttendanceTime() {
-                getAttendanceTime().then(response => {
-                    if (response && response.status === "success") {
-                        this.attendanceTime = response.object
-                    }
-                })
-            },
-            signIn() {
-                signIn().then(response => {
-                    if (response && response.status === "success") {
-                        this.$message.success(response.message)
-                        this.getAttendance()
-                    }
-                })
-            },
-            signOut() {
-                signOut().then(response => {
-                    if (response && response.status === "success") {
-                        this.$message.success(response.message)
-                        this.getAttendance()
-                    }
-                })
-            }
+        getAttendanceTime() {
+            getAttendanceTime().then(response => {
+                if (response && response.status === "success") {
+                    this.attendanceTime = response.object
+                }
+            })
         },
-        filters: {
-            formatTime(value) {
-                var hours = value.getHours()
-                var minutes = value.getMinutes()
-                if (hours < 10) hours = "0" + hours
-                if (minutes < 10) minutes = "0" + minutes
-                return hours + ":" + minutes
-            },
-            formatDate(value) {
-                var year = value.getFullYear()
-                var month = value.getMonth() + 1
-                var date = value.getDate()
-                if (year < 10) year = "0" + year
-                if (month < 10) month = "0" + month
-                if (date < 10) date = "0" + date
-                return year + "年" + month + "月" + date + "日"
-            }
+        signIn() {
+            signIn().then(response => {
+                if (response && response.status === "success") {
+                    this.$message.success(response.message)
+                    this.getAttendance()
+                }
+            })
         },
-    }
+        signOut() {
+            signOut().then(response => {
+                if (response && response.status === "success") {
+                    this.$message.success(response.message)
+                    this.getAttendance()
+                }
+            })
+        }
+    },
+    filters: {
+        formatTime(value) {
+            var hours = value.getHours()
+            var minutes = value.getMinutes()
+            if (hours < 10) hours = "0" + hours
+            if (minutes < 10) minutes = "0" + minutes
+            return hours + ":" + minutes
+        },
+        formatDate(value) {
+            var year = value.getFullYear()
+            var month = value.getMonth() + 1
+            var date = value.getDate()
+            if (year < 10) year = "0" + year
+            if (month < 10) month = "0" + month
+            if (date < 10) date = "0" + date
+            return year + "年" + month + "月" + date + "日"
+        }
+    },
+}
 </script>
 
 <style scoped>
-    .sign {
-        text-align: center;
-    }
+.sign {
+    text-align: center;
+}
 
-    .time {
-        margin-top: 40px;
-        font-size: 50px;
-    }
+.time {
+    margin-top: 40px;
+    font-size: 50px;
+}
 
-    .date {
-        margin: 20px 0;
-    }
+.date {
+    margin: 20px 0;
+}
 
-    .begin {
-        margin-top: 40px;
-    }
+.begin {
+    margin-top: 40px;
+}
 
-    .end {
-        margin-top: 20px;
-    }
+.end {
+    margin-top: 20px;
+}
 
-    .button {
-        margin: 80px auto;
-    }
+.button {
+    margin: 80px auto;
+}
 
-    .el-steps {
-        max-width: 40%;
-        margin: 20px auto;
-    }
+.el-steps {
+    max-width: 40%;
+    margin: 20px auto;
+}
 </style>

@@ -12,29 +12,29 @@
 </template>
 
 <script>
-    import {getAttendances} from "../utils/api";
+import {getAttendances} from "../utils/api";
 
-    export default {
-        name: "SignRecord",
-        data() {
-            return {
-                attendances: {}
-            }
-        },
-        created() {
-            this.getAttendances()
-        },
-        methods: {
-            getAttendances() {
-                getAttendances().then(response => {
-                    if (response && response.status === "success") {
-                        this.attendances = response.object
-                    }
-                })
-            }
-
+export default {
+    name: "SignRecord",
+    data() {
+        return {
+            attendances: {}
         }
+    },
+    created() {
+        this.getAttendances()
+    },
+    methods: {
+        getAttendances() {
+            getAttendances().then(response => {
+                if (response && response.status === "success") {
+                    this.attendances = response.object
+                }
+            })
+        }
+
     }
+}
 </script>
 
 <style scoped>

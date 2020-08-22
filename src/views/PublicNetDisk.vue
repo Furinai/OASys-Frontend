@@ -5,14 +5,14 @@
 </template>
 
 <script>
-    import Files from "../components/Files";
+import Files from "../components/Files";
 
-    export default {
-        name: "PublicNetDisk",
-        components: {
-            Files
-        }
+export default {
+    name: "PublicNetDisk",
+    components: {
+        Files
     }
+}
 </script>
 
 <style scoped>

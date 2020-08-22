@@ -19,83 +19,83 @@
 </template>
 
 <script>
-    import qs from "qs";
-    import {setAuth} from "../utils/auth";
-    import {getAuth, login} from "../utils/api";
+import qs from "qs";
+import {setAuth} from "../utils/auth";
+import {getAuth, login} from "../utils/api";
 
-    export default {
-        name: "Login",
-        data() {
-            return {
-                forms: {
-                    username: "",
-                    password: ""
-                },
-                rules: {
-                    username: [
-                        {
-                            required: true,
-                            message: "请输入用户名",
-                            trigger: "blur"
-                        }
-                    ],
-                    password: [
-                        {
-                            required: true,
-                            message: "请输入密码",
-                            trigger: "blur"
-                        }
-                    ]
-                },
-                load: false
-            }
-        },
-        methods: {
-            onSubmit(forms) {
-                this.$refs[forms].validate((valid) => {
-                    if (valid) {
-                        this.load = true
-                        login(qs.stringify(forms)).then(response => {
-                            this.load = false
-                            if (response && response.status === "success") {
-                                getAuth().then(response => {
-                                    setAuth(response.object)
-                                })
-                                this.$message.success(response.message)
-                                this.$router.push({name: "index"})
-                            }
-                        })
+export default {
+    name: "Login",
+    data() {
+        return {
+            forms: {
+                username: "",
+                password: ""
+            },
+            rules: {
+                username: [
+                    {
+                        required: true,
+                        message: "请输入用户名",
+                        trigger: "blur"
                     }
-                })
-            }
+                ],
+                password: [
+                    {
+                        required: true,
+                        message: "请输入密码",
+                        trigger: "blur"
+                    }
+                ]
+            },
+            load: false
+        }
+    },
+    methods: {
+        onSubmit(forms) {
+            this.$refs[forms].validate((valid) => {
+                if (valid) {
+                    this.load = true
+                    login(qs.stringify(forms)).then(response => {
+                        this.load = false
+                        if (response && response.status === "success") {
+                            getAuth().then(response => {
+                                setAuth(response.object)
+                            })
+                            this.$message.success(response.message)
+                            this.$router.push({name: "index"})
+                        }
+                    })
+                }
+            })
         }
     }
+}
 </script>
 
 <style scoped>
-    .login {
-        background-image: url(/img/background.jpg);
-        background-size: cover;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-    }
+.login {
+    background-image: url(/img/background.jpg);
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
 
-    .title {
-        margin: 0 auto 30px;
-        text-align: center;
-        color: #707070;
-    }
+.title {
+    margin: 0 auto 30px;
+    text-align: center;
+    color: #707070;
+}
 
-    .login-form {
-        padding: 25px 25px 5px;
-        border-radius: 10px;
-        background: #fff;
-        width: 300px;
-    }
+.login-form {
+    padding: 25px 25px 5px;
+    border-radius: 10px;
+    background: #fff;
+    width: 300px;
+}
 
-    .el-button {
-        width: 100%;
-    }
+.el-button {
+    width: 100%;
+}
 </style>
