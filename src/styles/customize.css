@@ -1,3 +1,42 @@
+html, body {
+    font-family: Arial, Helvetica, "Microsoft YaHei", sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    color: #409EFF;
+    text-decoration: none;
+}
+
+i {
+    margin-right: 5px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.media {
+    display: flex;
+}
+
+.media-body {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.pagination {
+    margin-top: 15px;
+    text-align: center;
+}
+
 .el-menu .el-scrollbar__wrap {
     overflow-x: hidden;
 }
