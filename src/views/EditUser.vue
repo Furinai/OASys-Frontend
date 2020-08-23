@@ -1,6 +1,6 @@
 <template>
     <div class="edit-user">
-        <el-table border :data="users" ref="multipleTable"
+        <el-table border :data="users.list" ref="multipleTable"
                   style="width: 100%">
             <el-table-column
                     type="selection"
@@ -57,7 +57,7 @@
             </el-table-column>
         </el-table>
         <div class="menu">
-            <el-pagination background layout="prev, pager, next" :pager-count="5" :total="total"
+            <el-pagination background layout="prev, pager, next" :pager-count="5" :total="users.total"
                            :hide-on-single-page="false" @current-change="handleCurrentChange"
                            :page-size="8">
             </el-pagination>
@@ -99,12 +99,9 @@ export default {
     name: "EditUser",
     data() {
         return {
-            users: [],
+            users: {},
             roles: [],
-            total: 0,
-            user: {
-                role: {}
-            },
+            user: {},
             dialogVisible: false,
         }
     },
@@ -116,15 +113,14 @@ export default {
         getUsers(pageNumber) {
             getUsers({pageNumber}).then(response => {
                 if (response && response.status === "success") {
-                    this.total = response.total
-                    this.users = response.object
+                    this.users = response.data
                 }
             })
         },
         getRoles() {
             getRoles({}).then(response => {
                 if (response && response.status === "success") {
-                    this.roles = response.object
+                    this.roles = response.data
                 }
             })
         },

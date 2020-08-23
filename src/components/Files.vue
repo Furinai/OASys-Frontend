@@ -22,7 +22,7 @@
                 <el-input v-model="currentPath" :disabled="true"/>
             </el-form-item>
         </el-form>
-        <el-table :data="files.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+        <el-table :data="files.list.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
                   border ref="multipleTable" style="width: 100%">
             <el-table-column
                     type="selection"
@@ -74,7 +74,7 @@
             </el-table-column>
         </el-table>
         <div class="pagination">
-            <el-pagination background layout="prev, pager, next" :pager-count="5" :total="total"
+            <el-pagination background layout="prev, pager, next" :pager-count="5" :total="files.total"
                            :hide-on-single-page="true" @current-change="handleCurrentChange">
             </el-pagination>
         </div>
@@ -118,8 +118,7 @@ export default {
     name: "Files",
     data() {
         return {
-            total: 0,
-            files: [],
+            files: {},
             search: "",
             history: [],
             current: [1],
@@ -152,8 +151,7 @@ export default {
             var personal = this.personal
             getFiles({parentId, personal, pageNumber}).then(response => {
                 if (response && response.status === "success") {
-                    this.total = response.total
-                    this.files = response.object
+                    this.files = response.data
                 }
             })
         },

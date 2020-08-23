@@ -67,7 +67,7 @@ export default {
         getNotices() {
             getNotices().then(response => {
                 if (response && response.status === "success") {
-                    this.notices = response.object.reverse()
+                    this.notices = response.data.reverse()
                 }
             })
         },

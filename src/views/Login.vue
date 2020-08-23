@@ -59,7 +59,7 @@ export default {
                         this.load = false
                         if (response && response.status === "success") {
                             getAuth().then(response => {
-                                setAuth(response.object)
+                                setAuth(response.data)
                             })
                             this.$message.success(response.message)
                             this.$router.push({name: "index"})

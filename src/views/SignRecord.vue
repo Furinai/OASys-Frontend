@@ -28,7 +28,7 @@ export default {
         getAttendances() {
             getAttendances().then(response => {
                 if (response && response.status === "success") {
-                    this.attendances = response.object
+                    this.attendances = response.data
                 }
             })
         }

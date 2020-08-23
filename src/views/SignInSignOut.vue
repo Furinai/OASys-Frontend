@@ -77,7 +77,7 @@ export default {
         getAttendance() {
             getAttendance().then(response => {
                 if (response && response.status === "success") {
-                    this.attendance = response.object
+                    this.attendance = response.data
                     this.getAttendanceTime()
                 }
             })
@@ -85,7 +85,7 @@ export default {
         getAttendanceTime() {
             getAttendanceTime().then(response => {
                 if (response && response.status === "success") {
-                    this.attendanceTime = response.object
+                    this.attendanceTime = response.data
                 }
             })
         },

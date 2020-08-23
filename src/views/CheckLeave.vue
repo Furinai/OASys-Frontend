@@ -1,6 +1,6 @@
 <template>
     <div class="check-leave">
-        <el-table border :data="leaves" ref="multipleTable"
+        <el-table border :data="leaves.list" ref="multipleTable"
                   style="width: 100%">
             <el-table-column label="选择" width="50">
                 <template slot-scope="scope">
@@ -19,7 +19,7 @@
             <el-table-column prop="status" label="状态" align="center" width="80" :formatter="formatter"/>
         </el-table>
         <div class="menu">
-            <el-pagination background layout="prev, pager, next" :pager-count="5" :total="total"
+            <el-pagination background layout="prev, pager, next" :pager-count="5" :total="leaves.total"
                            :hide-on-single-page="false" @current-change="handleCurrentChange">
             </el-pagination>
             <el-button type="success" size="small" @click="agree">通过</el-button>
@@ -35,8 +35,7 @@ export default {
     name: "CheckLeave",
     data() {
         return {
-            leaves: [],
-            total: 0,
+            leaves: {},
             selection: 0
         }
     },
@@ -47,8 +46,7 @@ export default {
         getLeaves(pageNumber) {
             getLeaves({pageNumber}).then(response => {
                 if (response.status === "success") {
-                    this.total = response.total
-                    this.leaves = response.object
+                    this.leaves = response.data
                 }
             })
         },

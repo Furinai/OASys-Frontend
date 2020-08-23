@@ -29,7 +29,7 @@ export default {
         getAttendanceTime() {
             getAttendanceTime().then(response => {
                 if (response && response.status === "success") {
-                    this.attendanceTime = response.object
+                    this.attendanceTime = response.data
                 }
             })
         },
