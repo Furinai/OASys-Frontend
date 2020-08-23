@@ -101,7 +101,7 @@ export default {
         return {
             users: {},
             roles: [],
-            user: {},
+            user: {role: {}},
             dialogVisible: false,
         }
     },

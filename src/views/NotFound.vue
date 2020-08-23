@@ -1,7 +1,7 @@
 <template>
     <el-row type="flex" justify="center">
         <el-col :xs="18" :sm=6>
-            <img class="image" src="/img/404.png" alt="NotFound">
+            <img class="image" src="/img/notfound.png" alt="NotFound">
             <div class="text">
                 页面不存在。
                 <router-link :to="{ name: 'index' }">

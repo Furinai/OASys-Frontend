@@ -118,7 +118,7 @@ export default {
     name: "Files",
     data() {
         return {
-            files: {},
+            files: {list: []},
             search: "",
             history: [],
             current: [1],
