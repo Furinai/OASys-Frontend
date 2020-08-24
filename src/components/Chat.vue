@@ -9,20 +9,20 @@
                                 <el-avatar class="avatar" :src="item.avatar"/>
                                 <div class="name">{{ item.username }}</div>
                             </div>
-                            <div class="text"> {{ item.text }}</div>
+                            <div class="text"> {{ item.content }}</div>
                         </div>
                         <div v-else class="message mine">
                             <div class="user">
                                 <el-avatar class="avatar" :src="item.avatar"/>
                                 <div class="name">{{ item.username }}</div>
                             </div>
-                            <div class="text"> {{ item.text }}</div>
+                            <div class="text"> {{ item.content }}</div>
                         </div>
                     </li>
                 </ul>
             </el-scrollbar>
             <span slot="footer" class="dialog-footer">
-                <el-input type="textarea" v-model="text"/>
+                <el-input type="textarea" v-model="content"/>
                 <div class="send-button">
                     <el-button size="small" type="primary" @click="sendMessage">发送</el-button>
                 </div>
@@ -41,7 +41,7 @@ export default {
     name: "Chat",
     data() {
         return {
-            text: "",
+            content: "",
             messages: [],
             unreadCount: 0,
             webSocket: null,
@@ -61,13 +61,6 @@ export default {
                     div.scrollTop = div.scrollHeight
                 })
             }
-        },
-        auth(value) {
-            if ("WebSocket" in window) {
-                if (value) {
-                    this.initWebSocket()
-                }
-            }
         }
     },
     computed: mapState(
@@ -85,12 +78,15 @@ export default {
             }
         },
         sendMessage() {
-            if (this.text !== null && this.text.trim() !== "") {
-                this.webSocket.send(this.text)
-                this.text = null
+            if (this.content !== null && this.content.trim() !== "") {
+                this.webSocket.send(this.content)
+                this.content = null
             }
         },
         openDialog() {
+            if (this.webSocket == null && "WebSocket" in window) {
+                this.initWebSocket()
+            }
             this.chatDialog = true
             this.unreadCount = 0
         }
