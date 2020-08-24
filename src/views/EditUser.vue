@@ -1,54 +1,18 @@
 <template>
     <div class="edit-user">
-        <el-table border :data="users.list" ref="multipleTable"
-                  style="width: 100%">
-            <el-table-column
-                    type="selection"
-                    width="50"
-                    align="center">
-            </el-table-column>
-            <el-table-column
-                    prop="id"
-                    label="ID"
-                    align="center"
-                    width="100">
-            </el-table-column>
-            <el-table-column
-                    prop="avatar"
-                    label="头像"
-                    align="center"
-                    width="100">
+        <el-table border :data="users.list" ref="multipleTable" style="width: 100%">
+            <el-table-column type="selection" width="50" align="center"/>
+            <el-table-column prop="id" label="ID" align="center" width="100"/>
+            <el-table-column prop="avatar" label="头像" align="center" width="100">
                 <template slot-scope="scope">
-                    <el-avatar :src="scope.row.avatar"
-                               size="small"/>
+                    <el-avatar :src="scope.row.avatar" size="small"/>
                 </template>
             </el-table-column>
-            <el-table-column
-                    prop="username"
-                    label="用户名"
-                    align="center"
-                    width="150">
-            </el-table-column>
-            <el-table-column
-                    prop="role.name"
-                    label="角色"
-                    align="center"
-                    width="100">
-            </el-table-column>
-            <el-table-column
-                    prop="email"
-                    label="邮箱"
-                    align="center"
-                    width="200">
-            </el-table-column>
-            <el-table-column
-                    prop="synopsis"
-                    label="简介">
-            </el-table-column>
-            <el-table-column
-                    label="操作"
-                    align="center"
-                    width="100">
+            <el-table-column prop="username" label="用户名" align="center" width="150"/>
+            <el-table-column prop="role.name" label="角色" align="center" width="100"/>
+            <el-table-column prop="email" label="邮箱" align="center" width="200"/>
+            <el-table-column prop="synopsis" label="简介"/>
+            <el-table-column label="操作" align="center" width="100">
                 <template slot-scope="scope">
                     <el-button size="mini"
                                @click="handleEdit(scope.row)">编辑
@@ -58,9 +22,7 @@
         </el-table>
         <div class="menu">
             <el-pagination background layout="prev, pager, next" :pager-count="5" :total="users.total"
-                           :hide-on-single-page="false" @current-change="handleCurrentChange"
-                           :page-size="8">
-            </el-pagination>
+                           :hide-on-single-page="false" @current-change="handleCurrentChange" :page-size="8"/>
             <el-button type="danger" size="small" @click="deleteUser">删除</el-button>
         </div>
         <el-dialog :visible.sync="dialogVisible">
@@ -112,14 +74,14 @@ export default {
     methods: {
         getUsers(pageNumber) {
             getUsers({pageNumber}).then(response => {
-                if (response && response.status === "success") {
+                if (response.status === "success") {
                     this.users = response.data
                 }
             })
         },
         getRoles() {
             getRoles({}).then(response => {
-                if (response && response.status === "success") {
+                if (response.status === "success") {
                     this.roles = response.data
                 }
             })
@@ -131,7 +93,7 @@ export default {
         },
         updateUser() {
             updateUser(this.user).then(response => {
-                if (response && response.status === "success") {
+                if (response.status === "success") {
                     this.$message.success(response.message)
                     this.dialogVisible = false
                     this.getUsers()
@@ -139,26 +101,24 @@ export default {
             })
         },
         deleteUser() {
-            this.$confirm("永久删除这些用户, 是否继续?")
-                .then(() => {
-                    if (this.$refs.multipleTable.selection < 1) {
-                        this.$message.error("至少选择一个用户！")
-                    } else {
-                        var ids = []
-                        this.$refs.multipleTable.selection.forEach(item => {
-                            ids.push(item.id)
-                        })
-                        deleteUser(ids).then(response => {
-                            if (response && response.status === "success") {
-                                this.$message.success(response.message)
-                                this.getUsers()
-                            }
-                        })
-                    }
-                })
-                .catch(() => {
-                    this.$message.info("已取消删除")
-                })
+            this.$confirm("永久删除这些用户, 是否继续?").then(() => {
+                if (this.$refs.multipleTable.selection < 1) {
+                    this.$message.error("至少选择一个用户！")
+                } else {
+                    var ids = []
+                    this.$refs.multipleTable.selection.forEach(item => {
+                        ids.push(item.id)
+                    })
+                    deleteUser(ids).then(response => {
+                        if (response.status === "success") {
+                            this.$message.success(response.message)
+                            this.getUsers()
+                        }
+                    })
+                }
+            }).catch(() => {
+                this.$message.info("已取消删除")
+            })
         },
         handleCurrentChange(pageNumber) {
             this.getUsers(pageNumber)

@@ -6,10 +6,11 @@
         <div class="end">下班时间：{{ attendanceTime[1] }}</div>
         <div class="button">
             <el-button-group>
-                <el-button type="primary" icon="el-icon-arrow-left" @click="signIn" :disabled=isSignIn>签到</el-button>
-                <el-button type="primary" @click="signOut" :disabled=isSignOut>
-                    签退<i class="el-icon-arrow-right el-icon--right"></i>
+                <el-button type="primary" icon="el-icon-arrow-left" @click="signIn" :disabled=isSignIn>
+                    签到
                 </el-button>
+                <el-button type="primary" @click="signOut" :disabled=isSignOut>
+                    签退<i class="el-icon-arrow-right el-icon--right"></i></el-button>
             </el-button-group>
         </div>
         <el-steps :active=active align-center>
@@ -76,7 +77,7 @@ export default {
     methods: {
         getAttendance() {
             getAttendance().then(response => {
-                if (response && response.status === "success") {
+                if (response.status === "success") {
                     this.attendance = response.data
                     this.getAttendanceTime()
                 }
@@ -84,7 +85,7 @@ export default {
         },
         getAttendanceTime() {
             getAttendanceTime().then(response => {
-                if (response && response.status === "success") {
+                if (response.status === "success") {
                     this.attendanceTime = response.data
                 }
             })

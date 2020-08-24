@@ -1,13 +1,9 @@
 <template>
     <div class="check-leave">
-        <el-table border :data="leaves.list" ref="multipleTable"
-                  style="width: 100%">
+        <el-table border :data="leaves.list" ref="multipleTable" style="width: 100%">
             <el-table-column label="选择" width="50">
                 <template slot-scope="scope">
-                    <el-radio v-model="selection"
-                              :label="scope.row"
-                              :disabled="scope.row.status!==0">
-                    </el-radio>
+                    <el-radio v-model="selection" :label="scope.row" :disabled="scope.row.status!==0"/>
                 </template>
             </el-table-column>
             <el-table-column prop="user.username" label="申请人" align="center" width="100"/>
@@ -20,8 +16,7 @@
         </el-table>
         <div class="menu">
             <el-pagination background layout="prev, pager, next" :pager-count="5" :total="leaves.total"
-                           :hide-on-single-page="false" @current-change="handleCurrentChange">
-            </el-pagination>
+                           :hide-on-single-page="false" @current-change="handleCurrentChange"/>
             <el-button type="success" size="small" @click="agree">通过</el-button>
             <el-button type="danger" size="mini" @click="refuse">拒绝</el-button>
         </div>
@@ -76,7 +71,7 @@ export default {
                     const user = {username}
                     const comment = value
                     checkLeave({id, user, comment, status}).then(response => {
-                        if (response && response.status === "success") {
+                        if (response.status === "success") {
                             this.$message.success(response.message)
                             this.getLeaves()
                         }

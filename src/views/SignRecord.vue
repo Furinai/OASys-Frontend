@@ -27,16 +27,11 @@ export default {
     methods: {
         getAttendances() {
             getAttendances().then(response => {
-                if (response && response.status === "success") {
+                if (response.status === "success") {
                     this.attendances = response.data
                 }
             })
         }
-
     }
 }
 </script>
-
-<style scoped>
-
-</style>

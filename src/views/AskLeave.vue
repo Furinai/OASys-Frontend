@@ -52,7 +52,7 @@ export default {
                 var beginDate = this.duration[0]
                 var endDate = this.duration[1]
                 askLeave({reason, type, beginDate, endDate}).then(response => {
-                    if (response && response.status === "success") {
+                    if (response.status === "success") {
                         this.$message.success(response.message)
                     }
                 })
