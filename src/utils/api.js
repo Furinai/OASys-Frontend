@@ -49,7 +49,7 @@ export function renameFile(params) {
 }
 
 export function deleteFile(data) {
-    return post("/api/deleteFile", data);
+    return post("/api/deleteFiles", data);
 }
 
 export function askLeave(data) {

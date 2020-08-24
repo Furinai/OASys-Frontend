@@ -4,15 +4,9 @@
             <el-form-item>
                 <el-button-group>
                     <el-button type="primary" icon="el-icon-top" @click="toParent" plain>返回上一级</el-button>
-                    <el-button v-if="auth.role.id > 1 || personal == 1 " type="primary" icon="el-icon-folder-add"
-                               @click="addFolder" plain>新建文件夹
-                    </el-button>
+                    <el-button type="primary" icon="el-icon-folder-add" @click="addFolder" plain>新建文件夹</el-button>
                     <el-button type="primary" icon="el-icon-upload" @click="uploadFile" plain>上传文件</el-button>
-                    <el-button type="primary" icon="el-icon-download" @click="downloadFile" plain>下载文件</el-button>
-                    <el-button type="primary" icon="el-icon-edit" @click="renameFile" plain>重命名</el-button>
-                    <el-button v-if="auth.role.id > 1 || personal == 1 "
-                               type="primary" icon="el-icon-delete" @click="deleteFile" plain>删除
-                    </el-button>
+                    <el-button type="primary" icon="el-icon-delete" @click="deleteFile" plain>删除</el-button>
                 </el-button-group>
             </el-form-item>
             <el-form-item class="search">
@@ -24,20 +18,9 @@
         </el-form>
         <el-table :data="files.list.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
                   border ref="multipleTable" style="width: 100%">
-            <el-table-column
-                    type="selection"
-                    width="50">
-            </el-table-column>
-            <el-table-column
-                    type="index"
-                    label="序号"
-                    align="center"
-                    width="100">
-            </el-table-column>
-            <el-table-column
-                    label="名称"
-                    align="center"
-                    width="400">
+            <el-table-column type="selection" width="50"/>
+            <el-table-column type="index" label="序号" align="center" width="50"/>
+            <el-table-column label="名称" align="center">
                 <template slot-scope="scope">
                     <div v-if="scope.row.type === '文件夹'">
                         <span @click="toFolder(scope.row)">
@@ -49,28 +32,17 @@
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column
-                    prop="type"
-                    label="类型"
-                    align="center"
-                    width="150">
-            </el-table-column>
-            <el-table-column
-                    prop="size"
-                    label="大小"
-                    align="center"
-                    width="150">
-            </el-table-column>
-            <el-table-column
-                    prop="user.username"
-                    label="作者"
-                    align="center"
-                    width="150">
-            </el-table-column>
-            <el-table-column
-                    prop="createdTime"
-                    label="创建时间"
-                    align="center">
+            <el-table-column prop="type" label="类型" align="center" width="100"/>
+            <el-table-column prop="size" label="大小" align="center" width="100"/>
+            <el-table-column prop="user.username" label="作者" align="center" width="100"/>
+            <el-table-column prop="createdTime" label="创建时间" align="center" width="200"/>
+            <el-table-column label="操作" align="center" width="200px">
+                <template slot-scope="scope">
+                    <el-button size="mini" @click="renameFile(scope.row)">重命名</el-button>
+                    <el-button v-if="scope.row.type!=='文件夹'" size="mini" @click="downloadFile(scope.row)">
+                        下载
+                    </el-button>
+                </template>
             </el-table-column>
         </el-table>
         <div class="pagination">
@@ -78,17 +50,6 @@
                            :hide-on-single-page="true" @current-change="handleCurrentChange">
             </el-pagination>
         </div>
-        <el-dialog :visible.sync="addFolderDialog">
-            <el-form>
-                <el-form-item label="文件夹名称" label-width="85px">
-                    <el-input v-model="folderName" autocomplete="off"></el-input>
-                </el-form-item>
-            </el-form>
-            <div slot="footer">
-                <el-button @click="addFolderDialog = false">取 消</el-button>
-                <el-button type="primary" @click="submitAddFolder">确 定</el-button>
-            </div>
-        </el-dialog>
         <el-dialog :visible.sync="uploadFileDialog" width="26%">
             <el-upload drag action="/api/uploadFile" multiple :data={personal,parentId}
                        :on-success="uploadSuccess">
@@ -96,23 +57,13 @@
                 <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
             </el-upload>
         </el-dialog>
-        <el-dialog :visible.sync="renameFileDialog">
-            <el-form>
-                <el-form-item label="名称" label-width="40px">
-                    <el-input v-model="newName" autocomplete="off"></el-input>
-                </el-form-item>
-            </el-form>
-            <div slot="footer">
-                <el-button @click="renameFileDialog = false">取 消</el-button>
-                <el-button type="primary" @click="submitRenameFile">确 定</el-button>
-            </div>
-        </el-dialog>
     </div>
 </template>
 
 <script>
 import {addFolder, getFiles, renameFile, deleteFile} from "../utils/api";
 import {mapState} from "vuex";
+import axios from 'axios';
 
 export default {
     name: "Files",
@@ -123,12 +74,8 @@ export default {
             history: [],
             current: [1],
             selection: [],
-            newName: "",
-            folderName: "",
             path: [" / 根目录"],
-            addFolderDialog: false,
             uploadFileDialog: false,
-            renameFileDialog: false,
         }
     },
     props: [
@@ -150,7 +97,7 @@ export default {
         getFiles(parentId, pageNumber) {
             var personal = this.personal
             getFiles({parentId, personal, pageNumber}).then(response => {
-                if (response && response.status === "success") {
+                if (response.status === "success") {
                     this.files = response.data
                 }
             })
@@ -163,7 +110,7 @@ export default {
         },
         toParent() {
             if (this.history.length === 0) {
-                this.$message.error("已经是根目录")
+                return
             } else {
                 this.getFiles(this.history.pop())
                 this.current.pop()
@@ -171,24 +118,21 @@ export default {
             }
         },
         addFolder() {
-            this.addFolderDialog = true
-        },
-        submitAddFolder() {
-            var personal = this.personal
-            var folderName = this.folderName
-            var parentId = this.current[this.current.length - 1]
-            if (folderName == null || folderName.trim() === "") {
-                this.$message.error("文件夹名称不能为空！")
-            } else {
+            this.$prompt('请输入文件夹名', '新建文件夹', {
+                inputPattern: /^.{1,20}$/,
+                inputErrorMessage: '文件夹名应为1-20个字符'
+            }).then(({value}) => {
+                var personal = this.personal
+                var folderName = value
+                var parentId = this.current[this.current.length - 1]
                 addFolder({folderName, personal, parentId}).then(response => {
-                    if (response && response.status === "success") {
+                    if (response.status === "success") {
                         this.$message.success(response.message)
                         this.getFiles(parentId)
-                        this.addFolderDialog = false
-                        this.folderName = null
                     }
                 })
-            }
+            }).catch(() => {
+            });
         },
         uploadFile() {
             this.uploadFileDialog = true
@@ -202,60 +146,50 @@ export default {
             var parentId = this.current[this.current.length - 1]
             this.getFiles(parentId, pageNumber)
         },
-        downloadFile() {
-            this.$refs.multipleTable.selection.forEach((item) => {
-                if (item.type !== "文件夹") {
-                    var link = document.createElement("a")
-                    var name = item.name + "." + item.type
-                    link.setAttribute("download", name)
-                    link.href = item.path
-                    link.click()
-                }
-            })
+        downloadFile(row) {
+            axios.get(row.path, {responseType: 'blob'}).then((response) => {
+                const link = document.createElement('a')
+                link.href = window.URL.createObjectURL(new Blob([response]))
+                link.setAttribute('download', row.name + '.' + row.type);
+                link.click();
+            });
         },
-        renameFile() {
-            this.selection = this.$refs.multipleTable.selection
-            this.renameFileDialog = true
-        },
-        submitRenameFile() {
-            if (this.selection.length < 1) {
-                this.$message.error("至少选择一个文件或文件夹！")
-            } else if (this.selection.length > 1) {
-                this.$message.error("一次只能对一个文件或文件夹重命名！")
-            } else {
-                var newName = this.newName
-                var id = this.selection[0].id
+        renameFile(row) {
+            this.$prompt('请输入新文件名', '重命名', {
+                inputValue: row.name,
+                inputPattern: /^.{1,20}$/,
+                inputErrorMessage: '文件名应为1-20个字符'
+            }).then(({value}) => {
+                var newName = value
+                var id = row.id
+                row.name = value
                 renameFile({id, newName}).then(response => {
-                    if (response && response.status === "success") {
+                    if (response.status === "success") {
                         this.$message.success(response.message)
-                        this.getFiles(this.files[0].parentId)
-                        this.renameFileDialog = false
-                        this.newName = null
                     }
                 })
-            }
+            }).catch(() => {
+            });
         },
         deleteFile() {
-            this.$confirm("永久删除这些文件, 是否继续?")
-                .then(() => {
-                    if (this.$refs.multipleTable.selection < 1) {
-                        this.$message.error("至少选择一个文件或文件夹！")
-                    } else {
-                        var ids = []
-                        this.$refs.multipleTable.selection.forEach(item => {
-                            ids.push(item.id)
-                        })
-                        deleteFile(ids).then(response => {
-                            if (response && response.status === "success") {
-                                this.$message.success(response.message)
-                                this.getFiles(this.current[this.current.length - 1])
-                            }
-                        })
+            if (this.$refs.multipleTable.selection < 1) {
+                this.$message.error("至少选择一个文件或文件夹！")
+                return
+            }
+            this.$confirm("永久删除这些文件, 是否继续?").then(() => {
+                var ids = []
+                this.$refs.multipleTable.selection.forEach(item => {
+                    ids.push(item.id)
+                })
+                deleteFile(ids).then(response => {
+                    if (response && response.status === "success") {
+                        this.$message.success(response.message)
+                        this.getFiles(this.current[this.current.length - 1])
                     }
                 })
-                .catch(() => {
-                    this.$message.info("已取消删除")
-                })
+            }).catch(() => {
+                this.$message.info("已取消删除")
+            })
         }
     }
 }
