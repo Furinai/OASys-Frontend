@@ -3,19 +3,9 @@
         <el-popover placement="bottom-start" width="600">
             <el-table height="380" border :data="notices"
                       style="width: 100%" ref="multipleTable">
-                <el-table-column
-                        type="selection"
-                        width="40">
-                </el-table-column>
-                <el-table-column
-                        prop="createdTime"
-                        label="时间"
-                        width="160">
-                </el-table-column>
-                <el-table-column
-                        prop="content"
-                        label="内容">
-                </el-table-column>
+                <el-table-column type="selection" width="40"/>
+                <el-table-column prop="createdTime" label="时间" width="160"/>
+                <el-table-column prop="content" label="内容"/>
             </el-table>
             <el-button type="text" slot="reference">
                 通知
