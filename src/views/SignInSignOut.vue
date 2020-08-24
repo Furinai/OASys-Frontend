@@ -59,13 +59,13 @@ export default {
             if (this.attendance == null) {
                 return false
             }
-            return this.attendance.signOut
+            return this.attendance.hasSignOut
         },
         active() {
             if (this.attendance == null) {
                 return 0
             } else {
-                if (this.attendance.signOut) {
+                if (this.attendance.hasSignOut) {
                     return 2
                 } else {
                     return 1
