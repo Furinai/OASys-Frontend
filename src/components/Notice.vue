@@ -26,16 +26,15 @@ export default {
     name: "Notice",
     data() {
         return {
-            notices: [],
-            webSocket: null,
+            notices: []
         }
     },
     created() {
         this.getNotices()
     },
-    mounted() {
-        if (this.auth && "WebSocket" in window) {
-            this.initWebSocket()
+    watch: {
+        $route() {
+            this.getNotices()
         }
     },
     computed: {
@@ -44,19 +43,10 @@ export default {
             return this.notices.length
         }
     },
-    watch: {
-        auth(value) {
-            if ("WebSocket" in window) {
-                if (value) {
-                    this.initWebSocket()
-                }
-            }
-        }
-    },
     methods: {
         getNotices() {
             getNotices().then(response => {
-                if (response && response.status === "success") {
+                if (response.status === "success") {
                     this.notices = response.data.reverse()
                 }
             })
@@ -64,26 +54,20 @@ export default {
         markRead() {
             if (this.$refs.multipleTable.selection < 1) {
                 this.$message.error("至少选择一个！")
-            } else {
-                var ids = []
-                this.$refs.multipleTable.selection.forEach(item => {
-                    ids.push(item.id)
-                })
-                markRead(ids).then(response => {
-                    if (response && response.status === "success") {
-                        this.$message.success(response.message)
-                        this.getNotices()
-                    }
-                })
+                return
             }
-        },
-        initWebSocket() {
-            this.webSocket = new WebSocket("ws://localhost/notice")
-            this.webSocket.onmessage = this.webSocketMessage
-        },
-        webSocketMessage(event) {
-            this.notices.unshift(JSON.parse(event.data))
-        },
+            var ids = []
+            this.$refs.multipleTable.selection.forEach(item => {
+                ids.push(item.id)
+            })
+            markRead(ids).then(response => {
+                if (response.status === "success") {
+                    this.$message.success(response.message)
+                    this.getNotices()
+                }
+            })
+
+        }
     }
 }
 </script>
