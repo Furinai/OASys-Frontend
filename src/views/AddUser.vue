@@ -72,7 +72,7 @@ export default {
             this.$refs[forms].validate((valid) => {
                 if (valid) {
                     addUser(forms).then(response => {
-                        if (response.status === "success") {
+                        if (response && response.status === "success") {
                             this.$message.success(response.message)
                         }
                     })

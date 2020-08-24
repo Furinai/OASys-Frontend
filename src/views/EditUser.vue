@@ -74,14 +74,14 @@ export default {
     methods: {
         getUsers(pageNumber) {
             getUsers({pageNumber}).then(response => {
-                if (response.status === "success") {
+                if (response && response.status === "success") {
                     this.users = response.data
                 }
             })
         },
         getRoles() {
             getRoles({}).then(response => {
-                if (response.status === "success") {
+                if (response && response.status === "success") {
                     this.roles = response.data
                 }
             })
@@ -93,7 +93,7 @@ export default {
         },
         updateUser() {
             updateUser(this.user).then(response => {
-                if (response.status === "success") {
+                if (response && response.status === "success") {
                     this.$message.success(response.message)
                     this.dialogVisible = false
                     this.getUsers()
@@ -110,7 +110,7 @@ export default {
                         ids.push(item.id)
                     })
                     deleteUser(ids).then(response => {
-                        if (response.status === "success") {
+                        if (response && response.status === "success") {
                             this.$message.success(response.message)
                             this.getUsers()
                         }

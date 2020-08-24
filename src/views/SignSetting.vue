@@ -28,7 +28,7 @@ export default {
     methods: {
         getAttendanceTime() {
             getAttendanceTime().then(response => {
-                if (response.status === "success") {
+                if (response && response.status === "success") {
                     this.attendanceTime = response.data
                 }
             })
@@ -37,7 +37,7 @@ export default {
             var begin = this.attendanceTime[0]
             var end = this.attendanceTime[1]
             setAttendanceTime({begin, end}).then(response => {
-                if (response.status === "success") {
+                if (response && response.status === "success") {
                     this.$message.success(response.message)
                 }
             })

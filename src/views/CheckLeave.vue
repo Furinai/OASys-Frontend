@@ -40,7 +40,7 @@ export default {
     methods: {
         getLeaves(pageNumber) {
             getLeaves({pageNumber}).then(response => {
-                if (response.status === "success") {
+                if (response && response.status === "success") {
                     this.leaves = response.data
                 }
             })
@@ -71,7 +71,7 @@ export default {
                     const user = {username}
                     const comment = value
                     checkLeave({id, user, comment, status}).then(response => {
-                        if (response.status === "success") {
+                        if (response && response.status === "success") {
                             this.$message.success(response.message)
                             this.getLeaves()
                         }

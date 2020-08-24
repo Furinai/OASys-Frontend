@@ -30,7 +30,7 @@ export default {
         logout() {
             this.$confirm("确定注销？", "提示", {type: "warning",}).then(() => {
                 logout().then(response => {
-                    if (response.status === "success") {
+                    if (response && response.status === "success") {
                         removeAuth()
                         this.$router.push({name: "login"})
                         this.$message.success(response.message)

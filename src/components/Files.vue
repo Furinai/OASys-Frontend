@@ -97,7 +97,7 @@ export default {
         getFiles(parentId, pageNumber) {
             var personal = this.personal
             getFiles({parentId, personal, pageNumber}).then(response => {
-                if (response.status === "success") {
+                if (response && response.status === "success") {
                     this.files = response.data
                 }
             })
@@ -126,7 +126,7 @@ export default {
                 var folderName = value
                 var parentId = this.current[this.current.length - 1]
                 addFolder({folderName, personal, parentId}).then(response => {
-                    if (response.status === "success") {
+                    if (response && response.status === "success") {
                         this.$message.success(response.message)
                         this.getFiles(parentId)
                     }
@@ -164,7 +164,7 @@ export default {
                 var id = row.id
                 row.name = value
                 renameFile({id, newName}).then(response => {
-                    if (response.status === "success") {
+                    if (response && response.status === "success") {
                         this.$message.success(response.message)
                     }
                 })

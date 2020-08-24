@@ -27,7 +27,7 @@ export default {
     methods: {
         getAttendances() {
             getAttendances().then(response => {
-                if (response.status === "success") {
+                if (response && response.status === "success") {
                     this.attendances = response.data
                 }
             })

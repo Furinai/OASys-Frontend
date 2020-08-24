@@ -46,7 +46,7 @@ export default {
     methods: {
         getNotices() {
             getNotices().then(response => {
-                if (response.status === "success") {
+                if (response && response.status === "success") {
                     this.notices = response.data.reverse()
                 }
             })
@@ -61,7 +61,7 @@ export default {
                 ids.push(item.id)
             })
             markRead(ids).then(response => {
-                if (response.status === "success") {
+                if (response && response.status === "success") {
                     this.$message.success(response.message)
                     this.getNotices()
                 }
