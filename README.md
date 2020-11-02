@@ -1,4 +1,4 @@
-# oaspa
+# oasys-frontend
 
 ## Project setup
 ```

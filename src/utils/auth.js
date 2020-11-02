@@ -1,16 +1,29 @@
-import store from "../store";
+import store from "@/store";
 
 export function initAuth() {
-    const auth = localStorage.getItem("auth");
-    return JSON.parse(auth)
+    return JSON.parse(localStorage.getItem("auth"))
 }
 
 export function setAuth(auth) {
-    localStorage.setItem("auth", JSON.stringify(auth));
-    store.dispatch("setAuth", auth)
+    store.dispatch("setAuth", auth).then(
+        () => localStorage.setItem("auth", JSON.stringify(auth))
+    )
 }
 
 export function removeAuth() {
-    localStorage.removeItem("auth");
-    store.dispatch("removeAuth")
+    store.dispatch("removeAuth").then(
+        () => localStorage.removeItem("auth")
+    )
+}
+
+export function getToken() {
+    return localStorage.getItem("token")
+}
+
+export function setToken(token) {
+    localStorage.setItem("token", token)
+}
+
+export function removeToken() {
+    localStorage.removeItem("token")
 }

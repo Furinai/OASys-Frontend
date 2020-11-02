@@ -1,33 +1,36 @@
 <template>
     <div class="login">
-        <el-form :model="forms" :rules="rules" :ref="forms" class="login-form">
-            <h3 class="title">
-                OA管理系统
-            </h3>
-            <el-form-item prop="username">
-                <el-input type="text" v-model="forms.username" placeholder="用户名"/>
-            </el-form-item>
-            <el-form-item prop="password">
-                <el-input type="password" v-model="forms.password" placeholder="密码"
-                          @keyup.enter.native="onSubmit(forms)"/>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="onSubmit(forms)" :loading="load" round>登录</el-button>
-            </el-form-item>
-        </el-form>
+        <el-card class="login-body">
+            <div slot="header">
+                <div class="card-title">OA系统登录</div>
+            </div>
+            <el-form :model="user" :rules="rules" :ref="user">
+                <el-form-item prop="username">
+                    <el-input type="text" v-model="user.username" placeholder="用户名"/>
+                </el-form-item>
+                <el-form-item prop="password">
+                    <el-input type="password" v-model="user.password" placeholder="密码"
+                              @keyup.enter.native="onSubmit(user)"/>
+                </el-form-item>
+                <el-form-item>
+                    <el-button class="button-long" type="primary" @click="onSubmit(user)" :loading="loading" round>
+                        登录
+                    </el-button>
+                </el-form-item>
+            </el-form>
+        </el-card>
     </div>
 </template>
 
 <script>
-import qs from "qs";
-import {setAuth} from "../utils/auth";
-import {getAuth, login} from "../utils/api";
+import {setAuth, setToken} from "@/utils/auth";
+import {getUser, login} from "@/utils/api";
 
 export default {
     name: "Login",
     data() {
         return {
-            forms: {
+            user: {
                 username: "",
                 password: ""
             },
@@ -47,23 +50,29 @@ export default {
                     }
                 ]
             },
-            load: false
+            loading: false
         }
     },
     methods: {
-        onSubmit(forms) {
-            this.$refs[forms].validate((valid) => {
+        onSubmit(user) {
+            this.$refs[user].validate((valid) => {
                 if (valid) {
-                    this.load = true
-                    login(qs.stringify(forms)).then(response => {
-                        this.load = false
-                        if (response && response.status === "success") {
-                            getAuth().then(response => {
-                                setAuth(response.data)
+                    this.loading = true
+                    const params = new URLSearchParams();
+                    params.append('username', user.username)
+                    params.append('password', user.password)
+                    login(params).then((response) => {
+                        if (response && response.status === 'success') {
+                            setToken(response.data)
+                            getUser({username: user.username}).then(response => {
+                                if (response && response.status === 'success') {
+                                    setAuth(response.data)
+                                    this.$router.push({name: "index"})
+                                }
                             })
                             this.$message.success(response.message)
-                            this.$router.push({name: "index"})
                         }
+                        this.loading = false
                     })
                 }
             })
@@ -71,31 +80,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-.login {
-    background-image: url(/img/background.jpg);
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-}
-
-.title {
-    margin: 0 auto 30px;
-    text-align: center;
-    color: #707070;
-}
-
-.login-form {
-    padding: 25px 25px 5px;
-    border-radius: 10px;
-    background: #fff;
-    width: 300px;
-}
-
-.el-button {
-    width: 100%;
-}
-</style>

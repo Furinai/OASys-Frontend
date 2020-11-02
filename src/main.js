@@ -1,16 +1,16 @@
-import Vue from "vue";
-import App from "./App.vue";
-import store from "./store";
-import router from "./router";
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
+import store from './store'
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
-import "./styles/customize.css";
+import "./assets/customize.css";
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = false
 Vue.use(ElementUI);
 
 new Vue({
-    store: store,
-    router: router,
-    render: h => h(App)
-}).$mount("#app");
+  router,
+  store,
+  render: h => h(App)
+}).$mount('#app')

@@ -1,0 +1,108 @@
+html, body {
+    font-family: Arial, Helvetica, "Microsoft YaHei", sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+#app {
+    height: 100%;
+}
+
+a {
+    color: #409EFF;
+    text-decoration: none;
+}
+
+i {
+    margin-right: 5px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.el-header {
+    width: 100%;
+    line-height: 60px;
+    border-bottom: 1px solid #eee;
+    box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
+}
+
+.el-container {
+    height: 100%;
+}
+
+.el-menu {
+    height: 100%;
+}
+
+.aside {
+    height: 100%;
+}
+
+.media {
+    display: flex;
+}
+
+.media-body {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.pagination {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.el-menu .el-scrollbar__wrap {
+    overflow-x: hidden;
+}
+
+.chat .el-scrollbar__wrap {
+    overflow-x: hidden;
+}
+
+.button-long {
+    width: 100%;
+}
+
+.card-title {
+    font-weight: 600;
+    text-align: center;
+    font-size: 18px;
+}
+
+.header {
+    display: flex;
+    margin: auto;
+}
+
+.nav {
+    margin-left: 10px;
+}
+
+.nav-list {
+    margin-left: auto;
+    display: flex;
+}
+
+.login {
+    height: 100%;
+    position: relative;
+    background-size: cover;
+    background-image: url(../assets/background.jpg);
+}
+
+.login-body {
+    top: 50%;
+    margin: auto;
+    position: relative;
+    max-width: 360px;
+    transform: translateY(-50%);
+}
