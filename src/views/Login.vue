@@ -23,8 +23,9 @@
 </template>
 
 <script>
+import axios from 'axios'
+import {getUser} from "@/utils/api";
 import {setAuth, setToken} from "@/utils/auth";
-import {getUser, login} from "@/utils/api";
 
 export default {
     name: "Login",
@@ -61,19 +62,20 @@ export default {
                     const params = new URLSearchParams();
                     params.append('username', user.username)
                     params.append('password', user.password)
-                    login(params).then((response) => {
-                        if (response && response.status === 'success') {
-                            setToken(response.data)
-                            getUser({username: user.username}).then(response => {
-                                if (response && response.status === 'success') {
-                                    setAuth(response.data)
-                                    this.$router.push({name: "index"})
-                                }
-                            })
-                            this.$message.success(response.message)
-                        }
+                    axios.post('/api/auth/oauth/token', params).then(response => {
+                        const data = response.data
+                        setToken(data.token_type + ' ' + data.access_token)
+                        getUser({id: data.user_id}).then(response => {
+                            if (response && response.status === 'success') {
+                                setAuth(response.data)
+                                this.$router.push({name: "index"})
+                            }
+                        })
+                    }).catch(error => {
+                        this.$message.error(error.response.data.error_description)
+                    }).finally(() =>
                         this.loading = false
-                    })
+                    )
                 }
             })
         }

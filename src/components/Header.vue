@@ -15,7 +15,6 @@
 
 <script>
 import {mapState} from "vuex";
-import {logout} from "@/utils/api";
 import {removeAuth, removeToken} from "@/utils/auth";
 
 export default {
@@ -26,11 +25,9 @@ export default {
     methods: {
         logout() {
             this.$confirm("确定注销？", "提示", {type: "warning",}).then(() => {
-                    logout().then(() => {
-                        removeAuth()
-                        removeToken()
-                        this.$router.push({name: "login"})
-                    })
+                    removeAuth()
+                    removeToken()
+                    this.$router.push({name: "login"})
                 }
             ).catch(() => {
                 this.$message.warning("已取消！")
