@@ -42,6 +42,11 @@ ul {
     height: 100%;
 }
 
+.header {
+    display: flex;
+    margin: auto;
+}
+
 .aside {
     height: 100%;
 }
@@ -76,11 +81,6 @@ ul {
     font-weight: 600;
     text-align: center;
     font-size: 18px;
-}
-
-.header {
-    display: flex;
-    margin: auto;
 }
 
 .nav {

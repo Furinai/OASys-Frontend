@@ -22,7 +22,7 @@ request.interceptors.request.use(
 
 request.interceptors.response.use(
     response => {
-        if (response.data.status === "error") {
+        if (response.data.status >= 400) {
             Message.error(response.data.message)
         }
         return response.data
@@ -34,10 +34,10 @@ export default function (config) {
         if (error.response) {
             switch (error.response.status) {
                 case 400:
-                    Message.error("服务器无法理解该请求！")
+                    Message.error("请求参数不正确！")
                     break
                 case 401:
-                    Message.error("未经授权或授权已过期！").then(() => {
+                    Message.error("未授权或授权过期！").then(() => {
                         removeAuth()
                         removeToken()
                         location.reload()
@@ -49,17 +49,11 @@ export default function (config) {
                 case 404:
                     Message.error("没有找到请求的资源！")
                     break
-                case 405:
-                    Message.error("不允许此请求方法！")
-                    break
                 case 500:
                     Message.error("服务器内部错误！")
                     break
                 case 503:
-                    Message.error("服务器暂时不可用！")
-                    break
-                case 504:
-                    Message.error("网关超时！")
+                    Message.error("服务暂不可用！")
                     break
                 default:
                     Message.error(error.response.statusText)
@@ -67,7 +61,7 @@ export default function (config) {
         } else if (error.request) {
             Message.error("没有收到服务器响应！")
         } else {
-            Message.error("生成请求发生错误！")
+            Message.error("生成请求时发生错误！")
         }
     })
 }
