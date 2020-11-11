@@ -6,9 +6,10 @@
                 <el-submenu index="1">
                     <template #title>
                         <i class="el-icon-menu"/>
-                        <span>考勤</span>
+                        <span>网盘</span>
                     </template>
-                    <el-menu-item index="/sign">签到签退</el-menu-item>
+                    <el-menu-item index="/file-manager">文件管理</el-menu-item>
+                    <el-menu-item index="/shared-file">共享文件</el-menu-item>
                 </el-submenu>
             </el-scrollbar>
         </el-menu>
