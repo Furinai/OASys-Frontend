@@ -38,7 +38,7 @@
                             <i class="el-icon-s-operation"></i>
                         </span>
                         <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item command="downloadFile">下载</el-dropdown-item>
+                            <el-dropdown-item v-if="scope.row.type!=='文件夹'" command="downloadFile">下载</el-dropdown-item>
                             <el-dropdown-item command="rename">重命名</el-dropdown-item>
                             <el-dropdown-item command="remove">删除</el-dropdown-item>
                             <el-dropdown-item v-if="scope.row.shared" command="cancelShare">取消分享</el-dropdown-item>
@@ -146,10 +146,12 @@ export default {
         },
         downloadFile(row) {
             downloadFile(row.id).then(response => {
-                let link = document.createElement('a')
-                link.href = window.URL.createObjectURL(new Blob([response.data]))
-                link.setAttribute('download', row.name);
-                link.click();
+                if (response.data) {
+                    let link = document.createElement('a')
+                    link.href = window.URL.createObjectURL(new Blob([response.data]))
+                    link.setAttribute('download', row.name);
+                    link.click();
+                }
             });
         },
         rename(row) {
