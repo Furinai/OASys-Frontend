@@ -1,6 +1,6 @@
 <template>
     <div class="files">
-        <el-card shadow="never">
+        <el-card shadow="never" :body-style="{padding:'15px'}">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item v-for="(path,index) in paths" :key="path.id">
                     <span @click="jumpToFolder(index)">
@@ -63,11 +63,11 @@
 </template>
 
 <script>
-import {createFolder, downloadFile, getFiles, remove, update, uploadFile} from "@/utils/api";
+import {createFolder, downloadFile, getFiles, removeFile, updateFile, uploadFile} from "@/utils/api";
 import {mapState} from "vuex";
 
 export default {
-    name: 'PublicNetDisk',
+    name: 'ManageFile',
     data() {
         return {
             files: [],
@@ -110,7 +110,7 @@ export default {
             }
         },
         openContextMenu(row, column, event) {
-            event.preventDefault();
+            event.preventDefault()
         },
         createFolder() {
             this.$prompt('请输入文件夹名', '新建文件夹', {
@@ -127,17 +127,17 @@ export default {
                 })
             }).catch(() => {
                 this.$message.warning('已取消新建文件夹！')
-            });
+            })
         },
         uploadFile() {
             this.uploadDialog = true
         },
         doUpload(params) {
-            let formData = new FormData();
-            formData.append('multipartFile', params.file);
-            formData.append('userId', this.auth.id);
-            formData.append('userName', this.auth.name);
-            formData.append('parentId', this.paths[this.paths.length - 1].id);
+            let formData = new FormData()
+            formData.append('multipartFile', params.file)
+            formData.append('userId', this.auth.id)
+            formData.append('userName', this.auth.name)
+            formData.append('parentId', this.paths[this.paths.length - 1].id)
             uploadFile(formData).then(response => {
                 if (response && response.status === 200) {
                     this.$message.success("上传成功！")
@@ -149,10 +149,10 @@ export default {
                 if (response.data) {
                     let link = document.createElement('a')
                     link.href = window.URL.createObjectURL(new Blob([response.data]))
-                    link.setAttribute('download', row.name);
-                    link.click();
+                    link.setAttribute('download', row.name)
+                    link.click()
                 }
-            });
+            })
         },
         rename(row) {
             this.$prompt('请输入新文件名', '重命名', {
@@ -160,7 +160,7 @@ export default {
                 inputPattern: /^.{1,20}$/,
                 inputErrorMessage: '文件名应为1-20个字符'
             }).then(({value}) => {
-                update({id: row.id, name: value}).then(response => {
+                updateFile({id: row.id, name: value}).then(response => {
                     if (response && response.status === 200) {
                         row.name = value
                         this.$message.success("重命名成功！")
@@ -168,13 +168,13 @@ export default {
                 })
             }).catch(() => {
                 this.$message.warning('已取消重命名！')
-            });
+            })
         },
         remove(row) {
             this.$confirm('确定删除？', '删除').then(() => {
-                remove(row.id).then(response => {
+                removeFile(row.id).then(response => {
                     if (response && response.status === 200) {
-                        let files = this.files;
+                        let files = this.files
                         for (let i = 0; i < files.length; i++) {
                             if (files[i].id === row.id) {
                                 files.splice(i, 1)
@@ -189,7 +189,7 @@ export default {
         },
         shareFile(row) {
             this.$confirm('确定分享？', '分享').then(() => {
-                update({id: row.id, shared: true}).then(response => {
+                updateFile({id: row.id, shared: true}).then(response => {
                     if (response && response.status === 200) {
                         row.shared = true
                         this.$message.success("分享成功！")
@@ -197,11 +197,11 @@ export default {
                 })
             }).catch(() => {
                 this.$message.warning('已取消分享操作！')
-            });
+            })
         },
         cancelShare(row) {
             this.$confirm('确定取消分享？', '取消分享').then(() => {
-                update({id: row.id, shared: false}).then(response => {
+                updateFile({id: row.id, shared: false}).then(response => {
                     if (response && response.status === 200) {
                         row.shared = false
                         this.$message.success("取消分享成功！")
@@ -209,7 +209,7 @@ export default {
                 })
             }).catch(() => {
                 this.$message.warning('已取消取消分享操作！')
-            });
+            })
         },
         handleCommand(command, row) {
             switch (command) {
@@ -231,7 +231,7 @@ export default {
             }
         },
         handlePageChange(pageNumber) {
-            let parentId = this.paths[this.paths.length - 1].id;
+            let parentId = this.paths[this.paths.length - 1].id
             this.getFiles(parentId, pageNumber)
         }
     }

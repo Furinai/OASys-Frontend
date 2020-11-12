@@ -4,8 +4,10 @@ import VueRouter from 'vue-router'
 import Admin from "@/layout/Admin";
 import Index from "@/views/Index";
 import Login from "@/views/Login";
-import FileManager from "@/views/FileManager";
-import SharedFile from "@/views/SharedFile";
+import ManageFile from "@/views/NetFile/ManageFile";
+import ViewSharedFile from "@/views/NetFile/ViewSharedFile";
+import ManageAnnouncement from "@/views/Announcement/ManageAnnouncement";
+import PublishAnnouncement from "@/views/Announcement/PublishAnnouncement";
 
 Vue.use(VueRouter)
 
@@ -16,18 +18,28 @@ const routes = [
         children: [
             {
                 path: "/",
-                name: "index",
+                name: "Index",
                 component: Index
             },
             {
-                path: "/file-manager",
-                name: "FileManager",
-                component: FileManager
+                path: "/manage-file",
+                name: "ManageFile",
+                component: ManageFile
             },
             {
-                path: "/shared-file",
-                name: "SharedFile",
-                component: SharedFile
+                path: "/view-shared-file",
+                name: "ViewSharedFile",
+                component: ViewSharedFile
+            },
+            {
+                path: "/manage-announcement",
+                name: "ManageAnnouncement",
+                component: ManageAnnouncement
+            },
+            {
+                path: "/publish-announcement",
+                name: "PublishAnnouncement",
+                component: PublishAnnouncement
             }
         ]
     },

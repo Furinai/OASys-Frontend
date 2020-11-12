@@ -59,7 +59,7 @@ export default {
             this.$refs[user].validate((valid) => {
                 if (valid) {
                     this.loading = true
-                    const params = new URLSearchParams();
+                    const params = new URLSearchParams()
                     params.append('username', user.username)
                     params.append('password', user.password)
                     axios.post('/api/auth/oauth/token', params).then(response => {

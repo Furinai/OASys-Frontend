@@ -1,6 +1,6 @@
 <template>
     <div class="files">
-        <el-card shadow="never">
+        <el-card shadow="never" :body-style="{padding:'15px'}">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item v-for="(path,index) in paths" :key="path.id">
                     <span @click="jumpToFolder(index)">
@@ -21,7 +21,8 @@
             <el-table-column label="操作" align="center" width="100">
                 <template slot-scope="scope">
                     <el-button @click="downloadFile(scope.row)"
-                    :disabled="scope.row.type==='文件夹'">下载</el-button>
+                               :disabled="scope.row.type==='文件夹'">下载
+                    </el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -37,7 +38,7 @@
 import {downloadFile, getFiles} from "@/utils/api";
 
 export default {
-    name: 'SharedFile',
+    name: 'ViewSharedFile',
     data() {
         return {
             files: [],
@@ -79,12 +80,12 @@ export default {
             downloadFile(row.id).then(response => {
                 let link = document.createElement('a')
                 link.href = window.URL.createObjectURL(new Blob([response.data]))
-                link.setAttribute('download', row.name);
-                link.click();
-            });
+                link.setAttribute('download', row.name)
+                link.click()
+            })
         },
         handlePageChange(pageNumber) {
-            let parentId = this.paths[this.paths.length - 1].id;
+            let parentId = this.paths[this.paths.length - 1].id
             this.getFiles(parentId, pageNumber)
         }
     }

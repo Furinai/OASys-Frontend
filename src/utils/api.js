@@ -41,7 +41,7 @@ export function downloadFile(params) {
     })
 }
 
-export function update(data) {
+export function updateFile(data) {
     return request({
         url: '/netdisk/net-file',
         method: 'put',
@@ -49,10 +49,40 @@ export function update(data) {
     })
 }
 
-
-export function remove(params) {
+export function removeFile(params) {
     return request({
         url: '/netdisk/net-file/' + params,
         method: 'delete',
+    })
+}
+
+export function getAnnouncements(params) {
+    return request({
+        url: '/announcement/announcements',
+        method: 'get',
+        params
+    })
+}
+
+export function createAnnouncement(data) {
+    return request({
+        url: '/announcement/announcement',
+        method: 'post',
+        data
+    })
+}
+
+export function updateAnnouncement(data) {
+    return request({
+        url: '/announcement/announcement',
+        method: 'put',
+        data
+    })
+}
+
+export function deleteAnnouncement(params) {
+    return request({
+        url: '/announcement/announcement/' + params,
+        method: 'delete'
     })
 }
