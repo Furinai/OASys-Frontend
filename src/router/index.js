@@ -8,6 +8,7 @@ import ManageFile from "@/views/NetFile/ManageFile";
 import ViewSharedFile from "@/views/NetFile/ViewSharedFile";
 import ManageAnnouncement from "@/views/Announcement/ManageAnnouncement";
 import PublishAnnouncement from "@/views/Announcement/PublishAnnouncement";
+import ViewAttendanceRecord from "@/views/Attendance/ViewAttendanceRecord";
 
 Vue.use(VueRouter)
 
@@ -40,6 +41,11 @@ const routes = [
                 path: "/publish-announcement",
                 name: "PublishAnnouncement",
                 component: PublishAnnouncement
+            },
+            {
+                path: "/view-attendance-record",
+                name: "ViewAttendanceRecord",
+                component: ViewAttendanceRecord
             }
         ]
     },

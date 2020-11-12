@@ -37,6 +37,7 @@ ul {
 }
 
 .list:last-child {
+    padding-bottom: 0;
     border-bottom: 0;
 }
 
@@ -131,4 +132,9 @@ ul {
     position: relative;
     max-width: 360px;
     transform: translateY(-50%);
+}
+
+.clock-description{
+    font-size: 14px;
+    margin-top: 20px;
 }

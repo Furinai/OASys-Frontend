@@ -141,6 +141,7 @@ export default {
             uploadFile(formData).then(response => {
                 if (response && response.status === 200) {
                     this.$message.success("上传成功！")
+                    this.getFiles(this.paths[this.paths.length - 1].id)
                 }
             })
         },
@@ -174,12 +175,8 @@ export default {
             this.$confirm('确定删除？', '删除').then(() => {
                 removeFile(row.id).then(response => {
                     if (response && response.status === 200) {
-                        let files = this.files
-                        for (let i = 0; i < files.length; i++) {
-                            if (files[i].id === row.id) {
-                                files.splice(i, 1)
-                            }
-                        }
+                        let index = this.files.indexOf(row)
+                        this.files.splice(index, 1)
                         this.$message.success('删除成功！')
                     }
                 })

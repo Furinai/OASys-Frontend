@@ -108,12 +108,8 @@ export default {
             this.$confirm("确定删除？").then(() => {
                 deleteAnnouncement(row.id).then(response => {
                     if (response.status === 200) {
-                        let announcements = this.announcements
-                        for (let i = 0; i < announcements.length; i++) {
-                            if (announcements[i].id === row.id) {
-                                announcements.splice(i, 1)
-                            }
-                        }
+                        let index = this.announcements.indexOf(row)
+                        this.announcements.splice(index, 1)
                         this.$message.success("删除成功！")
                     }
                 })

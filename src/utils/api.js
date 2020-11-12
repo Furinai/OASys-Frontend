@@ -86,3 +86,35 @@ export function deleteAnnouncement(params) {
         method: 'delete'
     })
 }
+
+export function getAttendance(params) {
+    return request({
+        url: '/attendance/attendance',
+        method: 'get',
+        params
+    })
+}
+
+export function getAttendances(params) {
+    return request({
+        url: '/attendance/attendances',
+        method: 'get',
+        params
+    })
+}
+
+export function clockIn(data) {
+    return request({
+        url: '/attendance/attendance',
+        method: 'post',
+        data
+    })
+}
+
+export function clockOut(data) {
+    return request({
+        url: '/attendance/attendance',
+        method: 'put',
+        data
+    })
+}
