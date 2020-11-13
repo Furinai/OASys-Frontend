@@ -119,6 +119,18 @@ ul {
     display: flex;
 }
 
+.success {
+    color: #67C23A;
+}
+
+.warning {
+    color: #E6A23C;
+}
+
+.danger {
+    color: #F56C6C;
+}
+
 .login {
     height: 100%;
     position: relative;
@@ -134,7 +146,11 @@ ul {
     transform: translateY(-50%);
 }
 
-.clock-description{
+.clock-time {
+    margin: 10px 15px;
+}
+
+.clock-description {
     font-size: 14px;
     margin-top: 20px;
 }

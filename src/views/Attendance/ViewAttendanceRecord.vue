@@ -2,8 +2,37 @@
     <el-calendar v-model="currentDate">
         <template #dateCell="{date, data}">
             {{ data.day.slice(8) }}
-            <div class="clock-description">
-                {{ showDescription(date, data) }}
+            <div v-if="verifyDateRange(date)" class="clock-description">
+                <div v-if="hasAttendance(data)">
+                    <el-popover placement="top" trigger="hover">
+                        <div class="clock-time">
+                            签到时间：{{ data.attendance.clockInTime }}
+                        </div>
+                        <div class="clock-time">
+                            签退时间：{{ data.attendance.clockOutTime }}
+                        </div>
+                        <span slot="reference" class="warning" v-if="!data.attendance.clockOutTime">
+                            <i class="el-icon-warning">
+                                未签退
+                            </i>
+                        </span>
+                        <span slot="reference" class="warning" v-else-if="data.attendance.clockDescription">
+                            <i class="el-icon-warning">
+                                {{ data.attendance.clockDescription }}
+                            </i>
+                        </span>
+                        <span slot="reference" class="success" v-else>
+                            <i class="el-icon-success">
+                                正常
+                            </i>
+                        </span>
+                    </el-popover>
+                </div>
+                <div v-else class="danger">
+                    <i class='el-icon-error'>
+                        缺勤
+                    </i>
+                </div>
             </div>
         </template>
     </el-calendar>
@@ -18,21 +47,21 @@ export default {
     data() {
         return {
             currentDate: new Date(),
-            currentMonth: new Date(),
-            currentDay: new Date(),
+            currentMonth: new Date().getMonth(),
+            currentDay: new Date().setHours(0),
             attendances: []
         }
     },
     watch: {
         currentDate(currentDate) {
-            if (currentDate.getMonth() !== this.currentMonth.getMonth()) {
-                this.currentMonth = currentDate
+            if (currentDate.getMonth() !== this.currentMonth) {
+                this.currentMonth = currentDate.getMonth();
                 this.getAttendances(currentDate)
             }
         }
     },
     created() {
-        this.getAttendances(this.currentMonth)
+        this.getAttendances(this.currentDate)
     },
     computed: mapState([
         "auth"
@@ -46,21 +75,17 @@ export default {
                 }
             })
         },
-        showDescription(date, data) {
-            if (date.getMonth() === this.currentMonth.getMonth() && date < this.currentDay.setHours(0)) {
-                for (let i = 0; i < this.attendances.length; i++) {
-                    if (this.attendances[i].clockDate === data.day) {
-                        if (!this.attendances[i].clockOutTime) {
-                            return '未签退'
-                        }
-                        if (this.attendances[i].clockDescription) {
-                            return this.attendances[i].clockDescription
-                        }
-                        return '正常'
-                    }
+        hasAttendance(data) {
+            for (let i = 0; i < this.attendances.length; i++) {
+                if (this.attendances[i].clockDate === data.day) {
+                    data.attendance = this.attendances[i]
+                    return true
                 }
-                return '缺勤'
             }
+            return false
+        },
+        verifyDateRange(date) {
+            return date.getMonth() === this.currentMonth && date < this.currentDay
         }
     }
 }

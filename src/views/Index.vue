@@ -49,7 +49,7 @@ export default {
     name: "Index",
     data() {
         return {
-            attendance: {},
+            attendance: null,
             announcements: [],
             dialogValue: "",
             dialogVisible: false
