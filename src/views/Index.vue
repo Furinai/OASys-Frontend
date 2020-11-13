@@ -49,9 +49,9 @@ export default {
     name: "Index",
     data() {
         return {
-            attendance: null,
+            attendance: '',
             announcements: [],
-            dialogValue: "",
+            dialogValue: '',
             dialogVisible: false
         }
     },
