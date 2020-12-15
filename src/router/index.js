@@ -4,11 +4,13 @@ import VueRouter from 'vue-router'
 import Admin from "@/layout/Admin";
 import Index from "@/views/Index";
 import Login from "@/views/Login";
-import ManageFile from "@/views/NetFile/ManageFile";
-import ViewSharedFile from "@/views/NetFile/ViewSharedFile";
-import ManageAnnouncement from "@/views/Announcement/ManageAnnouncement";
-import PublishAnnouncement from "@/views/Announcement/PublishAnnouncement";
-import ViewAttendanceRecord from "@/views/Attendance/ViewAttendanceRecord";
+import ManageFile from "@/views/Document/ManageFile";
+import ViewSharedFile from "@/views/Document/ViewSharedFile";
+import ManageAnnouncement from "@/views/Information/ManageAnnouncement";
+import PublishAnnouncement from "@/views/Information/PublishAnnouncement";
+import ViewAttendanceRecord from "@/views/Personnel/ViewAttendanceRecord";
+import ManageUser from "@/views/Personnel/ManageUser";
+import CreateUser from "@/views/Personnel/CreateUser";
 
 Vue.use(VueRouter)
 
@@ -23,14 +25,9 @@ const routes = [
                 component: Index
             },
             {
-                path: "/manage-file",
-                name: "ManageFile",
-                component: ManageFile
-            },
-            {
-                path: "/view-shared-file",
-                name: "ViewSharedFile",
-                component: ViewSharedFile
+                path: "/view-attendance-record",
+                name: "ViewAttendanceRecord",
+                component: ViewAttendanceRecord
             },
             {
                 path: "/manage-announcement",
@@ -43,9 +40,24 @@ const routes = [
                 component: PublishAnnouncement
             },
             {
-                path: "/view-attendance-record",
-                name: "ViewAttendanceRecord",
-                component: ViewAttendanceRecord
+                path: "/manage-file",
+                name: "ManageFile",
+                component: ManageFile
+            },
+            {
+                path: "/view-shared-file",
+                name: "ViewSharedFile",
+                component: ViewSharedFile
+            },
+            {
+                path: "/manage-user",
+                name: "ManageUser",
+                component: ManageUser
+            },
+            {
+                path: "/create-user",
+                name: "CreateUser",
+                component: CreateUser
             }
         ]
     },

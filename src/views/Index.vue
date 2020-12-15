@@ -32,8 +32,8 @@
                 </el-card>
             </el-col>
         </el-row>
-        <el-dialog :title="dialogValue.title" :visible.sync="dialogVisible" width="50%">
-            {{ dialogValue.content }}
+        <el-dialog :title="dialogValue.title" :visible.sync="dialogVisible" width="60%" class="announcement-content">
+            <pre>{{ dialogValue.content }}</pre>
             <span slot="footer" class="dialog-footer">
                 更新时间：{{ dialogValue.updateTime }}
             </span>

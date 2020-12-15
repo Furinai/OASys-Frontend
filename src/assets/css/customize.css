@@ -27,6 +27,11 @@ ul {
     margin: 0;
 }
 
+pre {
+    white-space: pre-wrap;
+    line-height: 1.5;
+}
+
 .list {
     padding: 15px 0;
     border-bottom: 1px solid #eee;
@@ -79,12 +84,39 @@ ul {
     text-align: center;
 }
 
+.el-breadcrumb {
+    font-size: 16px;
+}
+
 .el-menu .el-scrollbar__wrap {
     overflow-x: hidden;
 }
 
+.el-col .el-card {
+    height: 100%;
+}
+
+.el-tooltip__popper {
+    max-width: 80%;
+}
+
 .chat .el-scrollbar__wrap {
     overflow-x: hidden;
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-start {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.flex-end {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .text-center {
@@ -93,6 +125,10 @@ ul {
 
 .text-right {
     text-align: right;
+}
+
+.text-icon {
+    margin-right: 10px;
 }
 
 .button-long {
@@ -135,7 +171,7 @@ ul {
     height: 100%;
     position: relative;
     background-size: cover;
-    background-image: url(../assets/background.jpg);
+    background-image: url(../../assets/img/Deer.jpg);
 }
 
 .login-body {
@@ -153,4 +189,73 @@ ul {
 .clock-description {
     font-size: 14px;
     margin-top: 20px;
+}
+
+.breadcrumb {
+    margin-bottom: 20px;
+}
+
+.breadcrumb-icon {
+    font-size: 22px;
+    margin: -4px 0 -10px;
+}
+
+.folder-icon {
+    font-size: 16px;
+    color: #E6A23C;
+    margin-right: 5px;
+}
+
+.file-icon {
+    font-size: 16px;
+    color: #409EFF;
+    margin-right: 5px;
+}
+
+.table-expand {
+    font-size: 0;
+}
+
+.table-expand label {
+    width: 90px;
+    color: #99a9bf;
+}
+
+.table-expand .el-form-item {
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 50%;
+}
+
+.avatar {
+    width: 215px;
+    height: 215px;
+    display: block;
+}
+
+.avatar-uploader .el-upload {
+    border: 1px dashed #D9D9D9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.is-error .el-upload {
+    border: 1px dashed #F56C6C;
+}
+
+.avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 215px;
+    height: 215px;
+    line-height: 215px;
+    text-align: center;
+}
+
+.announcement-content .el-dialog {
+    position: relative;
+    background-size: auto;
+    background-image: url(../../assets/img/Lattice.png);
 }

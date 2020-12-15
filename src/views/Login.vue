@@ -60,6 +60,9 @@ export default {
                 if (valid) {
                     this.loading = true
                     const params = new URLSearchParams()
+                    params.append('client_id', 'linter')
+                    params.append('client_secret', 'linter')
+                    params.append('grant_type', 'password')
                     params.append('username', user.username)
                     params.append('password', user.password)
                     axios.post('/api/auth/oauth/token', params).then(response => {
@@ -68,7 +71,7 @@ export default {
                         getUser(data.user_id).then(response => {
                             if (response && response.status === 200) {
                                 setAuth(response.data)
-                                this.$router.push({name: "index"})
+                                this.$router.push({name: "Index"})
                             }
                         })
                     }).catch(error => {

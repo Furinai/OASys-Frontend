@@ -11,21 +11,24 @@
                         <div class="clock-time">
                             签退时间：{{ data.attendance.clockOutTime }}
                         </div>
-                        <span slot="reference" class="warning" v-if="!data.attendance.clockOutTime">
+                        <div slot="reference">
+                            <span class="warning" v-if="!data.attendance.clockOutTime">
                             <i class="el-icon-warning">
                                 未签退
                             </i>
                         </span>
-                        <span slot="reference" class="warning" v-else-if="data.attendance.clockDescription">
+                            <span class="warning" v-else-if="data.attendance.clockDescription">
                             <i class="el-icon-warning">
                                 {{ data.attendance.clockDescription }}
                             </i>
                         </span>
-                        <span slot="reference" class="success" v-else>
+                            <span class="success" v-else>
                             <i class="el-icon-success">
                                 正常
                             </i>
                         </span>
+                        </div>
+
                     </el-popover>
                 </div>
                 <div v-else class="danger">

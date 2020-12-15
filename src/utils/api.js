@@ -2,30 +2,93 @@ import request from "@/utils/request";
 
 export function getUser(params) {
     return request({
-        url: '/user/user/' + params,
+        url: '/auth/user/' + params,
         method: 'get'
     })
 }
 
-export function getFiles(params) {
+export function getAttendance(params) {
     return request({
-        url: '/netdisk/net-files',
+        url: '/pers/attendance',
         method: 'get',
         params
     })
 }
 
-export function createFolder(data) {
+export function getAttendances(params) {
     return request({
-        url: '/netdisk/net-folder',
+        url: '/pers/attendances',
+        method: 'get',
+        params
+    })
+}
+
+export function clockIn(data) {
+    return request({
+        url: '/pers/attendance',
         method: 'post',
         data
     })
 }
 
+export function clockOut(data) {
+    return request({
+        url: '/pers/attendance',
+        method: 'put',
+        data
+    })
+}
+
+export function deleteDossiers(params) {
+    return request({
+        url: '/pers/dossiers',
+        method: 'get',
+        params
+    })
+}
+
+export function getAnnouncements(params) {
+    return request({
+        url: '/info/announcements',
+        method: 'get',
+        params
+    })
+}
+
+export function createAnnouncement(data) {
+    return request({
+        url: '/info/announcement',
+        method: 'post',
+        data
+    })
+}
+
+export function updateAnnouncement(data) {
+    return request({
+        url: '/info/announcement',
+        method: 'put',
+        data
+    })
+}
+
+export function deleteAnnouncement(params) {
+    return request({
+        url: '/info/announcement/' + params,
+        method: 'delete'
+    })
+}
+
+export function getFiles(params) {
+    return request({
+        url: '/doc/files',
+        method: 'get',
+        params
+    })
+}
+
 export function uploadFile(data) {
     return request({
-        url: '/netdisk/net-file',
+        url: '/doc/file',
         method: 'post',
         headers: {
             'Content-Type': 'multipart/form-data'
@@ -36,85 +99,80 @@ export function uploadFile(data) {
 
 export function downloadFile(params) {
     return request({
-        url: '/netdisk/net-file/' + params,
+        url: '/doc/file/' + params,
         method: 'get',
+        responseType: 'blob'
     })
 }
 
 export function updateFile(data) {
     return request({
-        url: '/netdisk/net-file',
+        url: '/doc/file',
         method: 'put',
         data
     })
 }
 
-export function removeFile(params) {
+export function createFolder(data) {
     return request({
-        url: '/netdisk/net-file/' + params,
+        url: '/doc/folder',
+        method: 'post',
+        data
+    })
+}
+
+export function deleteFile(params) {
+    return request({
+        url: '/doc/file/' + params,
         method: 'delete',
     })
 }
 
-export function getAnnouncements(params) {
+export function getUsers(params) {
     return request({
-        url: '/announcement/announcements',
+        url: '/pers/users',
         method: 'get',
         params
     })
 }
 
-export function createAnnouncement(data) {
+export function createUser(data) {
     return request({
-        url: '/announcement/announcement',
+        url: '/pers/user',
         method: 'post',
         data
     })
 }
 
-export function updateAnnouncement(data) {
+export function updateUser(data) {
     return request({
-        url: '/announcement/announcement',
+        url: '/pers/user',
         method: 'put',
         data
     })
 }
 
-export function deleteAnnouncement(params) {
+export function deleteUser(params) {
     return request({
-        url: '/announcement/announcement/' + params,
+        url: '/pers/user/' + params,
         method: 'delete'
     })
 }
 
-export function getAttendance(params) {
+export function getDepts() {
     return request({
-        url: '/attendance/attendance',
-        method: 'get',
-        params
+        url: '/pers/depts',
+        method: 'get'
     })
 }
 
-export function getAttendances(params) {
+export function uploadProfilePicture(data) {
     return request({
-        url: '/attendance/attendances',
-        method: 'get',
-        params
-    })
-}
-
-export function clockIn(data) {
-    return request({
-        url: '/attendance/attendance',
+        url: '/doc/profile-picture',
         method: 'post',
-        data
-    })
-}
-
-export function clockOut(data) {
-    return request({
-        url: '/attendance/attendance',
-        method: 'put',
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        },
         data
     })
 }

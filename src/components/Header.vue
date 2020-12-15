@@ -2,7 +2,7 @@
     <div class="header">
         <ul class="nav-list">
             <li v-if="auth" class="nav">
-                欢迎，{{ auth.username }}，
+                欢迎，{{ auth.name }}，
             </li>
             <li class="nav">
                 <a href="javascript:" @click="logout">

@@ -3,11 +3,11 @@
         <div v-if="editMode">
             <el-form :model="announcement" :rules="rules" :ref="announcement">
                 <el-form-item prop="title">
-                    <el-input type="text" v-model="announcement.title" placeholder="标题" maxlength="10" show-word-limit/>
+                    <el-input type="text" v-model="announcement.title" placeholder="标题" maxlength="100" show-word-limit/>
                 </el-form-item>
                 <el-form-item prop="content">
-                    <el-input type="textarea" v-model="announcement.content" :autosize="{minRows: 6, maxRows: 10}"
-                              placeholder="摘要" minlength="10" maxlength="500" show-word-limit/>
+                    <el-input type="textarea" v-model="announcement.content" :autosize="{minRows: 6}"
+                              placeholder="摘要" minlength="10" maxlength="2000" show-word-limit/>
                 </el-form-item>
                 <el-form-item class="text-right">
                     <el-button size="small" @click="onEditSubmit(announcement)" type="primary" :loading="loading">确认
