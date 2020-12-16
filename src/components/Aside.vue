@@ -5,7 +5,7 @@
             <el-scrollbar style="height: 100%;">
                 <el-menu-item index="1" :route="{name: 'Index'}">
                     <i class="el-icon-house"></i>
-                    <span slot="title">首页</span>
+                    <template #title>首页</template>
                 </el-menu-item>
                 <el-submenu index="2">
                     <template #title>

@@ -19,7 +19,7 @@
                 </el-form-item>
                 <el-form-item label="部门">
                     <el-select v-model="user.dept.id" placeholder="请选择部门">
-                        <el-option v-for="dept in depts" :label="dept.name" :value="dept.id" :key="dept.id"></el-option>
+                        <el-option v-for="dept in depts" :label="dept.name" :value="dept.id"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="头像">
@@ -34,16 +34,16 @@
                     <el-input type="text" v-model="user.phoneNumber" maxlength="20" show-word-limit/>
                 </el-form-item>
                 <el-form-item class="text-right">
-                    <el-button size="small" @click="onUpdateSubmit(user)" type="primary" :loading="loading">确认
+                    <el-button size="small" @click="onUpdateSubmit()" type="primary" :loading="loading">确认
                     </el-button>
-                    <el-button @click="editMode = false">取消</el-button>
+                    <el-button size="small" @click="editMode = false">取消</el-button>
                 </el-form-item>
             </el-form>
         </div>
         <div v-else>
             <el-table :data="users" style="width: 100%" border>
                 <el-table-column type="expand">
-                    <template slot-scope="props">
+                    <template #default="props">
                         <el-form label-position="left" class="table-expand" inline>
                             <el-form-item label="邮箱地址">
                                 <span>{{ props.row.emailAddress }}</span>
@@ -62,7 +62,7 @@
                 </el-table-column>
                 <el-table-column prop="id" label="ID" align="center" width="100"/>
                 <el-table-column label="头像" align="center" width="100">
-                    <template slot-scope="scope">
+                    <template #default="scope">
                         <el-avatar :src="scope.row.profilePicture" size="small"/>
                     </template>
                 </el-table-column>
@@ -71,15 +71,17 @@
                 <el-table-column prop="sex" label="性别" align="center" width="150"/>
                 <el-table-column prop="dept.name" label="部门" align="center" width="150"/>
                 <el-table-column label="操作" align="center" width="150px">
-                    <template slot-scope="scope">
+                    <template #default="scope">
                         <el-dropdown @command="handleCommand($event,scope.row)" trigger="click">
                         <span class="el-dropdown-link">
                             <i class="el-icon-s-operation"></i>
                         </span>
-                            <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item command="editUser">编辑</el-dropdown-item>
-                                <el-dropdown-item command="deleteUser">删除</el-dropdown-item>
-                            </el-dropdown-menu>
+                            <template #dropdown>
+                                <el-dropdown-menu>
+                                    <el-dropdown-item command="editUser">编辑</el-dropdown-item>
+                                    <el-dropdown-item command="deleteUser">删除</el-dropdown-item>
+                                </el-dropdown-menu>
+                            </template>
                         </el-dropdown>
                     </template>
                 </el-table-column>
@@ -94,7 +96,7 @@
 </template>
 
 <script>
-import {deleteUser, getDepts, getUsers, updateUser, uploadProfilePicture} from "@/utils/api";
+import {deleteUser, getDepts, getUsers, updateUser, uploadProfilePicture} from "/src/utils/api";
 
 export default {
     name: "ManageUser",
@@ -102,7 +104,10 @@ export default {
         return {
             user: {},
             users: [],
-            depts: [],
+            depts: [{
+                id: 0,
+                name: ''
+            }],
             size: 0,
             editMode: false,
             loading: false
@@ -113,49 +118,48 @@ export default {
     },
     methods: {
         getUsers(pageNumber) {
-            getUsers({pageNumber}).then(response => {
-                if (response && response.status === 200) {
-                    this.users = response.data
-                    this.size = response.size
+            getUsers({pageNumber}).then(result => {
+                if (result && result.code === 200) {
+                    this.users = result.data
+                    this.size = result.size
                 }
             })
         },
         getDepts() {
-            getDepts().then(response => {
-                if (response && response.status === 200) {
-                    this.depts = response.data
+            getDepts().then(result => {
+                if (result && result.code === 200) {
+                    this.depts = result.data
                 }
             })
         },
-        onUpdateSubmit(user) {
+        onUpdateSubmit() {
             this.loading = true
-            updateUser(user).then(response => {
-                if (response && response.status === 200) {
+            updateUser(this.user).then(result => {
+                if (result && result.code === 200) {
                     this.$message.success("更新成功！")
+                    this.editMode = false
                 }
             }).finally(() => this.loading = false)
         },
         uploadProfilePicture(params) {
             let formData = new FormData()
             formData.append('multipartFile', params.file)
-            uploadProfilePicture(formData).then(response => {
-                if (response && response.status === 201) {
+            uploadProfilePicture(formData).then(result => {
+                if (result && result.code === 201) {
                     this.$message.success('上传成功！')
-                    this.user.profilePicture = response.data
+                    this.user.profilePicture = result.data
                 }
             })
         },
         editUser(row) {
-            this.editMode = true
             this.user = row
-            if (this.depts.length === 0) {
-                this.getDepts()
-            }
+            this.getDepts()
+            this.editMode = true
         },
         deleteUser(row) {
             this.$confirm("确定删除？").then(() => {
-                deleteUser(row.id).then(response => {
-                    if (response.status === 200) {
+                deleteUser(row.id).then(result => {
+                    if (result && result.code === 200) {
                         let index = this.users.indexOf(row)
                         this.users.splice(index, 1)
                         this.$message.success("删除成功！")

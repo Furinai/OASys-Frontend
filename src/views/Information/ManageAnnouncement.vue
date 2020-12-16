@@ -1,7 +1,7 @@
 <template>
     <div class="manage-announcement">
         <div v-if="editMode">
-            <el-form :model="announcement" :rules="rules" :ref="announcement">
+            <el-form :model="announcement" :rules="rules" ref="announcement">
                 <el-form-item prop="title">
                     <el-input type="text" v-model="announcement.title" placeholder="标题" maxlength="100" show-word-limit/>
                 </el-form-item>
@@ -10,7 +10,7 @@
                               placeholder="摘要" minlength="10" maxlength="2000" show-word-limit/>
                 </el-form-item>
                 <el-form-item class="text-right">
-                    <el-button size="small" @click="onEditSubmit(announcement)" type="primary" :loading="loading">确认
+                    <el-button size="small" @click="onEditSubmit('announcement')" type="primary" :loading="loading">确认
                     </el-button>
                     <el-button size="small" @click="editMode = false">取消</el-button>
                 </el-form-item>
@@ -23,15 +23,17 @@
                 <el-table-column prop="createTime" label="创建时间" align="center" width="150"/>
                 <el-table-column prop="updateTime" label="修改时间" align="center" width="150"/>
                 <el-table-column label="操作" align="center" width="100px">
-                    <template slot-scope="scope">
+                    <template #default="scope">
                         <el-dropdown @command="handleCommand($event,scope.row)" trigger="click">
                         <span class="el-dropdown-link">
                             <i class="el-icon-s-operation"></i>
                         </span>
-                            <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item command="editAnnouncement">编辑</el-dropdown-item>
-                                <el-dropdown-item command="deleteAnnouncement">删除</el-dropdown-item>
-                            </el-dropdown-menu>
+                            <template #dropdown>
+                                <el-dropdown-menu>
+                                    <el-dropdown-item command="editAnnouncement">编辑</el-dropdown-item>
+                                    <el-dropdown-item command="deleteAnnouncement">删除</el-dropdown-item>
+                                </el-dropdown-menu>
+                            </template>
                         </el-dropdown>
                     </template>
                 </el-table-column>
@@ -46,7 +48,7 @@
 </template>
 
 <script>
-import {deleteAnnouncement, getAnnouncements, updateAnnouncement} from "@/utils/api";
+import {deleteAnnouncement, getAnnouncements, updateAnnouncement} from "/src/utils/api";
 
 export default {
     name: "ManageAnnouncement",
@@ -80,10 +82,10 @@ export default {
     },
     methods: {
         getAnnouncements(pageNumber) {
-            getAnnouncements({pageNumber}).then(response => {
-                if (response && response.status === 200) {
-                    this.announcements = response.data
-                    this.size = response.size
+            getAnnouncements({pageNumber}).then(result => {
+                if (result && result.code === 200) {
+                    this.announcements = result.data
+                    this.size = result.size
                 }
             })
         },
@@ -91,8 +93,8 @@ export default {
             this.$refs[announcement].validate((valid) => {
                 if (valid) {
                     this.loading = true
-                    updateAnnouncement(announcement).then(response => {
-                        if (response.status === 200) {
+                    updateAnnouncement(this.announcement).then(result => {
+                        if (result && result.code === 200) {
                             this.editMode = false
                             this.$message.success("更新成功！")
                         }
@@ -106,13 +108,15 @@ export default {
         },
         deleteAnnouncement(row) {
             this.$confirm("确定删除？").then(() => {
-                deleteAnnouncement(row.id).then(response => {
-                    if (response.status === 200) {
+                deleteAnnouncement(row.id).then(result => {
+                    if (result && result.code === 200) {
                         let index = this.announcements.indexOf(row)
                         this.announcements.splice(index, 1)
                         this.$message.success("删除成功！")
                     }
                 })
+            }).catch(() => {
+                this.$message.warning("已取消！")
             })
         },
         handleCommand(command, row) {

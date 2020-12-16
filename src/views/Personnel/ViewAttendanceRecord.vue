@@ -1,9 +1,9 @@
 <template>
     <el-calendar v-model="currentDate">
-        <template #dateCell="{date, data}">
+        <template #dateCell="{data}">
             {{ data.day.slice(8) }}
-            <div v-if="verifyDateRange(date)" class="clock-description">
-                <div v-if="hasAttendance(data)">
+            <div v-if="verifyDateRange(data.date)" class="clock-description">
+                <template v-if="hasAttendance(data)">
                     <el-popover placement="top" trigger="hover">
                         <div class="clock-time">
                             签到时间：{{ data.attendance.clockInTime }}
@@ -11,38 +11,37 @@
                         <div class="clock-time">
                             签退时间：{{ data.attendance.clockOutTime }}
                         </div>
-                        <div slot="reference">
-                            <span class="warning" v-if="!data.attendance.clockOutTime">
-                            <i class="el-icon-warning">
-                                未签退
-                            </i>
-                        </span>
-                            <span class="warning" v-else-if="data.attendance.clockDescription">
-                            <i class="el-icon-warning">
-                                {{ data.attendance.clockDescription }}
-                            </i>
-                        </span>
+                        <template #reference>
+                            <span class="warning" v-if="!data.attendance.clockOutTime||data.attendance.clockDescription">
+                                <i class="el-icon-warning">
+                                    {{ data.attendance.clockDescription }}
+                                    <span v-if="!data.attendance.clockOutTime">
+                                        未签退
+                                    </span>
+                                </i>
+                            </span>
                             <span class="success" v-else>
-                            <i class="el-icon-success">
-                                正常
-                            </i>
-                        </span>
-                        </div>
-
+                                <i class="el-icon-success">
+                                    正常
+                                </i>
+                            </span>
+                        </template>
                     </el-popover>
-                </div>
-                <div v-else class="danger">
-                    <i class='el-icon-error'>
-                        缺勤
-                    </i>
-                </div>
+                </template>
+                <template v-else>
+                    <span class="danger">
+                        <i class='el-icon-error'>
+                            缺勤
+                        </i>
+                    </span>
+                </template>
             </div>
         </template>
     </el-calendar>
 </template>
 
 <script>
-import {getAttendances} from "@/utils/api";
+import {getAttendances} from "/src/utils/api";
 import {mapState} from "vuex";
 
 export default {
@@ -72,9 +71,9 @@ export default {
     methods: {
         getAttendances(currentMonth) {
             let year = currentMonth.getFullYear(), month = currentMonth.getMonth() + 1
-            getAttendances({userId: this.auth.id, year, month}).then(response => {
-                if (response && response.status === 200) {
-                    this.attendances = response.data
+            getAttendances({userId: this.auth.id, year, month}).then(result => {
+                if (result && result.code === 200) {
+                    this.attendances = result.data
                 }
             })
         },

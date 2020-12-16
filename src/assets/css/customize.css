@@ -183,7 +183,7 @@ pre {
 }
 
 .clock-time {
-    margin: 10px 15px;
+    margin: 10px 10px;
 }
 
 .clock-description {
@@ -252,10 +252,4 @@ pre {
     height: 215px;
     line-height: 215px;
     text-align: center;
-}
-
-.announcement-content .el-dialog {
-    position: relative;
-    background-size: auto;
-    background-image: url(../../assets/img/Lattice.png);
 }

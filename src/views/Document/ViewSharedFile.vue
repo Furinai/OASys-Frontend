@@ -7,7 +7,7 @@
                         <i class="el-icon-back text-icon" @click="returnParentFolder"></i>
                     </div>
                     <el-breadcrumb separator="/">
-                        <el-breadcrumb-item v-for="(path, index) in paths" :key="path.id">
+                        <el-breadcrumb-item v-for="(path, index) in paths">
                             <span @click="jumpToFolder(index)">
                                 {{ path.name }}
                             </span>
@@ -18,7 +18,7 @@
         </el-card>
         <el-table :data="files" @row-click="enterFolder" style="width: 100%" empty-text="空文件夹" border>
             <el-table-column label="名称">
-                <template slot-scope="scope">
+                <template #default="scope">
                     <i v-if="scope.row.type === '文件夹'" class="el-icon-folder folder-icon"></i>
                     <i v-else class="el-icon-document file-icon"></i>
                     {{ scope.row.name }}
@@ -30,15 +30,17 @@
             <el-table-column prop="createTime" label="创建时间" align="center" width="200"/>
             <el-table-column prop="updateTime" label="修改时间" align="center" width="200"/>
             <el-table-column label="操作" align="center" width="100">
-                <template slot-scope="scope">
+                <template #default="scope">
                     <el-dropdown @command="handleCommand($event, scope.row)">
                         <i class="el-icon-s-operation"></i>
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item icon="el-icon-download" command="download"
-                                              :disabled="scope.row.type === '文件夹'">
-                                下载
-                            </el-dropdown-item>
-                        </el-dropdown-menu>
+                        <template #dropdown>
+                            <el-dropdown-menu>
+                                <el-dropdown-item icon="el-icon-download" command="download"
+                                                  :disabled="scope.row.type === '文件夹'">
+                                    下载
+                                </el-dropdown-item>
+                            </el-dropdown-menu>
+                        </template>
                     </el-dropdown>
                 </template>
             </el-table-column>
@@ -52,7 +54,7 @@
 </template>
 
 <script>
-import {downloadFile, getFiles} from "@/utils/api";
+import {downloadFile, getFiles} from "/src/utils/api";
 
 export default {
     name: 'ViewSharedFile',
@@ -68,10 +70,10 @@ export default {
     },
     methods: {
         getFiles(parentId, pageNumber) {
-            getFiles({parentId, pageNumber, shared: true}).then(response => {
-                if (response && response.status === 200) {
-                    this.files = response.data
-                    this.size = response.size
+            getFiles({parentId, pageNumber, shared: true}).then(result => {
+                if (result && result.code === 200) {
+                    this.files = result.data
+                    this.size = result.size
                 }
             })
         },
@@ -99,10 +101,10 @@ export default {
                 inputPattern: /^.{1,20}$/,
                 inputErrorMessage: '文件名应为1-20个字符'
             }).then(({value}) => {
-                downloadFile(row.id).then(response => {
-                    if (response) {
+                downloadFile(row.id).then(result => {
+                    if (result) {
                         let link = document.createElement('a')
-                        let blob = new Blob([response], {type: 'application/octet-stream'})
+                        let blob = new Blob([result], {type: 'application/octet-stream'})
                         link.href = window.URL.createObjectURL(blob)
                         link.setAttribute('download', value)
                         link.click()

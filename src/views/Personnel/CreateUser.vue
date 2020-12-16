@@ -1,6 +1,6 @@
 <template>
     <div class="create-user">
-        <el-form :model="user" :rules="rules" :ref="user" label-width="80px">
+        <el-form :model="user" :rules="rules" ref="user" label-width="80px">
             <el-form-item prop="username" label="用户名">
                 <el-input type="text" v-model="user.username" maxlength="20" show-word-limit/>
             </el-form-item>
@@ -18,7 +18,7 @@
             </el-form-item>
             <el-form-item prop="dept.id" label="部门">
                 <el-select v-model="user.dept.id" placeholder="请选择部门">
-                    <el-option v-for="dept in depts" :label="dept.name" :value="dept.id" :key="dept.id"></el-option>
+                    <el-option v-for="dept in depts" :label="dept.name" :value="dept.id"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item prop="profilePicture" ref="pictureUploader" label="头像">
@@ -34,7 +34,7 @@
                 <el-input type="text" v-model="user.phoneNumber" maxlength="20" show-word-limit/>
             </el-form-item>
             <el-form-item class="text-right">
-                <el-button size="small" @click="onCreateSubmit(user)" type="primary" :loading="loading">确认
+                <el-button size="small" @click="onCreateSubmit('user')" type="primary" :loading="loading">确认
                 </el-button>
             </el-form-item>
         </el-form>
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import {createUser, getDepts, uploadProfilePicture} from "@/utils/api";
+import {createUser, getDepts, uploadProfilePicture} from "/src/utils/api";
 
 export default {
     name: "CreateUser",
@@ -51,7 +51,10 @@ export default {
             user: {
                 dept: {}
             },
-            depts: [],
+            depts: [{
+                id: 0,
+                name: ''
+            }],
             loading: false,
             uploaded: false,
             rules: {
@@ -120,9 +123,9 @@ export default {
     },
     methods: {
         getDepts() {
-            getDepts().then(response => {
-                if (response && response.status === 200) {
-                    this.depts = response.data
+            getDepts().then(result => {
+                if (result && result.code === 200) {
+                    this.depts = result.data
                 }
             })
         },
@@ -130,8 +133,8 @@ export default {
             this.$refs[user].validate((valid) => {
                 if (valid) {
                     this.loading = true
-                    createUser(user).then(response => {
-                        if (response.status === 201) {
+                    createUser(this.user).then(result => {
+                        if (result.code === 201) {
                             this.uploaded = false
                             this.$refs[user].resetFields()
                             this.$message.success("添加成功！")
@@ -143,10 +146,10 @@ export default {
         uploadProfilePicture(params) {
             let formData = new FormData()
             formData.append('multipartFile', params.file)
-            uploadProfilePicture(formData).then(response => {
-                if (response && response.status === 201) {
+            uploadProfilePicture(formData).then(result => {
+                if (result && result.code === 201) {
                     this.$message.success('上传成功！')
-                    this.user.profilePicture = response.data
+                    this.user.profilePicture = result.data
                     this.$refs.pictureUploader.clearValidate()
                     this.uploaded = true
                 }

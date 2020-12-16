@@ -1,6 +1,6 @@
 <template>
     <div class="publish-announcement">
-        <el-form :model="announcement" :rules="rules" :ref="announcement">
+        <el-form :model="announcement" :rules="rules" ref="announcement">
             <el-form-item prop="title">
                 <el-input type="text" v-model="announcement.title" placeholder="标题" maxlength="100" show-word-limit/>
             </el-form-item>
@@ -9,7 +9,7 @@
                           placeholder="摘要" minlength="10" maxlength="2000" show-word-limit/>
             </el-form-item>
             <el-form-item class="text-right">
-                <el-button size="small" @click="onCreateSubmit(announcement)" type="primary" :loading="loading">确认
+                <el-button size="small" @click="onCreateSubmit('announcement')" type="primary" :loading="loading">确认
                 </el-button>
             </el-form-item>
         </el-form>
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import {createAnnouncement} from "@/utils/api";
+import {createAnnouncement} from "/src/utils/api";
 
 export default {
     name: "PublishAnnouncement",
@@ -48,8 +48,8 @@ export default {
             this.$refs[announcement].validate((valid) => {
                 if (valid) {
                     this.loading = true
-                    createAnnouncement(announcement).then(response => {
-                        if (response.status === 201) {
+                    createAnnouncement(this.announcement).then(result => {
+                        if (result && result.code === 201) {
                             this.$refs[announcement].resetFields()
                             this.$message.success("发布成功！")
                         }

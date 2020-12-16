@@ -1,18 +1,16 @@
-import Vue from 'vue'
-import store from '@/store'
-import VueRouter from 'vue-router'
-import Admin from "@/layout/Admin";
-import Index from "@/views/Index";
-import Login from "@/views/Login";
-import ManageFile from "@/views/Document/ManageFile";
-import ViewSharedFile from "@/views/Document/ViewSharedFile";
-import ManageAnnouncement from "@/views/Information/ManageAnnouncement";
-import PublishAnnouncement from "@/views/Information/PublishAnnouncement";
-import ViewAttendanceRecord from "@/views/Personnel/ViewAttendanceRecord";
-import ManageUser from "@/views/Personnel/ManageUser";
-import CreateUser from "@/views/Personnel/CreateUser";
+import {createRouter, createWebHistory} from 'vue-router'
+import store from '/src/store'
 
-Vue.use(VueRouter)
+import Admin from "/src/layout/Admin.vue";
+import Index from "/src/views/Index.vue";
+import Login from "/src/views/Login.vue";
+import ManageFile from "/src/views/Document/ManageFile.vue";
+import ViewSharedFile from "/src/views/Document/ViewSharedFile.vue";
+import ManageAnnouncement from "/src/views/Information/ManageAnnouncement.vue";
+import PublishAnnouncement from "/src/views/Information/PublishAnnouncement.vue";
+import ViewAttendanceRecord from "/src/views/Personnel/ViewAttendanceRecord.vue";
+import ManageUser from "/src/views/Personnel/ManageUser.vue";
+import CreateUser from "/src/views/Personnel/CreateUser.vue";
 
 const routes = [
     {
@@ -68,8 +66,8 @@ const routes = [
     }
 ]
 
-const router = new VueRouter({
-    mode: 'history',
+const router = createRouter({
+    history: createWebHistory(),
     routes
 })
 
