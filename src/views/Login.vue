@@ -67,7 +67,7 @@ export default {
                     axios.post('/api/auth/oauth/token', params).then(response => {
                         const data = response.data
                         setToken(data.token_type + ' ' + data.access_token)
-                        getUser(data.user_id).then(result => {
+                        getUser().then(result => {
                             if (result && result.code === 200) {
                                 setAuth(result.data)
                                 this.$router.push({name: "Index"})
