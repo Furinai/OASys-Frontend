@@ -8,10 +8,10 @@
                 <el-input type="password" v-model="user.password" maxlength="20"/>
             </el-form-item>
             <el-form-item prop="name" label="姓名">
-                <el-input type="text" v-model="user.name" maxlength="10" show-word-limit/>
+                <el-input type="text" v-model="user.fullName" maxlength="10" show-word-limit/>
             </el-form-item>
-            <el-form-item prop="sex" label="性别">
-                <el-radio-group v-model="user.sex">
+            <el-form-item prop="gender" label="性别">
+                <el-radio-group v-model="user.gender">
                     <el-radio label="男"></el-radio>
                     <el-radio label="女"></el-radio>
                 </el-radio-group>
@@ -72,14 +72,14 @@ export default {
                         trigger: 'blur'
                     }
                 ],
-                name: [
+                fullName: [
                     {
                         required: true,
                         message: '请输入姓名',
                         trigger: 'blur'
                     }
                 ],
-                sex: [
+                gender: [
                     {
                         required: true,
                         message: '请选择性别',

@@ -9,10 +9,10 @@
                     <el-input type="password" v-model="user.password" maxlength="20"/>
                 </el-form-item>
                 <el-form-item label="姓名">
-                    <el-input type="text" v-model="user.name" maxlength="10" show-word-limit/>
+                    <el-input type="text" v-model="user.fullName" maxlength="10" show-word-limit/>
                 </el-form-item>
                 <el-form-item label="性别">
-                    <el-radio-group v-model="user.sex">
+                    <el-radio-group v-model="user.gender">
                         <el-radio label="男"></el-radio>
                         <el-radio label="女"></el-radio>
                     </el-radio-group>
@@ -67,8 +67,8 @@
                     </template>
                 </el-table-column>
                 <el-table-column prop="username" label="用户名" align="center"/>
-                <el-table-column prop="name" label="姓名" align="center"/>
-                <el-table-column prop="sex" label="性别" align="center" width="150"/>
+                <el-table-column prop="fullName" label="姓名" align="center"/>
+                <el-table-column prop="gender" label="性别" align="center" width="150"/>
                 <el-table-column prop="dept.name" label="部门" align="center" width="150"/>
                 <el-table-column label="操作" align="center" width="150px">
                     <template #default="scope">

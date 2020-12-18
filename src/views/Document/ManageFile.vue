@@ -38,7 +38,7 @@
             </el-table-column>
             <el-table-column prop="type" label="类型" align="center" width="100"/>
             <el-table-column prop="size" label="大小" align="center" width="100"/>
-            <el-table-column prop="userName" label="创建者" align="center" width="150"/>
+            <el-table-column prop="creator" label="创建者" align="center" width="150"/>
             <el-table-column prop="createTime" label="创建时间" align="center" width="200"/>
             <el-table-column prop="updateTime" label="修改时间" align="center" width="200"/>
             <el-table-column label="操作" align="center" width="100">
@@ -126,7 +126,7 @@ export default {
             let formData = new FormData()
             formData.append('multipartFile', params.file)
             formData.append('userId', this.auth.id)
-            formData.append('userName', this.auth.name)
+            formData.append('creator', this.auth.name)
             formData.append('parentId', this.paths[this.paths.length - 1].id)
             uploadFile(formData).then(result => {
                 if (result && result.code === 201) {
@@ -144,8 +144,8 @@ export default {
                 inputErrorMessage: '文件夹名应为1-20个字符'
             }).then(({value}) => {
                 let parentId = this.paths[this.paths.length - 1].id
-                let userId = this.auth.id, userName = this.auth.name
-                createFolder({name: value, userId, userName, parentId}).then(result => {
+                let userId = this.auth.id, creator = this.auth.name
+                createFolder({name: value, userId, creator, parentId}).then(result => {
                     if (result && result.code === 201) {
                         this.$message.success('创建文件夹成功！')
                         if (this.files.length === 10) {
