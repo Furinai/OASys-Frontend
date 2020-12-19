@@ -119,15 +119,15 @@ export default {
     methods: {
         getUsers(pageNumber) {
             getUsers({pageNumber}).then(result => {
-                if (result && result.code === 200) {
-                    this.users = result.data
-                    this.size = result.size
+                if (result.code === '0000') {
+                    this.users = result.data.list
+                    this.size = result.data.size
                 }
             })
         },
         getDepts() {
             getDepts().then(result => {
-                if (result && result.code === 200) {
+                if (result.code === '0000') {
                     this.depts = result.data
                 }
             })
@@ -135,7 +135,7 @@ export default {
         onUpdateSubmit() {
             this.loading = true
             updateUser(this.user).then(result => {
-                if (result && result.code === 200) {
+                if (result.code === '0000') {
                     this.$message.success("更新成功！")
                     this.editMode = false
                 }
@@ -145,7 +145,7 @@ export default {
             let formData = new FormData()
             formData.append('multipartFile', params.file)
             uploadProfilePicture(formData).then(result => {
-                if (result && result.code === 201) {
+                if (result.code === '0000') {
                     this.$message.success('上传成功！')
                     this.user.profilePicture = result.data
                 }
@@ -159,7 +159,7 @@ export default {
         deleteUser(row) {
             this.$confirm("确定删除？").then(() => {
                 deleteUser(row.id).then(result => {
-                    if (result && result.code === 200) {
+                    if (result.code === '0000') {
                         let index = this.users.indexOf(row)
                         this.users.splice(index, 1)
                         this.$message.success("删除成功！")

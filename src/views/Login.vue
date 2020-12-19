@@ -68,7 +68,7 @@ export default {
                         const data = response.data
                         setToken(data.token_type + ' ' + data.access_token)
                         getUser().then(result => {
-                            if (result && result.code === 200) {
+                            if (result.code === '0000') {
                                 setAuth(result.data)
                                 this.$router.push({name: "Index"})
                             }

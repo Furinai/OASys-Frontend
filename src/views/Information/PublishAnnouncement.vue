@@ -49,7 +49,7 @@ export default {
                 if (valid) {
                     this.loading = true
                     createAnnouncement(this.announcement).then(result => {
-                        if (result && result.code === 201) {
+                        if (result.code === '0000') {
                             this.$refs[announcement].resetFields()
                             this.$message.success("发布成功！")
                         }

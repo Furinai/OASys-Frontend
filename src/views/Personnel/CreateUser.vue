@@ -124,7 +124,7 @@ export default {
     methods: {
         getDepts() {
             getDepts().then(result => {
-                if (result && result.code === 200) {
+                if (result.code === '0000') {
                     this.depts = result.data
                 }
             })
@@ -134,7 +134,7 @@ export default {
                 if (valid) {
                     this.loading = true
                     createUser(this.user).then(result => {
-                        if (result.code === 201) {
+                        if (result.code === '0000') {
                             this.uploaded = false
                             this.$refs[user].resetFields()
                             this.$message.success("添加成功！")
@@ -147,7 +147,7 @@ export default {
             let formData = new FormData()
             formData.append('multipartFile', params.file)
             uploadProfilePicture(formData).then(result => {
-                if (result && result.code === 201) {
+                if (result.code === '0000') {
                     this.$message.success('上传成功！')
                     this.user.profilePicture = result.data
                     this.$refs.pictureUploader.clearValidate()

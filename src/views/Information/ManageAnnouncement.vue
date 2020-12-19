@@ -83,9 +83,9 @@ export default {
     methods: {
         getAnnouncements(pageNumber) {
             getAnnouncements({pageNumber}).then(result => {
-                if (result && result.code === 200) {
-                    this.announcements = result.data
-                    this.size = result.size
+                if (result.code === '0000') {
+                    this.announcements = result.data.list
+                    this.size = result.data.size
                 }
             })
         },
@@ -94,7 +94,7 @@ export default {
                 if (valid) {
                     this.loading = true
                     updateAnnouncement(this.announcement).then(result => {
-                        if (result && result.code === 200) {
+                        if (result.code === '0000') {
                             this.editMode = false
                             this.$message.success("更新成功！")
                         }
@@ -109,7 +109,7 @@ export default {
         deleteAnnouncement(row) {
             this.$confirm("确定删除？").then(() => {
                 deleteAnnouncement(row.id).then(result => {
-                    if (result && result.code === 200) {
+                    if (result.code === '0000') {
                         let index = this.announcements.indexOf(row)
                         this.announcements.splice(index, 1)
                         this.$message.success("删除成功！")

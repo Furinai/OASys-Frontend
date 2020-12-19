@@ -72,7 +72,7 @@ export default {
         getAttendances(currentMonth) {
             let year = currentMonth.getFullYear(), month = currentMonth.getMonth() + 1
             getAttendances({userId: this.auth.id, year, month}).then(result => {
-                if (result && result.code === 200) {
+                if (result.code === '0000') {
                     this.attendances = result.data
                 }
             })

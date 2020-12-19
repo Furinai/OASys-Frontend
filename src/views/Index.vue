@@ -65,15 +65,15 @@ export default {
     methods: {
         getAttendance() {
             getAttendance({userId: this.auth.id}).then(result => {
-                if (result && result.code === 200) {
+                if (result.code === '0000') {
                     this.attendance = result.data
                 }
             })
         },
         getAnnouncements() {
             getAnnouncements({pageSize: 5}).then(result => {
-                if (result && result.code === 200) {
-                    this.announcements = result.data
+                if (result.code === '0000') {
+                    this.announcements = result.data.list
                 }
             })
         },
@@ -83,7 +83,7 @@ export default {
         },
         clockIn() {
             clockIn({userId: this.auth.id}).then(result => {
-                if (result && result.code === 201) {
+                if (result.code === '0000') {
                     this.attendance = result.data
                     this.$message.success(result.message)
                 }
@@ -91,7 +91,7 @@ export default {
         },
         clockOut() {
             clockOut(this.attendance).then(result => {
-                if (result && result.code === 200) {
+                if (result.code === '0000') {
                     this.attendance = result.data
                     this.$message.success(result.message)
                 }

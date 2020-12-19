@@ -71,9 +71,9 @@ export default {
     methods: {
         getFiles(parentId, pageNumber) {
             getFiles({parentId, pageNumber, shared: true}).then(result => {
-                if (result && result.code === 200) {
-                    this.files = result.data
-                    this.size = result.size
+                if (result.code === '0000') {
+                    this.files = result.data.list
+                    this.size = result.data.size
                 }
             })
         },

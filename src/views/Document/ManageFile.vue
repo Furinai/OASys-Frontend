@@ -98,9 +98,9 @@ export default {
     methods: {
         getFiles(parentId, pageNumber) {
             getFiles({parentId, pageNumber, userId: this.auth.id}).then(result => {
-                if (result && result.code === 200) {
-                    this.files = result.data
-                    this.size = result.size
+                if (result.code === '0000') {
+                    this.files = result.data.list
+                    this.size = result.data.size
                 }
             })
         },
@@ -129,7 +129,7 @@ export default {
             formData.append('creator', this.auth.name)
             formData.append('parentId', this.paths[this.paths.length - 1].id)
             uploadFile(formData).then(result => {
-                if (result && result.code === 201) {
+                if (result.code === '0000') {
                     this.$message.success('上传成功！')
                     if (this.files.length === 10) {
                         this.files.splice(this.files.length - 1, 1)
@@ -146,7 +146,7 @@ export default {
                 let parentId = this.paths[this.paths.length - 1].id
                 let userId = this.auth.id, creator = this.auth.name
                 createFolder({name: value, userId, creator, parentId}).then(result => {
-                    if (result && result.code === 201) {
+                    if (result.code === '0000') {
                         this.$message.success('创建文件夹成功！')
                         if (this.files.length === 10) {
                             this.files.splice(this.files.length - 1, 1)
@@ -184,7 +184,7 @@ export default {
                 inputErrorMessage: '文件名应为1-20个字符'
             }).then(({value}) => {
                 updateFile({id: row.id, name: value}).then(result => {
-                    if (result && result.code === 200) {
+                    if (result.code === '0000') {
                         row.name = value
                         this.$message.success('重命名成功！')
                     }
@@ -196,7 +196,7 @@ export default {
         remove(row) {
             this.$confirm('确定删除“ ' + row.name + ' ”？', '删除').then(() => {
                 deleteFile(row.id).then(result => {
-                    if (result && result.code === 200) {
+                    if (result.code === '0000') {
                         let index = this.files.indexOf(row)
                         this.files.splice(index, 1)
                         this.$message.success('删除成功！')
@@ -209,7 +209,7 @@ export default {
         share(row) {
             this.$confirm('确定分享“ ' + row.name + ' ”？', '分享').then(() => {
                 updateFile({id: row.id, shared: true}).then(result => {
-                    if (result && result.code === 200) {
+                    if (result.code === '0000') {
                         row.shared = true
                         this.$message.success('分享成功！')
                     }
@@ -221,7 +221,7 @@ export default {
         stopShare(row) {
             this.$confirm('确定停止分享“ ' + row.name + ' ”？', '停止分享').then(() => {
                 updateFile({id: row.id, shared: false}).then(result => {
-                    if (result && result.code === 200) {
+                    if (result.code === '0000') {
                         row.shared = false
                         this.$message.success('停止分享成功！')
                     }
