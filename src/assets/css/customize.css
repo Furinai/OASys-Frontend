@@ -155,15 +155,15 @@ pre {
     display: flex;
 }
 
-.success {
+.el-icon-success {
     color: #67C23A;
 }
 
-.warning {
+.el-icon-warning {
     color: #E6A23C;
 }
 
-.danger {
+.el-icon-error {
     color: #F56C6C;
 }
 

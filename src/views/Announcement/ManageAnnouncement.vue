@@ -7,10 +7,11 @@
                 </el-form-item>
                 <el-form-item prop="content">
                     <el-input type="textarea" v-model="announcement.content" :autosize="{minRows: 6}"
-                              placeholder="摘要" minlength="10" maxlength="2000" show-word-limit/>
+                              placeholder="内容" minlength="10" maxlength="2000" show-word-limit/>
                 </el-form-item>
                 <el-form-item class="text-right">
-                    <el-button size="small" @click="onEditSubmit('announcement')" type="primary" :loading="loading">确认
+                    <el-button size="small" @click="onEditSubmit('announcement')" type="primary" :loading="loading">
+                        确认
                     </el-button>
                     <el-button size="small" @click="editMode = false">取消</el-button>
                 </el-form-item>

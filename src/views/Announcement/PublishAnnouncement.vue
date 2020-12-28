@@ -6,7 +6,7 @@
             </el-form-item>
             <el-form-item prop="content">
                 <el-input type="textarea" v-model="announcement.content" :autosize="{minRows: 6}"
-                          placeholder="摘要" minlength="10" maxlength="2000" show-word-limit/>
+                          placeholder="内容" minlength="10" maxlength="2000" show-word-limit/>
             </el-form-item>
             <el-form-item class="text-right">
                 <el-button size="small" @click="onCreateSubmit('announcement')" type="primary" :loading="loading">确认

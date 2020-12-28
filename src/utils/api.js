@@ -1,55 +1,8 @@
 import request from "/src/utils/request";
 
-export function getUser(params) {
-    return request({
-        url: '/auth/user/' + params,
-        method: 'get'
-    })
-}
-
-export function getAttendance(params) {
-    return request({
-        url: '/pers/attendance',
-        method: 'get',
-        params
-    })
-}
-
-export function getAttendances(params) {
-    return request({
-        url: '/pers/attendances',
-        method: 'get',
-        params
-    })
-}
-
-export function clockIn(data) {
-    return request({
-        url: '/pers/attendance',
-        method: 'post',
-        data
-    })
-}
-
-export function clockOut(data) {
-    return request({
-        url: '/pers/attendance',
-        method: 'put',
-        data
-    })
-}
-
-export function deleteDossiers(params) {
-    return request({
-        url: '/pers/dossiers',
-        method: 'get',
-        params
-    })
-}
-
 export function getAnnouncements(params) {
     return request({
-        url: '/info/announcements',
+        url: '/announcements',
         method: 'get',
         params
     })
@@ -57,7 +10,7 @@ export function getAnnouncements(params) {
 
 export function createAnnouncement(data) {
     return request({
-        url: '/info/announcement',
+        url: '/announcements',
         method: 'post',
         data
     })
@@ -65,7 +18,7 @@ export function createAnnouncement(data) {
 
 export function updateAnnouncement(data) {
     return request({
-        url: '/info/announcement',
+        url: '/announcements',
         method: 'put',
         data
     })
@@ -73,14 +26,38 @@ export function updateAnnouncement(data) {
 
 export function deleteAnnouncement(params) {
     return request({
-        url: '/info/announcement/' + params,
+        url: '/announcements/' + params,
         method: 'delete'
+    })
+}
+
+export function getAttendances(params) {
+    return request({
+        url: '/attendances',
+        method: 'get',
+        params
+    })
+}
+
+export function clockIn(data) {
+    return request({
+        url: '/attendances',
+        method: 'post',
+        data
+    })
+}
+
+export function clockOut(data) {
+    return request({
+        url: '/attendances',
+        method: 'put',
+        data
     })
 }
 
 export function getFiles(params) {
     return request({
-        url: '/doc/files',
+        url: '/files',
         method: 'get',
         params
     })
@@ -88,7 +65,7 @@ export function getFiles(params) {
 
 export function uploadFile(data) {
     return request({
-        url: '/doc/file',
+        url: '/files',
         method: 'post',
         headers: {
             'Content-Type': 'multipart/form-data'
@@ -99,7 +76,7 @@ export function uploadFile(data) {
 
 export function downloadFile(params) {
     return request({
-        url: '/doc/file/' + params,
+        url: '/files/' + params,
         method: 'get',
         responseType: 'blob'
     })
@@ -107,7 +84,7 @@ export function downloadFile(params) {
 
 export function updateFile(data) {
     return request({
-        url: '/doc/file',
+        url: '/files',
         method: 'put',
         data
     })
@@ -115,7 +92,7 @@ export function updateFile(data) {
 
 export function createFolder(data) {
     return request({
-        url: '/doc/folder',
+        url: '/files',
         method: 'post',
         data
     })
@@ -123,14 +100,21 @@ export function createFolder(data) {
 
 export function deleteFile(params) {
     return request({
-        url: '/doc/file/' + params,
+        url: '/files/' + params,
         method: 'delete',
+    })
+}
+
+export function getUser(params) {
+    return request({
+        url: '/users/' + params,
+        method: 'get'
     })
 }
 
 export function getUsers(params) {
     return request({
-        url: '/pers/users',
+        url: '/users',
         method: 'get',
         params
     })
@@ -138,7 +122,7 @@ export function getUsers(params) {
 
 export function createUser(data) {
     return request({
-        url: '/pers/user',
+        url: '/users',
         method: 'post',
         data
     })
@@ -146,7 +130,7 @@ export function createUser(data) {
 
 export function updateUser(data) {
     return request({
-        url: '/pers/user',
+        url: '/users',
         method: 'put',
         data
     })
@@ -154,21 +138,21 @@ export function updateUser(data) {
 
 export function deleteUser(params) {
     return request({
-        url: '/pers/user/' + params,
+        url: '/users/' + params,
         method: 'delete'
     })
 }
 
 export function getDepts() {
     return request({
-        url: '/pers/depts',
+        url: '/depts',
         method: 'get'
     })
 }
 
 export function uploadProfilePicture(data) {
     return request({
-        url: '/doc/profile-picture',
+        url: '/profile-pictures',
         method: 'post',
         headers: {
             'Content-Type': 'multipart/form-data'

@@ -12,28 +12,28 @@
                             签退时间：{{ data.attendance.clockOutTime }}
                         </div>
                         <template #reference>
-                            <span class="warning" v-if="!data.attendance.clockOutTime||data.attendance.clockDescription">
-                                <i class="el-icon-warning">
-                                    {{ data.attendance.clockDescription }}
+                            <i class="el-icon-warning" v-if="!data.attendance.clockOutTime
+                            ||data.attendance.comeLateMinutes||data.attendance.leaveEarlyMinutes">
                                     <span v-if="!data.attendance.clockOutTime">
                                         未签退
                                     </span>
-                                </i>
-                            </span>
-                            <span class="success" v-else>
-                                <i class="el-icon-success">
-                                    正常
-                                </i>
-                            </span>
+                                <span v-if="data.attendance.comeLateMinutes">
+                                        迟到
+                                    </span>
+                                <span v-if="data.attendance.leaveEarlyMinutes">
+                                        早退
+                                    </span>
+                            </i>
+                            <i class="el-icon-success" v-else>
+                                正常
+                            </i>
                         </template>
                     </el-popover>
                 </template>
                 <template v-else>
-                    <span class="danger">
-                        <i class='el-icon-error'>
-                            缺勤
-                        </i>
-                    </span>
+                    <i class='el-icon-error'>
+                        缺勤
+                    </i>
                 </template>
             </div>
         </template>

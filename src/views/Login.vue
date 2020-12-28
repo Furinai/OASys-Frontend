@@ -58,16 +58,15 @@ export default {
             this.$refs[user].validate((valid) => {
                 if (valid) {
                     this.loading = true
-                    const params = new URLSearchParams()
-                    params.append('client_id', 'linter')
-                    params.append('client_secret', 'linter')
+                    let auth = {username: 'linter', password: 'linter'}
+                    let params = new URLSearchParams()
                     params.append('grant_type', 'password')
                     params.append('username', this.user.username)
                     params.append('password', this.user.password)
-                    axios.post('/api/auth/oauth/token', params).then(response => {
-                        const data = response.data
+                    axios.post('/api/oauth/token', params, {auth}).then(response => {
+                        let data = response.data
                         setToken(data.token_type + ' ' + data.access_token)
-                        getUser().then(result => {
+                        getUser(this.user.username).then(result => {
                             if (result.code === '0000') {
                                 setAuth(result.data)
                                 this.$router.push({name: "Index"})

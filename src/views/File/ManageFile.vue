@@ -1,78 +1,76 @@
 <template>
-    <div class="files">
-        <el-card shadow="never" :body-style="{padding:'15px'}" class="breadcrumb">
-            <div class="flex-between">
-                <div class="flex-start">
-                    <div class="breadcrumb-icon">
-                        <i class="el-icon-back text-icon" @click="returnParentFolder"></i>
-                    </div>
-                    <el-breadcrumb separator="/">
-                        <el-breadcrumb-item v-for="(path, index) in paths">
+    <el-card shadow="never" :body-style="{padding:'15px'}" class="breadcrumb">
+        <div class="flex-between">
+            <div class="flex-start">
+                <div class="breadcrumb-icon">
+                    <i class="el-icon-back text-icon" @click="returnParentFolder"></i>
+                </div>
+                <el-breadcrumb separator="/">
+                    <el-breadcrumb-item v-for="(path, index) in paths">
                             <span @click="jumpToFolder(index)">
                                 {{ path.name }}
                             </span>
-                        </el-breadcrumb-item>
-                    </el-breadcrumb>
-                </div>
-                <div class="flex-end breadcrumb-icon">
-                    <el-popover placement="left" trigger="hover">
-                        <el-upload action="" :http-request="upload">
-                            <i class="el-icon-folder-opened"></i>
-                            选择并上传文件
-                        </el-upload>
-                        <template #reference>
-                            <i class="el-icon-upload text-icon"></i>
-                        </template>
-                    </el-popover>
-                    <i class="el-icon-folder-add" @click="createFolder"></i>
-                </div>
+                    </el-breadcrumb-item>
+                </el-breadcrumb>
             </div>
-        </el-card>
-        <el-table :data="files" @row-click="enterFolder" style="width: 100%" empty-text="空文件夹" border>
-            <el-table-column label="名称">
-                <template #default="scope">
-                    <i v-if="scope.row.type === '文件夹'" class="el-icon-folder folder-icon"></i>
-                    <i v-else class="el-icon-document file-icon"></i>
-                    {{ scope.row.name }}
-                </template>
-            </el-table-column>
-            <el-table-column prop="type" label="类型" align="center" width="100"/>
-            <el-table-column prop="size" label="大小" align="center" width="100"/>
-            <el-table-column prop="creator" label="创建者" align="center" width="150"/>
-            <el-table-column prop="createTime" label="创建时间" align="center" width="200"/>
-            <el-table-column prop="updateTime" label="修改时间" align="center" width="200"/>
-            <el-table-column label="操作" align="center" width="100">
-                <template #default="scope">
-                    <el-dropdown @command="handleCommand($event, scope.row)">
-                        <i class="el-icon-s-operation"></i>
-                        <template #dropdown>
-                            <el-dropdown-menu>
-                                <el-dropdown-item icon="el-icon-edit" command="rename">
-                                    重命名
-                                </el-dropdown-item>
-                                <el-dropdown-item icon="el-icon-delete" command="remove">
-                                    删除
-                                </el-dropdown-item>
-                                <el-dropdown-item icon="el-icon-download" :disabled="scope.row.type === '文件夹'" command="download">
-                                    下载
-                                </el-dropdown-item>
-                                <el-dropdown-item icon="el-icon-share" v-if="scope.row.shared" command="stopShare">
-                                    停止分享
-                                </el-dropdown-item>
-                                <el-dropdown-item icon="el-icon-share" v-else command="share">
-                                    分享
-                                </el-dropdown-item>
-                            </el-dropdown-menu>
-                        </template>
-                    </el-dropdown>
-                </template>
-            </el-table-column>
-        </el-table>
-        <div class="pagination">
-            <el-pagination background layout="prev, pager, next" :pager-count="5" :total="size"
-                           :hide-on-single-page="true" @current-change="handlePageChange">
-            </el-pagination>
+            <div class="flex-end breadcrumb-icon">
+                <el-popover placement="left" trigger="hover">
+                    <el-upload action="" :http-request="upload">
+                        <i class="el-icon-folder-opened"></i>
+                        选择并上传文件
+                    </el-upload>
+                    <template #reference>
+                        <i class="el-icon-upload text-icon"></i>
+                    </template>
+                </el-popover>
+                <i class="el-icon-folder-add" @click="createFolder"></i>
+            </div>
         </div>
+    </el-card>
+    <el-table :data="files" @row-click="enterFolder" style="width: 100%" empty-text="空文件夹" border>
+        <el-table-column label="名称">
+            <template #default="scope">
+                <i v-if="scope.row.type === '文件夹'" class="el-icon-folder folder-icon"></i>
+                <i v-else class="el-icon-document file-icon"></i>
+                {{ scope.row.name }}
+            </template>
+        </el-table-column>
+        <el-table-column prop="type" label="类型" align="center" width="100"/>
+        <el-table-column prop="size" label="大小" align="center" width="100"/>
+        <el-table-column prop="creator" label="创建者" align="center" width="150"/>
+        <el-table-column prop="createTime" label="创建时间" align="center" width="200"/>
+        <el-table-column prop="updateTime" label="修改时间" align="center" width="200"/>
+        <el-table-column label="操作" align="center" width="100">
+            <template #default="scope">
+                <el-dropdown @command="handleCommand($event, scope.row)">
+                    <i class="el-icon-s-operation"></i>
+                    <template #dropdown>
+                        <el-dropdown-menu>
+                            <el-dropdown-item icon="el-icon-edit" command="rename">
+                                重命名
+                            </el-dropdown-item>
+                            <el-dropdown-item icon="el-icon-delete" command="remove">
+                                删除
+                            </el-dropdown-item>
+                            <el-dropdown-item icon="el-icon-download" :disabled="scope.row.type === '文件夹'" command="download">
+                                下载
+                            </el-dropdown-item>
+                            <el-dropdown-item icon="el-icon-share" v-if="scope.row.shared" command="stopShare">
+                                停止分享
+                            </el-dropdown-item>
+                            <el-dropdown-item icon="el-icon-share" v-else command="share">
+                                分享
+                            </el-dropdown-item>
+                        </el-dropdown-menu>
+                    </template>
+                </el-dropdown>
+            </template>
+        </el-table-column>
+    </el-table>
+    <div class="pagination">
+        <el-pagination background layout="prev, pager, next" :pager-count="5" :total="size"
+                       :hide-on-single-page="true" @current-change="handlePageChange">
+        </el-pagination>
     </div>
 </template>
 

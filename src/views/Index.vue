@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import {clockIn, clockOut, getAnnouncements, getAttendance} from "/src/utils/api";
+import {clockIn, clockOut, getAnnouncements, getAttendances} from "/src/utils/api";
 import {mapState} from "vuex";
 
 export default {
@@ -56,17 +56,19 @@ export default {
         }
     },
     created() {
-        this.getAttendance()
+        this.getAttendances()
         this.getAnnouncements()
     },
     computed: mapState([
         "auth"
     ]),
     methods: {
-        getAttendance() {
-            getAttendance({userId: this.auth.id}).then(result => {
+        getAttendances() {
+            let date = new Date();
+            let year = date.getFullYear(), month = date.getMonth() + 1, day = date.getDate()
+            getAttendances({userId: this.auth.id, year, month, day}).then(result => {
                 if (result.code === '0000') {
-                    this.attendance = result.data
+                    this.attendance = result.data[0]
                 }
             })
         },
@@ -85,15 +87,25 @@ export default {
             clockIn({userId: this.auth.id}).then(result => {
                 if (result.code === '0000') {
                     this.attendance = result.data
-                    this.$message.success(result.message)
+                    let minutes = this.attendance.comeLateMinutes
+                    if (minutes) {
+                        this.$message.success('签到成功，迟到' + minutes + '分钟')
+                    } else {
+                        this.$message.success('签到成功')
+                    }
                 }
             })
         },
         clockOut() {
-            clockOut(this.attendance).then(result => {
+            clockOut({id: this.attendance.id}).then(result => {
                 if (result.code === '0000') {
                     this.attendance = result.data
-                    this.$message.success(result.message)
+                    let minutes = this.attendance.leaveEarlyMinutes
+                    if (minutes) {
+                        this.$message.success('签退成功，早退' + minutes + '分钟')
+                    } else {
+                        this.$message.success('签退成功')
+                    }
                 }
             })
         }
