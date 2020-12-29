@@ -124,7 +124,7 @@ export default {
             let formData = new FormData()
             formData.append('multipartFile', params.file)
             formData.append('userId', this.auth.id)
-            formData.append('creator', this.auth.name)
+            formData.append('creator', this.auth.fullName)
             formData.append('parentId', this.paths[this.paths.length - 1].id)
             uploadFile(formData).then(result => {
                 if (result.code === '0000') {
