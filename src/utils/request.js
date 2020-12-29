@@ -22,7 +22,8 @@ request.interceptors.request.use(
 
 request.interceptors.response.use(
     response => {
-        if (response.data.code !== '0000') {
+        let code = response.data.code
+        if (code && code !== '0000') {
             ElMessage.error(response.data.message)
         }
         return response.data
