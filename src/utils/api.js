@@ -39,19 +39,19 @@ export function getAttendances(params) {
     })
 }
 
-export function clockIn(data) {
+export function clockIn(params) {
     return request({
         url: '/attendances',
         method: 'post',
-        data
+        params
     })
 }
 
-export function clockOut(data) {
+export function clockOut(params) {
     return request({
         url: '/attendances',
         method: 'put',
-        data
+        params
     })
 }
 

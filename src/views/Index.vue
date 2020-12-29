@@ -84,7 +84,7 @@ export default {
             this.dialogValue = announcement
         },
         clockIn() {
-            clockIn({userId: this.auth.id}).then(result => {
+            clockIn(this.auth.id).then(result => {
                 if (result.code === '0000') {
                     this.attendance = result.data
                     let minutes = this.attendance.comeLateMinutes
@@ -97,7 +97,7 @@ export default {
             })
         },
         clockOut() {
-            clockOut({id: this.attendance.id}).then(result => {
+            clockOut(this.attendance.id).then(result => {
                 if (result.code === '0000') {
                     this.attendance = result.data
                     let minutes = this.attendance.leaveEarlyMinutes
