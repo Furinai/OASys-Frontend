@@ -62,18 +62,12 @@ export default {
             loading: false,
             rules: {
                 title: [
-                    {
-                        required: true,
-                        message: '请输入标题',
-                        trigger: 'blur'
-                    }
+                    {required: true, message: '请输入标题', trigger: 'blur'},
+                    {min: 5, max: 50, message: '长度在 5 到 50 个字符', trigger: 'blur'}
                 ],
                 content: [
-                    {
-                        required: true,
-                        message: '请输入内容',
-                        trigger: 'blur'
-                    }
+                    {required: true, message: '请输入内容', trigger: 'blur'},
+                    {min: 5, max: 2000, message: '长度在 5 到 2000 个字符', trigger: 'blur'}
                 ]
             }
         }

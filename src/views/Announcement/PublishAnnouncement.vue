@@ -2,11 +2,11 @@
     <div class="publish-announcement">
         <el-form :model="announcement" :rules="rules" ref="announcement">
             <el-form-item prop="title">
-                <el-input type="text" v-model="announcement.title" placeholder="标题" maxlength="100" show-word-limit/>
+                <el-input type="text" v-model="announcement.title" placeholder="标题" maxlength="50" show-word-limit/>
             </el-form-item>
             <el-form-item prop="content">
                 <el-input type="textarea" v-model="announcement.content" :autosize="{minRows: 6}"
-                          placeholder="内容" minlength="10" maxlength="2000" show-word-limit/>
+                          placeholder="内容" maxlength="2000" show-word-limit/>
             </el-form-item>
             <el-form-item class="text-right">
                 <el-button size="small" @click="onCreateSubmit('announcement')" type="primary" :loading="loading">确认
@@ -27,18 +27,12 @@ export default {
             loading: false,
             rules: {
                 title: [
-                    {
-                        required: true,
-                        message: '请输入标题',
-                        trigger: 'blur'
-                    }
+                    {required: true, message: '请输入标题', trigger: 'blur'},
+                    {min: 5, max: 50, message: '长度在 5 到 50 个字符', trigger: 'blur'}
                 ],
                 content: [
-                    {
-                        required: true,
-                        message: '请输入内容',
-                        trigger: 'blur'
-                    }
+                    {required: true, message: '请输入内容', trigger: 'blur'},
+                    {min: 5, max: 2000, message: '长度在 5 到 2000 个字符', trigger: 'blur'}
                 ]
             }
         }
