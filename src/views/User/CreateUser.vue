@@ -6,7 +6,7 @@
         <el-form-item prop="password" label="密码">
             <el-input type="password" v-model="user.password" maxlength="20"/>
         </el-form-item>
-        <el-form-item prop="name" label="姓名">
+        <el-form-item prop="fullName" label="姓名">
             <el-input type="text" v-model="user.fullName" maxlength="10" show-word-limit/>
         </el-form-item>
         <el-form-item prop="gender" label="性别">
@@ -46,72 +46,37 @@ export default {
     name: "CreateUser",
     data() {
         return {
-            user: {
-                dept: {}
-            },
-            depts: [{
-                id: 0,
-                name: ''
-            }],
+            user: {dept: {}},
+            depts: [],
             loading: false,
             uploaded: false,
             rules: {
                 username: [
-                    {
-                        required: true,
-                        message: '请输入用户名',
-                        trigger: 'blur'
-                    }
+                    {required: true, message: '请输入用户名', trigger: 'blur'},
+                    {min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur'}
                 ],
                 password: [
-                    {
-                        required: true,
-                        message: '请输入密码',
-                        trigger: 'blur'
-                    }
+                    {required: true, message: '请输入密码', trigger: 'blur'},
+                    {min: 6, max: 20, message: '长度在 6 到 20 个字符', trigger: 'blur'}
                 ],
                 fullName: [
-                    {
-                        required: true,
-                        message: '请输入姓名',
-                        trigger: 'blur'
-                    }
+                    {required: true, message: '请输入姓名', trigger: 'blur'},
+                    {min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'blur'}
                 ],
-                gender: [
-                    {
-                        required: true,
-                        message: '请选择性别',
-                        trigger: 'change'
-                    }
+                gender: [{required: true, message: '请选择性别', trigger: 'change'}
                 ],
                 'dept.id': [
-                    {
-                        required: true,
-                        message: '请选择部门',
-                        trigger: 'change'
-                    }
+                    {required: true, message: '请选择部门', trigger: 'change'}
                 ],
                 profilePicture: [
-                    {
-                        required: true,
-                        message: '请上传头像',
-                        trigger: 'change'
-                    }
+                    {required: true, message: '请上传头像', trigger: 'change'}
                 ],
                 emailAddress: [
-                    {
-                        required: true,
-                        message: '请输入正确的邮箱地址',
-                        trigger: 'blur',
-                        type: 'email'
-                    }
+                    {required: true, message: '请输入正确的邮箱地址', trigger: 'blur', type: 'email'}
                 ],
                 phoneNumber: [
-                    {
-                        required: true,
-                        message: '请输入电话号码',
-                        trigger: 'blur'
-                    }
+                    {required: true, message: '请输入正确手机号码', trigger: 'blur'},
+                    {pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号码', trigger: 'blur'}
                 ]
             }
         }
