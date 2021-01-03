@@ -154,7 +154,7 @@ export default {
                 }
             })
         },
-        onUpdateSubmit() {
+        onUpdateSubmit(user) {
             this.$refs[user].validate((valid) => {
                 if (valid) {
                     this.loading = true
