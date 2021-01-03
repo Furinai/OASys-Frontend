@@ -52,7 +52,7 @@ export default {
     methods: {
         initWebSocket() {
             const token = getToken().substr(7)
-            this.webSocket = new WebSocket('ws://localhost:8450/chat?token=' + token)
+            this.webSocket = new WebSocket('ws://localhost:8080/api/chat?token=' + token)
             this.webSocket.onmessage = this.onMessage
         },
         onMessage(event) {
