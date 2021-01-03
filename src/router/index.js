@@ -9,6 +9,7 @@ import ViewSharedFile from "/src/views/File/ViewSharedFile.vue";
 import ManageAnnouncement from "/src/views/Announcement/ManageAnnouncement.vue";
 import PublishAnnouncement from "/src/views/Announcement/PublishAnnouncement.vue";
 import ViewAttendanceRecord from "/src/views/Attendance/ViewAttendanceRecord.vue";
+import PublicChat from "/src/views/Chat/PublicChat.vue";
 import ManageUser from "/src/views/User/ManageUser.vue";
 import CreateUser from "/src/views/User/CreateUser.vue";
 
@@ -46,6 +47,11 @@ const routes = [
                 path: "/view-shared-file",
                 name: "ViewSharedFile",
                 component: ViewSharedFile
+            },
+            {
+                path: "/public-chat",
+                name: "PublicChat",
+                component: PublicChat
             },
             {
                 path: "/manage-user",
