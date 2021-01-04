@@ -60,7 +60,7 @@ export default {
         },
         sendMessage() {
             this.webSocket.send(this.content)
-            this.content = null
+            this.content = ''
         }
     }
 }
