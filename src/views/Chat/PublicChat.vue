@@ -5,7 +5,7 @@
                 <div class="message" :class="{'mine': message.username === auth.username}">
                     <div class="user">
                         <el-avatar :src="message.profilePicture"/>
-                        <div class="name">{{ message.username }}</div>
+                        <div class="name">{{ message.fullName }}</div>
                     </div>
                     <div class="content"> {{ message.content }}</div>
                 </div>
