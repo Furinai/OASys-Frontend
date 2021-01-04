@@ -62,6 +62,9 @@ export default {
             this.webSocket.send(this.content)
             this.content = ''
         }
+    },
+    unmounted() {
+        this.webSocket.close();
     }
 }
 </script>
