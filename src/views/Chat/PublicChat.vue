@@ -1,8 +1,11 @@
 <template>
     <el-scrollbar class="frame" ref="elscrollbar">
         <ul>
-            <li v-for="message in messages">
-                <div class="message" :class="{'mine': message.username === auth.username}">
+            <li class="message-list" v-for="message in messages">
+                <div v-if="message.type === 'SYSTEM'" class="system-message">
+                    {{ message.content }}
+                </div>
+                <div v-else class="public-message" :class="{'mine': message.username === auth.username}">
                     <div class="user">
                         <el-avatar :src="message.profilePicture"/>
                         <div class="name">{{ message.fullName }}</div>
@@ -78,7 +81,21 @@ export default {
     height: 80vh;
 }
 
-.message {
+.message-list {
+    text-align: center;
+}
+
+.system-message {
+    color: #888;
+    width: auto;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+    background-color: #f4f4f5;
+}
+
+.public-message {
     position: relative;
     margin-bottom: 10px;
     padding-left: 60px;
