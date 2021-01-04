@@ -13,7 +13,7 @@
         </ul>
     </el-scrollbar>
     <div class="flex-between">
-        <el-input v-model.trim="content"></el-input>
+        <el-input v-model.trim="content" @keyup.enter="sendMessage"></el-input>
         <el-button class="send-button" type="primary" :disabled="content===''" @click="sendMessage">
             发送
         </el-button>
