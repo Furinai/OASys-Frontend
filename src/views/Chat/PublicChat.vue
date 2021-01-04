@@ -54,9 +54,13 @@ export default {
             const token = getToken().substr(7)
             this.webSocket = new WebSocket('ws://localhost:8080/api/chat?token=' + token)
             this.webSocket.onmessage = this.onMessage
+            this.webSocket.onerror = this.onError
         },
         onMessage(event) {
             this.messages.push(JSON.parse(event.data))
+        },
+        onError() {
+            this.$message.error("WebSocket连接失败")
         },
         sendMessage() {
             this.webSocket.send(this.content)
