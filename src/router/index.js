@@ -10,6 +10,7 @@ import ManageAnnouncement from "/src/views/Announcement/ManageAnnouncement.vue";
 import PublishAnnouncement from "/src/views/Announcement/PublishAnnouncement.vue";
 import ViewAttendanceRecord from "/src/views/Attendance/ViewAttendanceRecord.vue";
 import PublicChat from "/src/views/Chat/PublicChat.vue";
+import ViewChatRecord from "/src/views/Chat/ViewChatRecord.vue";
 import ManageUser from "/src/views/User/ManageUser.vue";
 import CreateUser from "/src/views/User/CreateUser.vue";
 
@@ -52,6 +53,11 @@ const routes = [
                 path: "/public-chat",
                 name: "PublicChat",
                 component: PublicChat
+            },
+            {
+                path: "/view-chat-record",
+                name: "ViewChatRecord",
+                component: ViewChatRecord
             },
             {
                 path: "/manage-user",

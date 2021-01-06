@@ -28,6 +28,7 @@
                         <span>聊天</span>
                     </template>
                     <el-menu-item index="4-1" :route="{name: 'PublicChat'}">公共聊天</el-menu-item>
+                    <el-menu-item index="4-2" :route="{name: 'ViewChatRecord'}">聊天记录</el-menu-item>
                 </el-submenu>
                 <el-submenu index="5">
                     <template #title>

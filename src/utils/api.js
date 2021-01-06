@@ -160,3 +160,11 @@ export function uploadProfilePicture(data) {
         data
     })
 }
+
+export function getMessages(params) {
+    return request({
+        url: '/messages',
+        method: 'get',
+        params
+    })
+}
