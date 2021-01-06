@@ -61,29 +61,6 @@ pre {
     height: 100%;
 }
 
-.header {
-    display: flex;
-    margin: auto;
-}
-
-.aside {
-    height: 100%;
-}
-
-.media {
-    display: flex;
-}
-
-.media-body {
-    flex: 1;
-    margin-left: 20px;
-}
-
-.pagination {
-    margin-top: 15px;
-    text-align: center;
-}
-
 .el-breadcrumb {
     font-size: 16px;
 }
@@ -98,10 +75,6 @@ pre {
 
 .el-tooltip__popper {
     max-width: 80%;
-}
-
-.chat .el-scrollbar__wrap {
-    overflow-x: hidden;
 }
 
 .flex-between {
@@ -146,15 +119,6 @@ pre {
     text-align: center;
 }
 
-.nav {
-    margin-left: 10px;
-}
-
-.nav-list {
-    margin-left: auto;
-    display: flex;
-}
-
 .el-icon-success {
     color: #67C23A;
 }
@@ -164,61 +128,7 @@ pre {
 }
 
 .el-icon-error {
-    color: #F56C6C;
-}
-
-.login {
-    height: 100%;
-    position: relative;
-    background-size: cover;
-    background-image: url(../../assets/img/Deer.jpg);
-}
-
-.login-body {
-    top: 50%;
-    margin: auto;
-    position: relative;
-    max-width: 360px;
-    transform: translateY(-50%);
-}
-
-.clock-time {
-    margin: 10px 10px;
-}
-
-.clock-description {
-    font-size: 14px;
-    margin-top: 20px;
-}
-
-.breadcrumb {
-    margin-bottom: 20px;
-}
-
-.breadcrumb-icon {
-    font-size: 22px;
-    margin: -4px 0 -10px;
-}
-
-.folder-icon {
-    font-size: 16px;
-    color: #E6A23C;
-    margin-right: 5px;
-}
-
-.file-icon {
-    font-size: 16px;
-    color: #409EFF;
-    margin-right: 5px;
-}
-
-.table-expand {
-    font-size: 0;
-}
-
-.table-expand label {
-    width: 90px;
-    color: #99a9bf;
+    color: #f56c6c;
 }
 
 .table-expand .el-form-item {
@@ -227,10 +137,8 @@ pre {
     width: 50%;
 }
 
-.avatar {
-    width: 215px;
-    height: 215px;
-    display: block;
+.is-error .el-upload {
+    border: 1px dashed #F56C6C;
 }
 
 .avatar-uploader .el-upload {
@@ -239,10 +147,6 @@ pre {
     cursor: pointer;
     position: relative;
     overflow: hidden;
-}
-
-.is-error .el-upload {
-    border: 1px dashed #F56C6C;
 }
 
 .avatar-uploader-icon {

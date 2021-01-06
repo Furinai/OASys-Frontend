@@ -77,3 +77,20 @@ export default {
     }
 }
 </script>
+
+<style>
+.login {
+    height: 100%;
+    position: relative;
+    background-size: cover;
+    background-image: url(../assets/img/Deer.jpg);
+}
+
+.login-body {
+    top: 50%;
+    margin: auto;
+    position: relative;
+    max-width: 360px;
+    transform: translateY(-50%);
+}
+</style>

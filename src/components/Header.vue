@@ -36,3 +36,19 @@ export default {
     },
 }
 </script>
+
+<style>
+.header {
+    display: flex;
+    margin: auto;
+}
+
+.nav-list {
+    margin-left: auto;
+    display: flex;
+}
+
+.nav {
+    margin-left: 10px;
+}
+</style>

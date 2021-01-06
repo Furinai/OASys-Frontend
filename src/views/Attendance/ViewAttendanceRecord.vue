@@ -92,3 +92,14 @@ export default {
     }
 }
 </script>
+
+<style>
+.clock-time {
+    margin: 10px 10px;
+}
+
+.clock-description {
+    font-size: 14px;
+    margin-top: 20px;
+}
+</style>

@@ -1,7 +1,7 @@
 <template>
     <el-scrollbar class="frame" ref="elscrollbar">
-        <ul>
-            <li class="message-list" v-for="message in messages">
+        <ul class="message-list">
+            <li v-for="message in messages">
                 <div v-if="message.type === 'SYSTEM'" class="system-message">
                     {{ message.content }}
                 </div>
@@ -15,7 +15,7 @@
             </li>
         </ul>
     </el-scrollbar>
-    <div class="flex-between">
+    <div class="flex-between input-box">
         <el-input v-model.trim="content" @keyup.enter="sendMessage"></el-input>
         <el-button class="send-button" type="primary" :disabled="content===''" @click="sendMessage">
             发送
@@ -79,10 +79,12 @@ export default {
 <style scoped>
 .frame {
     height: 80vh;
+    margin: auto 10px;
 }
 
 .message-list {
     text-align: center;
+    margin: auto 20px 20px;
 }
 
 .system-message {
@@ -91,6 +93,7 @@ export default {
     font-size: 12px;
     padding: 5px 10px;
     border-radius: 5px;
+    margin-bottom: 10px;
     display: inline-block;
     background-color: #f4f4f5;
 }
@@ -99,6 +102,7 @@ export default {
     position: relative;
     margin-bottom: 10px;
     padding-left: 60px;
+    text-align: left;
 }
 
 .user {
@@ -112,6 +116,7 @@ export default {
     top: 0;
     color: #888;
     font-size: 12px;
+    white-space: nowrap;
 }
 
 .content {
@@ -160,6 +165,11 @@ export default {
     left: auto;
     right: -10px;
     border-top-color: #5FB878;
+}
+
+.input-box {
+    margin-left: 30px;
+    margin-right: 40px;
 }
 
 .send-button {

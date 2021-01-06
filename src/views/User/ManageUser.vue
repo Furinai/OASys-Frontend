@@ -209,3 +209,20 @@ export default {
     }
 }
 </script>
+
+<style>
+.table-expand {
+    font-size: 0;
+}
+
+.table-expand label {
+    width: 90px;
+    color: #99a9bf;
+}
+
+.avatar {
+    width: 215px;
+    height: 215px;
+    display: block;
+}
+</style>

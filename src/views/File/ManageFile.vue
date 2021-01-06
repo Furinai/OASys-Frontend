@@ -254,3 +254,26 @@ export default {
     }
 }
 </script>
+
+<style>
+.breadcrumb {
+    margin-bottom: 20px;
+}
+
+.breadcrumb-icon {
+    font-size: 22px;
+    margin: -4px 0 -10px;
+}
+
+.folder-icon {
+    font-size: 16px;
+    color: #E6A23C;
+    margin-right: 5px;
+}
+
+.file-icon {
+    font-size: 16px;
+    color: #409EFF;
+    margin-right: 5px;
+}
+</style>
