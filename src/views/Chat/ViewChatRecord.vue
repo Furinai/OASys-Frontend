@@ -36,8 +36,8 @@ export default {
         getMessages(pageNumber, start, end) {
             getMessages({pageNumber, start, end}).then(result => {
                 if (result.code === '0000') {
-                    this.messages = result.data.content
-                    this.size = result.data.totalElements
+                    this.messages = result.data.list
+                    this.size = result.data.size
                 }
             })
         },
