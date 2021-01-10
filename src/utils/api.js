@@ -168,3 +168,11 @@ export function getMessages(params) {
         params
     })
 }
+
+export function searchFile(params) {
+    return request({
+        url: '/search/file',
+        method: 'get',
+        params
+    })
+}

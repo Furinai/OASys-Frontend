@@ -27,6 +27,11 @@
             </div>
         </div>
     </el-card>
+    <div class="flex-between search-box">
+        <el-input v-model.trim="keyword" @keyup.enter="searchFile()" @clear="resetData" clearable></el-input>
+        <el-button slot="append" icon="el-icon-search" :disabled="keyword === ''" @click="searchFile()">
+        </el-button>
+    </div>
     <el-table :data="files" @row-click="enterFolder" style="width: 100%" empty-text="空文件夹" border>
         <el-table-column label="名称">
             <template #default="scope">
@@ -75,7 +80,7 @@
 </template>
 
 <script>
-import {createFolder, deleteFile, downloadFile, getFiles, updateFile, uploadFile} from "/src/utils/api";
+import {createFolder, deleteFile, downloadFile, getFiles, searchFile, updateFile, uploadFile} from "/src/utils/api";
 import {mapState} from "vuex";
 
 export default {
@@ -84,6 +89,9 @@ export default {
         return {
             files: [],
             size: 0,
+            keyword: '',
+            originalData: [],
+            originalSize: 0,
             paths: [{id: 0, name: '根目录'}],
         }
     },
@@ -247,9 +255,24 @@ export default {
                     break
             }
         },
+        //todo 搜索结果分页
         handlePageChange(pageNumber) {
             let parentId = this.paths[this.paths.length - 1].id
             this.getFiles(parentId, pageNumber)
+        },
+        searchFile(pageNumber) {
+            searchFile({name: this.keyword, pageNumber}).then(result => {
+                if (result.code === '0000') {
+                    this.originalData = this.files
+                    this.originalSize = this.size
+                    this.files = result.data.list
+                    this.size = result.data.size
+                }
+            })
+        },
+        resetData() {
+            this.files = this.originalData
+            this.size = this.originalSize
         }
     }
 }
@@ -257,7 +280,7 @@ export default {
 
 <style>
 .breadcrumb {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .breadcrumb-icon {
@@ -275,5 +298,9 @@ export default {
     font-size: 16px;
     color: #409EFF;
     margin-right: 5px;
+}
+
+.search-box {
+    margin-bottom: 15px;
 }
 </style>
