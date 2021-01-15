@@ -11,8 +11,6 @@ import PublishAnnouncement from "/src/views/Announcement/PublishAnnouncement.vue
 import ViewAttendanceRecord from "/src/views/Attendance/ViewAttendanceRecord.vue";
 import PublicChat from "/src/views/Chat/PublicChat.vue";
 import ViewChatRecord from "/src/views/Chat/ViewChatRecord.vue";
-import ManageUser from "/src/views/User/ManageUser.vue";
-import CreateUser from "/src/views/User/CreateUser.vue";
 
 const routes = [
     {
@@ -60,14 +58,9 @@ const routes = [
                 component: ViewChatRecord
             },
             {
-                path: "/manage-user",
+                path: "/user/manage",
                 name: "ManageUser",
-                component: ManageUser
-            },
-            {
-                path: "/create-user",
-                name: "CreateUser",
-                component: CreateUser
+                component: () => import('/src/views/User/ManageUser.vue')
             },
             {
                 path: "/dept/manage",
