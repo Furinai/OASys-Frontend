@@ -1,49 +1,47 @@
 <template>
-    <div class="manage-announcement">
-        <div v-if="editMode">
-            <el-form :model="announcement" :rules="rules" ref="announcement">
-                <el-form-item prop="title">
-                    <el-input type="text" v-model="announcement.title" placeholder="标题" maxlength="100" show-word-limit/>
-                </el-form-item>
-                <el-form-item prop="content">
-                    <el-input type="textarea" v-model="announcement.content" :autosize="{minRows: 6}"
-                              placeholder="内容" minlength="10" maxlength="2000" show-word-limit/>
-                </el-form-item>
-                <el-form-item class="text-right">
-                    <el-button size="small" @click="onEditSubmit('announcement')" type="primary" :loading="loading">
-                        确认
-                    </el-button>
-                    <el-button size="small" @click="editMode = false">取消</el-button>
-                </el-form-item>
-            </el-form>
-        </div>
-        <div v-else>
-            <el-table :data="announcements" tooltipEffect="light" style="width: 100%" border>
-                <el-table-column prop="title" label="标题" align="center" width="200" show-overflow-tooltip/>
-                <el-table-column prop="content" label="内容" align="center" show-overflow-tooltip/>
-                <el-table-column prop="createTime" label="创建时间" align="center" width="150"/>
-                <el-table-column prop="updateTime" label="修改时间" align="center" width="150"/>
-                <el-table-column label="操作" align="center" width="100px">
-                    <template #default="scope">
-                        <el-dropdown @command="handleCommand($event,scope.row)" trigger="click">
+    <div v-if="editMode">
+        <el-form :model="announcement" :rules="rules" ref="announcement">
+            <el-form-item prop="title">
+                <el-input type="text" v-model="announcement.title" placeholder="标题" maxlength="100" show-word-limit/>
+            </el-form-item>
+            <el-form-item prop="content">
+                <el-input type="textarea" v-model="announcement.content" :autosize="{minRows: 6}"
+                          placeholder="内容" minlength="10" maxlength="2000" show-word-limit/>
+            </el-form-item>
+            <el-form-item class="text-right">
+                <el-button size="small" @click="onEditSubmit('announcement')" type="primary" :loading="loading">
+                    确认
+                </el-button>
+                <el-button size="small" @click="editMode = false">取消</el-button>
+            </el-form-item>
+        </el-form>
+    </div>
+    <div v-else>
+        <el-table :data="announcements" tooltipEffect="light" style="width: 100%" border>
+            <el-table-column prop="title" label="标题" align="center" width="200" show-overflow-tooltip/>
+            <el-table-column prop="content" label="内容" align="center" show-overflow-tooltip/>
+            <el-table-column prop="createTime" label="创建时间" align="center" width="150"/>
+            <el-table-column prop="updateTime" label="修改时间" align="center" width="150"/>
+            <el-table-column label="操作" align="center" width="100px">
+                <template #default="scope">
+                    <el-dropdown @command="handleCommand($event,scope.row)" trigger="click">
                         <span class="el-dropdown-link">
                             <i class="el-icon-s-operation"></i>
                         </span>
-                            <template #dropdown>
-                                <el-dropdown-menu>
-                                    <el-dropdown-item command="editAnnouncement">编辑</el-dropdown-item>
-                                    <el-dropdown-item command="deleteAnnouncement">删除</el-dropdown-item>
-                                </el-dropdown-menu>
-                            </template>
-                        </el-dropdown>
-                    </template>
-                </el-table-column>
-            </el-table>
-            <div class="pagination">
-                <el-pagination background layout="prev, pager, next" :pager-count="5" :total="size"
-                               :hide-on-single-page="true" @current-change="handlePageChange">
-                </el-pagination>
-            </div>
+                        <template #dropdown>
+                            <el-dropdown-menu>
+                                <el-dropdown-item command="editAnnouncement">编辑</el-dropdown-item>
+                                <el-dropdown-item command="deleteAnnouncement">删除</el-dropdown-item>
+                            </el-dropdown-menu>
+                        </template>
+                    </el-dropdown>
+                </template>
+            </el-table-column>
+        </el-table>
+        <div class="pagination">
+            <el-pagination background layout="prev, pager, next" :pager-count="5" :total="size"
+                           :hide-on-single-page="true" @current-change="handlePageChange">
+            </el-pagination>
         </div>
     </div>
 </template>

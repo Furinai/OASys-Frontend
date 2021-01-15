@@ -1,19 +1,17 @@
 <template>
-    <div class="publish-announcement">
-        <el-form :model="announcement" :rules="rules" ref="announcement">
-            <el-form-item prop="title">
-                <el-input type="text" v-model="announcement.title" placeholder="标题" maxlength="50" show-word-limit/>
-            </el-form-item>
-            <el-form-item prop="content">
-                <el-input type="textarea" v-model="announcement.content" :autosize="{minRows: 6}"
-                          placeholder="内容" maxlength="2000" show-word-limit/>
-            </el-form-item>
-            <el-form-item class="text-right">
-                <el-button size="small" @click="onCreateSubmit('announcement')" type="primary" :loading="loading">确认
-                </el-button>
-            </el-form-item>
-        </el-form>
-    </div>
+    <el-form :model="announcement" :rules="rules" ref="announcement">
+        <el-form-item prop="title">
+            <el-input type="text" v-model="announcement.title" placeholder="标题" maxlength="50" show-word-limit/>
+        </el-form-item>
+        <el-form-item prop="content">
+            <el-input type="textarea" v-model="announcement.content" :autosize="{minRows: 6}"
+                      placeholder="内容" maxlength="2000" show-word-limit/>
+        </el-form-item>
+        <el-form-item class="text-right">
+            <el-button size="small" @click="onCreateSubmit('announcement')" type="primary" :loading="loading">确认
+            </el-button>
+        </el-form-item>
+    </el-form>
 </template>
 
 <script>
