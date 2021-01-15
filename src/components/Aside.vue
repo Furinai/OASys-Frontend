@@ -45,6 +45,8 @@
                     </template>
                     <el-menu-item index="6-1" :route="{name: 'ManageUser'}">用户管理</el-menu-item>
                     <el-menu-item index="6-2" :route="{name: 'CreateUser'}">添加用户</el-menu-item>
+                    <el-menu-item index="6-3" :route="{name: 'ManageDept'}">部门管理</el-menu-item>
+                    <el-menu-item index="6-4" :route="{name: 'ManageRole'}">角色管理</el-menu-item>
                 </el-submenu>
             </el-scrollbar>
         </el-menu>

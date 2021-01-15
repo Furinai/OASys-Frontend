@@ -68,6 +68,16 @@ const routes = [
                 path: "/create-user",
                 name: "CreateUser",
                 component: CreateUser
+            },
+            {
+                path: "/dept/manage",
+                name: "ManageDept",
+                component: () => import('/src/views/Dept/ManageDept.vue')
+            },
+            {
+                path: "/role/manage",
+                name: "ManageRole",
+                component: () => import('/src/views/Role/ManageRole.vue')
             }
         ]
     },

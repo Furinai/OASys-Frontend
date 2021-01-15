@@ -150,6 +150,59 @@ export function getDepts() {
     })
 }
 
+export function createDept(data) {
+    return request({
+        url: '/depts',
+        method: 'post',
+        data
+    })
+}
+
+export function updateDept(data) {
+    return request({
+        url: '/depts',
+        method: 'put',
+        data
+    })
+}
+
+export function deleteDept(params) {
+    return request({
+        url: '/depts/' + params,
+        method: 'delete'
+    })
+}
+
+export function getRoles() {
+    return request({
+        url: '/roles',
+        method: 'get'
+    })
+}
+
+export function createRole(data) {
+    return request({
+        url: '/roles',
+        method: 'post',
+        data
+    })
+}
+
+export function updateRole(data) {
+    return request({
+        url: '/roles',
+        method: 'put',
+        data
+    })
+}
+
+export function deleteRole(params) {
+    return request({
+        url: '/roles/' + params,
+        method: 'delete'
+    })
+}
+
 export function uploadProfilePicture(data) {
     return request({
         url: '/profile-pictures',

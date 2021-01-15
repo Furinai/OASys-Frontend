@@ -150,7 +150,7 @@ export default {
         getDepts() {
             getDepts().then(result => {
                 if (result.code === '0000') {
-                    this.depts = result.data.list
+                    this.depts = result.data
                 }
             })
         },
