@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "element-plus": "^1.0.1-beta.24",
+    "element-plus": "^1.0.1-beta.26",
     "vue": "^3.0.5",
     "vue-router": "4.0.1",
     "vuex": "^4.0.0-rc.2"

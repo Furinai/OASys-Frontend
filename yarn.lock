@@ -239,9 +239,9 @@
   integrity sha1-yJO3NyHbc2mZQ7/DZTsd63+qSjo=
 
 "@types/node@*":
-  version "14.14.20"
-  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.14.20.tgz#f7974863edd21d1f8a494a73e8e2b3658615c340"
-  integrity sha1-95dIY+3SHR+KSUpz6OKzZYYVw0A=
+  version "14.14.21"
+  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.14.21.tgz?cache=0&sync_timestamp=1610658609493&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.14.21.tgz#d934aacc22424fe9622ebf6857370c052eae464e"
+  integrity sha1-2TSqzCJCT+liLr9oVzcMBS6uRk4=
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
@@ -757,10 +757,10 @@ ee-first@1.1.1:
   resolved "https://registry.npm.taobao.org/ee-first/download/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
-element-plus@^1.0.1-beta.24:
-  version "1.0.1-beta.24"
-  resolved "https://registry.npm.taobao.org/element-plus/download/element-plus-1.0.1-beta.24.tgz?cache=0&sync_timestamp=1610347402983&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Felement-plus%2Fdownload%2Felement-plus-1.0.1-beta.24.tgz#304b17e23fe1cdc5d90fc0c51dd16b34b237e341"
-  integrity sha1-MEsX4j/hzcXZD8DFHdFrNLI340E=
+element-plus@^1.0.1-beta.26:
+  version "1.0.1-beta.26"
+  resolved "https://registry.npm.taobao.org/element-plus/download/element-plus-1.0.1-beta.26.tgz?cache=0&sync_timestamp=1610619033922&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Felement-plus%2Fdownload%2Felement-plus-1.0.1-beta.26.tgz#f24181aab2569b62ca01e63541209b70d524b8ab"
+  integrity sha1-8kGBqrJWm2LKAeY1QSCbcNUkuKs=
   dependencies:
     "@popperjs/core" "^2.4.4"
     async-validator "^3.4.0"
