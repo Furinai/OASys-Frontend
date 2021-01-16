@@ -131,13 +131,17 @@ pre {
     color: #f56c6c;
 }
 
+.el-tag + .el-tag {
+    margin-left: 10px;
+}
+
 .table-expand .el-form-item {
     margin-right: 0;
     margin-bottom: 0;
     width: 50%;
 }
 
-.is-error .el-upload {
+.is-error .avatar-uploader > .el-upload {
     border: 1px dashed #F56C6C;
 }
 

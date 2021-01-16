@@ -19,9 +19,14 @@
                     <el-radio label="女"></el-radio>
                 </el-radio-group>
             </el-form-item>
-            <el-form-item prop="dept.id" label="部门">
-                <el-select v-model="user.dept.id" placeholder="请选择部门">
-                    <el-option v-for="dept in depts" :label="dept.name" :value="dept.id"></el-option>
+            <el-form-item prop="dept" label="部门">
+                <el-select v-model="user.dept" value-key="id">
+                    <el-option v-for="dept in depts" :label="dept.name" :value="dept"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item prop="roles" label="角色">
+                <el-select v-model="user.roles" value-key="id" multiple>
+                    <el-option v-for="role in roles" :label="role.name" :value="role"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item prop="profilePicture" ref="pictureUploader" label="头像">
@@ -63,16 +68,21 @@
                     </el-form>
                 </template>
             </el-table-column>
-            <el-table-column prop="id" label="ID" align="center" width="100"/>
+            <el-table-column prop="id" label="ID" align="center" width="150"/>
             <el-table-column label="头像" align="center" width="100">
                 <template #default="scope">
                     <el-avatar :src="scope.row.profilePicture" size="small"/>
                 </template>
             </el-table-column>
-            <el-table-column prop="username" label="用户名" align="center"/>
-            <el-table-column prop="fullName" label="姓名" align="center"/>
-            <el-table-column prop="gender" label="性别" align="center" width="150"/>
+            <el-table-column prop="username" label="用户名" align="center" width="150"/>
+            <el-table-column prop="fullName" label="姓名" align="center" width="150"/>
+            <el-table-column prop="gender" label="性别" align="center" width="100"/>
             <el-table-column prop="dept.name" label="部门" align="center" width="150"/>
+            <el-table-column prop="roles" label="角色" align="center">
+                <template #default="scope">
+                    <el-tag v-for="role in scope.row.roles" size="small" effect="plain">{{ role.name }}</el-tag>
+                </template>
+            </el-table-column>
             <el-table-column label="操作" align="center" width="150px">
                 <template #header #default="scope">
                     <el-button type="primary" size="mini" @click="createUser">新增</el-button>
@@ -101,15 +111,16 @@
 </template>
 
 <script>
-import {createUser, deleteUser, getDepts, getUsers, updateUser, uploadProfilePicture} from "/src/utils/api";
+import {createUser, deleteUser, getDepts, getRoles, getUsers, updateUser, uploadProfilePicture} from "/src/utils/api";
 
 export default {
     name: "ManageUser",
     data() {
         return {
-            user: {dept: {}},
+            user: {roles: []},
             users: [],
             depts: [],
+            roles: [],
             size: 0,
             editMode: '',
             uploaded: false,
@@ -129,14 +140,17 @@ export default {
                 ],
                 gender: [{required: true, message: '请选择性别', trigger: 'change'}
                 ],
-                'dept.id': [
+                dept: [
                     {required: true, message: '请选择部门', trigger: 'change'}
+                ],
+                roles: [
+                    {type: 'array', required: true, message: '请选择角色', trigger: 'change'}
                 ],
                 profilePicture: [
                     {required: true, message: '请上传头像', trigger: 'change'}
                 ],
                 emailAddress: [
-                    {required: true, message: '请输入正确的邮箱地址', trigger: 'blur', type: 'email'}
+                    {type: 'email', required: true, message: '请输入正确的邮箱地址', trigger: 'blur'}
                 ],
                 phoneNumber: [
                     {required: true, message: '请输入正确手机号码', trigger: 'blur'},
@@ -162,6 +176,13 @@ export default {
             getDepts().then(result => {
                 if (result.code === '0000') {
                     this.depts = result.data
+                }
+            })
+        },
+        getRoles() {
+            getRoles().then(result => {
+                if (result.code === '0000') {
+                    this.roles = result.data
                 }
             })
         },
@@ -202,9 +223,12 @@ export default {
             })
         },
         createUser() {
-            this.user = {dept: {}}
+            this.user = {roles: []}
             if (this.depts.length === 0) {
                 this.getDepts()
+            }
+            if (this.roles.length === 0) {
+                this.getRoles()
             }
             this.editMode = 'create'
         },
@@ -212,6 +236,9 @@ export default {
             this.user = row
             if (this.depts.length === 0) {
                 this.getDepts()
+            }
+            if (this.roles.length === 0) {
+                this.getRoles()
             }
             this.editMode = 'update'
         },
