@@ -271,8 +271,11 @@ export default {
             })
         },
         resetData() {
-            this.files = this.originalData
-            this.size = this.originalSize
+            if (this.originalSize > 0) {
+                this.files = this.originalData
+                this.size = this.originalSize
+                this.originalSize = 0
+            }
         }
     }
 }
