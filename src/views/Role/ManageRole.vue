@@ -1,7 +1,7 @@
 <template>
     <div v-if="editMode === 'create' || editMode === 'update'">
-        <el-form :model="role" :rules="rules" ref="role">
-            <el-form-item prop="name">
+        <el-form :model="role" :rules="rules" ref="role" label-width="80px">
+            <el-form-item prop="name" label="角色名">
                 <el-input type="text" v-model="role.name" placeholder="角色名" maxlength="20" show-word-limit/>
             </el-form-item>
             <el-form-item class="text-right">

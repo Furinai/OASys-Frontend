@@ -1,13 +1,13 @@
 <template>
     <div v-if="editMode === 'create' || editMode === 'update'">
-        <el-form :model="dept" :rules="rules" ref="dept">
-            <el-form-item prop="name">
+        <el-form :model="dept" :rules="rules" ref="dept" label-width="80px">
+            <el-form-item prop="name" label="部门名">
                 <el-input type="text" v-model="dept.name" placeholder="部门名" maxlength="20" show-word-limit/>
             </el-form-item>
-            <el-form-item prop="principal">
+            <el-form-item prop="principal" label="负责人">
                 <el-input type="text" v-model="dept.principal" placeholder="负责人" maxlength="20" show-word-limit/>
             </el-form-item>
-            <el-form-item prop="phoneNumber">
+            <el-form-item prop="phoneNumber" label="联系电话">
                 <el-input type="text" v-model="dept.phoneNumber" placeholder="联系电话" maxlength="11" show-word-limit/>
             </el-form-item>
             <el-form-item class="text-right">
