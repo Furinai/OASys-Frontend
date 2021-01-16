@@ -20,7 +20,6 @@
                         <span>公告</span>
                     </template>
                     <el-menu-item index="3-1" :route="{name: 'ManageAnnouncement'}">公告管理</el-menu-item>
-                    <el-menu-item index="3-2" :route="{name: 'PublishAnnouncement'}">发布公告</el-menu-item>
                 </el-submenu>
                 <el-submenu index="4">
                     <template #title>

@@ -7,7 +7,6 @@ import Login from "/src/views/Login.vue";
 import ManageFile from "/src/views/File/ManageFile.vue";
 import ViewSharedFile from "/src/views/File/ViewSharedFile.vue";
 import ManageAnnouncement from "/src/views/Announcement/ManageAnnouncement.vue";
-import PublishAnnouncement from "/src/views/Announcement/PublishAnnouncement.vue";
 import ViewAttendanceRecord from "/src/views/Attendance/ViewAttendanceRecord.vue";
 import PublicChat from "/src/views/Chat/PublicChat.vue";
 import ViewChatRecord from "/src/views/Chat/ViewChatRecord.vue";
@@ -28,14 +27,9 @@ const routes = [
                 component: ViewAttendanceRecord
             },
             {
-                path: "/manage-announcement",
+                path: "/announcement/manage",
                 name: "ManageAnnouncement",
-                component: ManageAnnouncement
-            },
-            {
-                path: "/publish-announcement",
-                name: "PublishAnnouncement",
-                component: PublishAnnouncement
+                component: () => import('/src/views/Announcement/ManageAnnouncement.vue')
             },
             {
                 path: "/manage-file",

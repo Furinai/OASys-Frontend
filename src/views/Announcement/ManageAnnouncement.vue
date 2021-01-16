@@ -1,5 +1,5 @@
 <template>
-    <div v-if="editMode">
+    <div v-if="editMode === 'create' || editMode === 'update'">
         <el-form :model="announcement" :rules="rules" ref="announcement">
             <el-form-item prop="title">
                 <el-input type="text" v-model="announcement.title" placeholder="标题" maxlength="100" show-word-limit/>
@@ -9,20 +9,23 @@
                           placeholder="内容" minlength="10" maxlength="2000" show-word-limit/>
             </el-form-item>
             <el-form-item class="text-right">
-                <el-button size="small" @click="onEditSubmit('announcement')" type="primary" :loading="loading">
+                <el-button size="small" @click="onSubmit('announcement')" type="primary" :loading="loading">
                     确认
                 </el-button>
-                <el-button size="small" @click="editMode = false">取消</el-button>
+                <el-button size="small" @click="editMode = ''">取消</el-button>
             </el-form-item>
         </el-form>
     </div>
     <div v-else>
-        <el-table :data="announcements" tooltipEffect="light" style="width: 100%" border>
+        <el-table ref="table" :data="announcements" tooltipEffect="light" style="width: 100%" border>
             <el-table-column prop="title" label="标题" align="center" width="200" show-overflow-tooltip/>
             <el-table-column prop="content" label="内容" align="center" show-overflow-tooltip/>
             <el-table-column prop="createTime" label="创建时间" align="center" width="150"/>
             <el-table-column prop="updateTime" label="修改时间" align="center" width="150"/>
             <el-table-column label="操作" align="center" width="100px">
+                <template #header #default="scope">
+                    <el-button type="primary" size="mini" @click="createAnnouncement">新增</el-button>
+                </template>
                 <template #default="scope">
                     <el-dropdown @command="handleCommand($event,scope.row)" trigger="click">
                         <span class="el-dropdown-link">
@@ -30,7 +33,7 @@
                         </span>
                         <template #dropdown>
                             <el-dropdown-menu>
-                                <el-dropdown-item command="editAnnouncement">编辑</el-dropdown-item>
+                                <el-dropdown-item command="updateAnnouncement">编辑</el-dropdown-item>
                                 <el-dropdown-item command="deleteAnnouncement">删除</el-dropdown-item>
                             </el-dropdown-menu>
                         </template>
@@ -47,7 +50,7 @@
 </template>
 
 <script>
-import {deleteAnnouncement, getAnnouncements, updateAnnouncement} from "/src/utils/api";
+import {createAnnouncement, deleteAnnouncement, getAnnouncements, updateAnnouncement} from "/src/utils/api";
 
 export default {
     name: "ManageAnnouncement",
@@ -56,7 +59,7 @@ export default {
             announcement: {},
             announcements: [],
             size: 0,
-            editMode: false,
+            editMode: '',
             loading: false,
             rules: {
                 title: [
@@ -79,24 +82,39 @@ export default {
                 if (result.code === '0000') {
                     this.announcements = result.data.list
                     this.size = result.data.size
+                    this.$refs.table.doLayout()
                 }
             })
         },
-        onEditSubmit(announcement) {
+        onSubmit(announcement) {
             this.$refs[announcement].validate((valid) => {
                 if (valid) {
                     this.loading = true
-                    updateAnnouncement(this.announcement).then(result => {
-                        if (result.code === '0000') {
-                            this.editMode = false
-                            this.$message.success("更新成功！")
-                        }
-                    }).finally(() => this.loading = false)
+                    if (this.editMode === 'create') {
+                        createAnnouncement(this.announcement).then(result => {
+                            if (result.code === '0000') {
+                                this.$refs[announcement].resetFields()
+                                this.$message.success("发布成功！")
+                            }
+                        }).finally(() => this.loading = false)
+                    }
+                    if (this.editMode === 'update') {
+                        updateAnnouncement(this.announcement).then(result => {
+                            if (result.code === '0000') {
+                                this.editMode = ''
+                                this.$message.success("更新成功！")
+                            }
+                        }).finally(() => this.loading = false)
+                    }
                 }
             })
         },
-        editAnnouncement(row) {
-            this.editMode = true
+        createAnnouncement() {
+            this.editMode = 'create'
+            this.announcement = {}
+        },
+        updateAnnouncement(row) {
+            this.editMode = 'update'
             this.announcement = row
         },
         deleteAnnouncement(row) {
@@ -114,8 +132,8 @@ export default {
         },
         handleCommand(command, row) {
             switch (command) {
-                case "editAnnouncement":
-                    this.editAnnouncement(row)
+                case "updateAnnouncement":
+                    this.updateAnnouncement(row)
                     break
                 case "deleteAnnouncement":
                     this.deleteAnnouncement(row)
