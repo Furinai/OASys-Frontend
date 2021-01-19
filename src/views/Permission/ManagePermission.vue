@@ -20,7 +20,7 @@
                 </el-form-item>
                 <el-form-item v-if="editMode === 'create'" prop="parentId" label="分类">
                     <el-select v-model="permission.parentId">
-                        <el-option v-for="category in categories" :label="category.name" :value="category.id"></el-option>
+                        <el-option v-for="category in permissions" :label="category.name" :value="category.id"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item prop="routerName" label="路由名称">
@@ -36,7 +36,10 @@
             <div v-if="permission.type === 'resource'">
                 <el-form-item v-if="editMode === 'create'" prop="parentId" label="菜单">
                     <el-select v-model="permission.parentId">
-                        <el-option v-for="menu in menus" :label="menu.name" :value="menu.id"></el-option>
+                        <el-option-group v-for="permission in permissions" :key="permission.id" :label="permission.name">
+                            <el-option v-for="menu in permission.children" :label="menu.name" :value="menu.id">
+                            </el-option>
+                        </el-option-group>
                     </el-select>
                 </el-form-item>
                 <el-form-item prop="resourcePath" label="资源路径">
@@ -101,8 +104,6 @@ export default {
         return {
             permission: {},
             permissions: [],
-            categories: [],
-            menus: [],
             editMode: '',
             loading: false,
             rules: {
@@ -150,14 +151,6 @@ export default {
                 if (result.code === '0000') {
                     this.permissions = result.data
                     this.$refs.table.doLayout()
-                    this.categories = []
-                    this.menus = []
-                    for (const permission of this.permissions) {
-                        this.categories.push(permission)
-                        if (permission.children) {
-                            this.menus.push(...permission.children)
-                        }
-                    }
                 }
             })
         },
