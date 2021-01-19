@@ -4,6 +4,10 @@
             <el-form-item prop="name" label="角色名">
                 <el-input type="text" v-model="role.name" placeholder="角色名" maxlength="20" show-word-limit/>
             </el-form-item>
+            <el-form-item label="权限">
+                <el-tree ref="tree" :data="permissions" :props="{label: 'name'}" node-key="id" show-checkbox>
+                </el-tree>
+            </el-form-item>
             <el-form-item class="text-right">
                 <el-button size="small" @click="onSubmit('role')" type="primary" :loading="loading">
                     确认
@@ -40,7 +44,16 @@
 </template>
 
 <script>
-import {createRole, deleteRole, getRoles, updateRole} from "/src/utils/api";
+import {
+    createPermissionsToRole,
+    createRole,
+    deleteRole,
+    getPermissions,
+    getPermissionsOfRole,
+    getRoles,
+    updatePermissionsOfRole,
+    updateRole
+} from "/src/utils/api";
 
 export default {
     name: "ManageRole",
@@ -48,6 +61,7 @@ export default {
         return {
             role: {},
             roles: [],
+            permissions: [],
             editMode: '',
             loading: false,
             rules: {
@@ -70,6 +84,20 @@ export default {
                 }
             })
         },
+        getPermissions() {
+            getPermissions({treeMode: true}).then(result => {
+                if (result.code === '0000') {
+                    this.permissions = result.data
+                }
+            })
+        },
+        getPermissionsOfRole(roleId) {
+            getPermissionsOfRole(roleId, {treeMode: true}).then(result => {
+                if (result.code === '0000') {
+                    this.$refs.tree.setCheckedNodes(result.data)
+                }
+            })
+        },
         onSubmit(role) {
             this.$refs[role].validate((valid) => {
                 if (valid) {
@@ -77,17 +105,29 @@ export default {
                     if (this.editMode === 'create') {
                         createRole(this.role).then(result => {
                             if (result.code === '0000') {
-                                this.editMode = ''
-                                this.getRoles()
-                                this.$message.success("新增成功！")
+                                let id = result.data.id
+                                let permissions = this.$refs.tree.getCheckedNodes()
+                                createPermissionsToRole(id, permissions).then(result => {
+                                    if (result.code === '0000') {
+                                        this.getRoles()
+                                        this.editMode = ''
+                                        this.$message.success("新增成功！")
+                                    }
+                                })
                             }
                         }).finally(() => this.loading = false)
                     }
                     if (this.editMode === 'update') {
                         updateRole(this.role).then(result => {
                             if (result.code === '0000') {
-                                this.editMode = ''
-                                this.$message.success("更新成功！")
+                                let id = this.role.id
+                                let permissions = this.$refs.tree.getCheckedNodes()
+                                updatePermissionsOfRole(id, permissions).then(result => {
+                                    if (result.code === '0000') {
+                                        this.editMode = ''
+                                        this.$message.success("更新成功！")
+                                    }
+                                })
                             }
                         }).finally(() => this.loading = false)
                     }
@@ -95,10 +135,17 @@ export default {
             })
         },
         createRole() {
+            if (this.permissions.length === 0) {
+                this.getPermissions()
+            }
             this.editMode = 'create'
             this.role = {}
         },
         updateRole(row) {
+            if (this.permissions.length === 0) {
+                this.getPermissions()
+            }
+            this.getPermissionsOfRole(row.id)
             this.editMode = 'update'
             this.role = row
         },

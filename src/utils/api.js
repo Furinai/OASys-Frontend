@@ -203,6 +203,29 @@ export function deleteRole(params) {
     })
 }
 
+export function getPermissionsOfRole(params) {
+    return request({
+        url: '/roles/' + params + '/permissions',
+        method: 'get'
+    })
+}
+
+export function createPermissionsToRole(params, data) {
+    return request({
+        url: '/roles/' + params + '/permissions',
+        method: 'post',
+        data
+    })
+}
+
+export function updatePermissionsOfRole(params, data) {
+    return request({
+        url: '/roles/' + params + '/permissions',
+        method: 'put',
+        data
+    })
+}
+
 export function getPermissions(params) {
     return request({
         url: '/permissions',
