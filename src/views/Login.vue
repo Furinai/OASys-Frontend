@@ -67,7 +67,7 @@ export default {
                             }
                         })
                     }).catch(error => {
-                        this.$message.error(error.response.data.error_description)
+                        this.$message.error(error.message)
                     }).finally(() =>
                         this.loading = false
                     )
