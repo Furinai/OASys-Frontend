@@ -96,7 +96,7 @@
 </template>
 
 <script>
-import {createPermission, deletePermission, getPermissions, updatePermission} from "/src/utils/api";
+import {createPermission, deletePermission, getPermissions, updatePermission} from '/@/utils/api'
 
 export default {
     name: "ManagePermission",

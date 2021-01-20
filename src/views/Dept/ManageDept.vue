@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import {createDept, deleteDept, getDepts, updateDept} from "/src/utils/api";
+import {createDept, deleteDept, getDepts, updateDept} from '/@/utils/api'
 
 export default {
     name: "ManageDept",

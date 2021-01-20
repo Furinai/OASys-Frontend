@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import {getMessages} from "/src/utils/api"
+import {getMessages} from '/@/utils/api'
 import dayjs from 'dayjs'
 
 export default {

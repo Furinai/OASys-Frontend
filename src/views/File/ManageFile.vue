@@ -80,8 +80,8 @@
 </template>
 
 <script>
-import {createFolder, deleteFile, downloadFile, getFiles, searchFile, updateFile, uploadFile} from "/src/utils/api";
-import {mapState} from "vuex";
+import {createFolder, deleteFile, downloadFile, getFiles, searchFile, updateFile, uploadFile} from '/@/utils/api'
+import {mapState} from 'vuex'
 
 export default {
     name: 'ManageFile',

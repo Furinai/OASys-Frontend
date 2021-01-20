@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import {clockIn, clockOut, getAnnouncements, getAttendances} from "/src/utils/api";
-import {mapState} from "vuex";
+import {clockIn, clockOut, getAnnouncements, getAttendances} from '/@/utils/api'
+import {mapState} from 'vuex'
 
 export default {
     name: "Index",
@@ -64,7 +64,7 @@ export default {
     ]),
     methods: {
         getAttendances() {
-            let date = new Date();
+            let date = new Date()
             let year = date.getFullYear(), month = date.getMonth() + 1, day = date.getDate()
             getAttendances({userId: this.auth.id, year, month, day}).then(result => {
                 if (result.code === '0000') {

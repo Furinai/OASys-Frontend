@@ -53,7 +53,7 @@ import {
     getRoles,
     updatePermissionsOfRole,
     updateRole
-} from "/src/utils/api";
+} from '/@/utils/api'
 
 export default {
     name: "ManageRole",
@@ -92,7 +92,7 @@ export default {
             })
         },
         getPermissionsOfRole(roleId) {
-            getPermissionsOfRole(roleId, {treeMode: true}).then(result => {
+            getPermissionsOfRole(roleId).then(result => {
                 if (result.code === '0000') {
                     this.$refs.tree.setCheckedNodes(result.data)
                 }

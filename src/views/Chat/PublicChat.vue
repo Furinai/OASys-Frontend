@@ -25,7 +25,7 @@
 
 <script>
 import {mapState} from 'vuex'
-import {getToken} from '/src/utils/auth';
+import {getToken} from '/@/utils/auth'
 
 export default {
     name: 'PublicChat',
@@ -71,7 +71,7 @@ export default {
         }
     },
     unmounted() {
-        this.webSocket.close();
+        this.webSocket.close()
     }
 }
 </script>

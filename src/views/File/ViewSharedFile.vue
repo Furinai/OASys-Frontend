@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import {downloadFile, getFiles} from "/src/utils/api";
+import {downloadFile, getFiles} from '/@/utils/api'
 
 export default {
     name: 'ViewSharedFile',

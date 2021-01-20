@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import {getAttendances} from "/src/utils/api";
-import {mapState} from "vuex";
+import {getAttendances} from '/@/utils/api'
+import {mapState} from 'vuex'
 
 export default {
     name: "ViewAttendanceRecord",
@@ -57,7 +57,7 @@ export default {
     watch: {
         currentDate(currentDate) {
             if (currentDate.getMonth() !== this.currentMonth) {
-                this.currentMonth = currentDate.getMonth();
+                this.currentMonth = currentDate.getMonth()
                 this.getAttendances(currentDate)
             }
         }

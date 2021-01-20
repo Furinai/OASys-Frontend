@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
-import {removeAuth, removeToken} from "../utils/auth";
+import {mapState} from 'vuex'
+import {removeAuth, removeToken} from '/@/utils/auth'
 
 export default {
     name: "Header",

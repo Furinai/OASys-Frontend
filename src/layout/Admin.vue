@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import Aside from "/src/components/Aside.vue";
-import Header from "/src/components/Header.vue";
+import Aside from '/@/components/Aside.vue'
+import Header from '/@/components/Header.vue'
 
 export default {
     name: "Admin",

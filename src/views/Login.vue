@@ -23,8 +23,8 @@
 
 <script>
 import axios from 'axios'
-import {getUser} from "/src/utils/api";
-import {setAuth, setToken} from "/src/utils/auth";
+import {getUser} from '/@/utils/api'
+import {setAuth, setToken} from '/@/utils/auth'
 
 export default {
     name: "Login",
