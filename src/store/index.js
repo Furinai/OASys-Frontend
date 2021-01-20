@@ -1,26 +1,33 @@
 import {createStore} from 'vuex'
-import {initAuth} from "/src/utils/auth";
+import {initAuth} from '/@/utils/auth'
 
 const store = createStore({
     state: {
-        auth: initAuth()
+        auth: initAuth(),
+        permissions: null
     },
     mutations: {
         setAuth(state, auth) {
-            state.auth = auth;
+            state.auth = auth
         },
         removeAuth(state) {
-            state.auth = null;
+            state.auth = null
+        },
+        setPermissions(state, permissions) {
+            state.permissions = permissions
         }
     },
     actions: {
         setAuth(context, auth) {
-            context.commit("setAuth", auth);
+            context.commit("setAuth", auth)
         },
         removeAuth(context) {
-            context.commit("removeAuth");
+            context.commit("removeAuth")
+        },
+        setPermissions(context, permissions) {
+            context.commit("setPermissions", permissions)
         }
     }
 })
 
-export default store;
+export default store

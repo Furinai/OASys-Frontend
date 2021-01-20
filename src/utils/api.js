@@ -1,4 +1,4 @@
-import request from "/src/utils/request";
+import request from '/@/utils/request'
 
 export function getAnnouncements(params) {
     return request({
@@ -140,6 +140,14 @@ export function deleteUser(pathVariable) {
     return request({
         url: '/users/' + pathVariable,
         method: 'delete'
+    })
+}
+
+export function getPermissionsOfUser(pathVariable, params) {
+    return request({
+        url: '/users/' + pathVariable + '/permissions',
+        method: 'get',
+        params
     })
 }
 
