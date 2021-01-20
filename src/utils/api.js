@@ -24,9 +24,9 @@ export function updateAnnouncement(data) {
     })
 }
 
-export function deleteAnnouncement(params) {
+export function deleteAnnouncement(pathVariable) {
     return request({
-        url: '/announcements/' + params,
+        url: '/announcements/' + pathVariable,
         method: 'delete'
     })
 }
@@ -74,9 +74,9 @@ export function uploadFile(data) {
     })
 }
 
-export function downloadFile(params) {
+export function downloadFile(pathVariable) {
     return request({
-        url: '/files/' + params,
+        url: '/files/' + pathVariable,
         method: 'get',
         responseType: 'blob'
     })
@@ -98,16 +98,16 @@ export function createFolder(data) {
     })
 }
 
-export function deleteFile(params) {
+export function deleteFile(pathVariable) {
     return request({
-        url: '/files/' + params,
+        url: '/files/' + pathVariable,
         method: 'delete',
     })
 }
 
-export function getUser(params) {
+export function getUser(pathVariable) {
     return request({
-        url: '/users/' + params,
+        url: '/users/' + pathVariable,
         method: 'get'
     })
 }
@@ -136,9 +136,9 @@ export function updateUser(data) {
     })
 }
 
-export function deleteUser(params) {
+export function deleteUser(pathVariable) {
     return request({
-        url: '/users/' + params,
+        url: '/users/' + pathVariable,
         method: 'delete'
     })
 }
@@ -166,9 +166,9 @@ export function updateDept(data) {
     })
 }
 
-export function deleteDept(params) {
+export function deleteDept(pathVariable) {
     return request({
-        url: '/depts/' + params,
+        url: '/depts/' + pathVariable,
         method: 'delete'
     })
 }
@@ -196,31 +196,31 @@ export function updateRole(data) {
     })
 }
 
-export function deleteRole(params) {
+export function deleteRole(pathVariable) {
     return request({
-        url: '/roles/' + params,
+        url: '/roles/' + pathVariable,
         method: 'delete'
     })
 }
 
-export function getPermissionsOfRole(params) {
+export function getPermissionsOfRole(pathVariable) {
     return request({
-        url: '/roles/' + params + '/permissions',
+        url: '/roles/' + pathVariable + '/permissions',
         method: 'get'
     })
 }
 
-export function createPermissionsToRole(params, data) {
+export function createPermissionsToRole(pathVariable, data) {
     return request({
-        url: '/roles/' + params + '/permissions',
+        url: '/roles/' + pathVariable + '/permissions',
         method: 'post',
         data
     })
 }
 
-export function updatePermissionsOfRole(params, data) {
+export function updatePermissionsOfRole(pathVariable, data) {
     return request({
-        url: '/roles/' + params + '/permissions',
+        url: '/roles/' + pathVariable + '/permissions',
         method: 'put',
         data
     })
@@ -250,9 +250,9 @@ export function updatePermission(data) {
     })
 }
 
-export function deletePermission(params) {
+export function deletePermission(pathVariable) {
     return request({
-        url: '/permissions/' + params,
+        url: '/permissions/' + pathVariable,
         method: 'delete'
     })
 }
