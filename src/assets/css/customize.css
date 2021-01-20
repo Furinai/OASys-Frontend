@@ -2,6 +2,7 @@ html, body {
     font-family: Arial, Helvetica, "Microsoft YaHei", sans-serif;
     -webkit-tap-highlight-color: transparent;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     height: 100%;
     width: 100%;
     padding: 0;
