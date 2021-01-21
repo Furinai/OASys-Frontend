@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "element-plus": "^1.0.1-beta.27",
+    "element-plus": "^1.0.2-beta.28",
     "vue": "^3.0.5",
     "vue-router": "4.0.3",
     "vuex": "^4.0.0-rc.2"
@@ -17,6 +17,6 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.1.0",
     "@vue/compiler-sfc": "^3.0.5",
-    "vite": "^2.0.0-beta.34"
+    "vite": "^2.0.0-beta.35"
   }
 }
