@@ -56,8 +56,8 @@ export default {
         }
     },
     created() {
-        //this.getAttendances()
-        //this.getAnnouncements()
+        this.getAttendances()
+        this.getAnnouncements()
     },
     computed: mapState([
         "auth"
