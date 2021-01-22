@@ -21,7 +21,7 @@ import {getMessages} from '/@/utils/api'
 import dayjs from 'dayjs'
 
 export default {
-    name: "ViewChatRecord",
+    name: "Chat-Record-View",
     data() {
         return {
             messages: [],

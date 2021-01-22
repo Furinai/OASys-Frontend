@@ -18,10 +18,9 @@
     </div>
     <div v-else>
         <el-table ref="table" :data="announcements" tooltipEffect="light" style="width: 100%" border>
-            <el-table-column prop="title" label="标题" align="center" width="200" show-overflow-tooltip/>
-            <el-table-column prop="content" label="内容" align="center" show-overflow-tooltip/>
-            <el-table-column prop="createTime" label="创建时间" align="center" width="150"/>
-            <el-table-column prop="updateTime" label="修改时间" align="center" width="150"/>
+            <el-table-column prop="title" label="标题" align="center" width="600" show-overflow-tooltip/>
+            <el-table-column prop="createTime" label="创建时间" align="center" />
+            <el-table-column prop="updateTime" label="修改时间" align="center"/>
             <el-table-column label="操作" align="center" width="100px">
                 <template #header #default="scope">
                     <el-button type="primary" size="mini" @click="createAnnouncement">新增</el-button>
@@ -53,7 +52,7 @@
 import {createAnnouncement, deleteAnnouncement, getAnnouncements, updateAnnouncement} from '/@/utils/api'
 
 export default {
-    name: "ManageAnnouncement",
+    name: "Announcement-Manage",
     data() {
         return {
             announcement: {},

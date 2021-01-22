@@ -5,8 +5,7 @@
                 <el-input type="text" v-model="role.name" placeholder="角色名" maxlength="20" show-word-limit/>
             </el-form-item>
             <el-form-item label="权限">
-                <el-tree ref="tree" :data="permissions" :props="{label: 'name'}" node-key="id" show-checkbox>
-                </el-tree>
+                <el-tree ref="tree" :data="permissions" :props="{label: 'name'}" node-key="id" show-checkbox check-strictly/>
             </el-form-item>
             <el-form-item class="text-right">
                 <el-button size="small" @click="onSubmit('role')" type="primary" :loading="loading">
@@ -56,7 +55,7 @@ import {
 } from '/@/utils/api'
 
 export default {
-    name: "ManageRole",
+    name: "Role-Manage",
     data() {
         return {
             role: {},
@@ -143,7 +142,7 @@ export default {
         },
         updateRole(row) {
             if (this.permissions.length === 0) {
-                this.getPermissions()
+                this.getPermissions(row.id)
             }
             this.getPermissionsOfRole(row.id)
             this.editMode = 'update'

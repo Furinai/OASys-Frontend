@@ -57,7 +57,7 @@
 import {downloadFile, getFiles} from '/@/utils/api'
 
 export default {
-    name: 'ViewSharedFile',
+    name: 'File-Shared-View',
     data() {
         return {
             files: [],

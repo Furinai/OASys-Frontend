@@ -34,7 +34,8 @@ pre {
 }
 
 .list {
-    padding: 15px 0;
+    line-height: 1;
+    padding: 20px 0;
     border-bottom: 1px solid #eee;
 }
 
@@ -161,4 +162,8 @@ pre {
     height: 215px;
     line-height: 215px;
     text-align: center;
+}
+
+.update-time {
+    font-size: 14px;
 }

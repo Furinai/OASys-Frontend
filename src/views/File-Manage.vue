@@ -84,7 +84,7 @@ import {createFolder, deleteFile, downloadFile, getFiles, searchFile, updateFile
 import {mapState} from 'vuex'
 
 export default {
-    name: 'ManageFile',
+    name: 'File-Manage',
     data() {
         return {
             files: [],

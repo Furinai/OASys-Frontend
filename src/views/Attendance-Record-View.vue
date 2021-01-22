@@ -45,7 +45,7 @@ import {getAttendances} from '/@/utils/api'
 import {mapState} from 'vuex'
 
 export default {
-    name: "ViewAttendanceRecord",
+    name: "Attendance-Record-View",
     data() {
         return {
             currentDate: new Date(),

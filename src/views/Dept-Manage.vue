@@ -51,7 +51,7 @@
 import {createDept, deleteDept, getDepts, updateDept} from '/@/utils/api'
 
 export default {
-    name: "ManageDept",
+    name: "Dept-Manage",
     data() {
         return {
             dept: {},

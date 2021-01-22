@@ -114,7 +114,7 @@
 import {createUser, deleteUser, getDepts, getRoles, getUsers, updateUser, uploadProfilePicture} from '/@/utils/api'
 
 export default {
-    name: "ManageUser",
+    name: "User-Manage",
     data() {
         return {
             user: {roles: []},

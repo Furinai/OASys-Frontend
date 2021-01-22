@@ -28,7 +28,7 @@ import {mapState} from 'vuex'
 import {getToken} from '/@/utils/auth'
 
 export default {
-    name: 'PublicChat',
+    name: 'Chat-Public',
     data() {
         return {
             content: '',

@@ -99,7 +99,7 @@
 import {createPermission, deletePermission, getPermissions, updatePermission} from '/@/utils/api'
 
 export default {
-    name: "ManagePermission",
+    name: "Permission-Manage",
     data() {
         return {
             permission: {},
