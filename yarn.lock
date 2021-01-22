@@ -182,9 +182,9 @@ csstype@^2.6.8:
   integrity sha1-AEgipAUDRbVa1NzAC+HZzy9Clt4=
 
 dayjs@1.x:
-  version "1.10.3"
-  resolved "https://registry.npm.taobao.org/dayjs/download/dayjs-1.10.3.tgz?cache=0&sync_timestamp=1610178130567&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdayjs%2Fdownload%2Fdayjs-1.10.3.tgz#cf3357c8e7f508432826371672ebf376cb7d619b"
-  integrity sha1-zzNXyOf1CEMoJjcWcuvzdst9YZs=
+  version "1.10.4"
+  resolved "https://registry.npm.taobao.org/dayjs/download/dayjs-1.10.4.tgz#8e544a9b8683f61783f570980a8a80eaf54ab1e2"
+  integrity sha1-jlRKm4aD9heD9XCYCoqA6vVKseI=
 
 element-plus@^1.0.2-beta.28:
   version "1.0.2-beta.28"
@@ -205,9 +205,9 @@ emojis-list@^3.0.0:
   integrity sha1-VXBmIEatKeLpFucariYKvf9Pang=
 
 esbuild@^0.8.26:
-  version "0.8.33"
-  resolved "https://registry.npm.taobao.org/esbuild/download/esbuild-0.8.33.tgz#4e24ab4e780b08ff5527171bf5a684594c8b56e9"
-  integrity sha1-TiSrTngLCP9VJxcb9aaEWUyLVuk=
+  version "0.8.34"
+  resolved "https://registry.npm.taobao.org/esbuild/download/esbuild-0.8.34.tgz#16b4ac58f74c821d2c5a8c2f0585ca96a38ab4e6"
+  integrity sha1-FrSsWPdMgh0sWowvBYXKlqOKtOY=
 
 escape-string-regexp@^1.0.5:
   version "1.0.5"
@@ -500,9 +500,9 @@ util-deprecate@^1.0.2:
   integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
 
 vite@^2.0.0-beta.35:
-  version "2.0.0-beta.35"
-  resolved "https://registry.npm.taobao.org/vite/download/vite-2.0.0-beta.35.tgz#6c449b52ecadd5c6e8ddc002664668e4bfce79f5"
-  integrity sha1-bESbUuyt1cbo3cACZkZo5L/OefU=
+  version "2.0.0-beta.36"
+  resolved "https://registry.npm.taobao.org/vite/download/vite-2.0.0-beta.36.tgz#ccecac854ded0b7c0fe14c52c0460e1c23a9c70b"
+  integrity sha1-zOyshU3tC3wP4UxSwEYOHCOpxws=
   dependencies:
     esbuild "^0.8.26"
     postcss "^8.2.1"
