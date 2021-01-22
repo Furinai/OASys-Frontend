@@ -60,12 +60,15 @@ function setPermissions(routerPath) {
 }
 
 router.beforeEach((to, from) => {
-    if (!store.state.permissions) {
-        setPermissions(to.path)
-        return false
-    }
-    if (to.name !== 'login' && !store.state.auth) {
-        router.push({name: 'login'})
+    if (to.name !== 'login') {
+        if (!store.state.auth) {
+            router.push({name: 'login'})
+            return false
+        }
+        if (!store.state.permissions) {
+            setPermissions(to.path)
+            return false
+        }
     }
 })
 
