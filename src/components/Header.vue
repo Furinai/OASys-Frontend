@@ -24,7 +24,7 @@ export default {
     ]),
     methods: {
         logout() {
-            this.$confirm("确定注销？", "提示", {type: "warning",}).then(() => {
+            this.$confirm("确定注销？", "提示", {type: "warning"}).then(() => {
                     removeAuth()
                     removeToken()
                     this.$router.push({name: "login"})
