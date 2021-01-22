@@ -1,5 +1,19 @@
 import request from '/@/utils/request'
 
+export function getAuthUser() {
+    return request({
+        url: '/oauth/user',
+        method: 'get'
+    })
+}
+
+export function getAuthPermissionsOfUser() {
+    return request({
+        url: '/oauth/user/permissions',
+        method: 'get'
+    })
+}
+
 export function getAnnouncements(params) {
     return request({
         url: '/announcements',
@@ -140,14 +154,6 @@ export function deleteUser(pathVariable) {
     return request({
         url: '/users/' + pathVariable,
         method: 'delete'
-    })
-}
-
-export function getPermissionsOfUser(pathVariable, params) {
-    return request({
-        url: '/users/' + pathVariable + '/permissions',
-        method: 'get',
-        params
     })
 }
 

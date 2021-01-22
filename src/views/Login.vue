@@ -23,7 +23,7 @@
 
 <script>
 import axios from 'axios'
-import {getUser} from '/@/utils/api'
+import {getAuthUser} from '/@/utils/api'
 import {setAuth, setToken} from '/@/utils/auth'
 
 export default {
@@ -60,7 +60,7 @@ export default {
                     axios.post('/api/oauth/token', params, {auth}).then(response => {
                         let data = response.data
                         setToken(data.token_type + ' ' + data.access_token)
-                        getUser(this.user.username).then(result => {
+                        getAuthUser().then(result => {
                             if (result.code === '0000') {
                                 setAuth(result.data)
                                 this.$router.push({name: "Index"})
