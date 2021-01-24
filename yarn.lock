@@ -27,9 +27,9 @@
   integrity sha1-8CIZWv38lC4IjuIQEoWh0xx9cn8=
 
 "@vitejs/plugin-vue@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.npm.taobao.org/@vitejs/plugin-vue/download/@vitejs/plugin-vue-1.1.0.tgz#8ae0b11388897b07259c9e5198c0e3fb5e4b37d9"
-  integrity sha1-iuCxE4iJewclnJ5RmMDj+15LN9k=
+  version "1.1.2"
+  resolved "https://registry.npm.taobao.org/@vitejs/plugin-vue/download/@vitejs/plugin-vue-1.1.2.tgz#64d1f0e0739675f5717015ffb4d861c53af8fe60"
+  integrity sha1-ZNHw4HOWdfVxcBX/tNhhxTr4/mA=
 
 "@vue/compiler-core@3.0.5":
   version "3.0.5"
@@ -111,7 +111,7 @@
 
 ansi-styles@^3.2.1:
   version "3.2.1"
-  resolved "https://registry.npm.taobao.org/ansi-styles/download/ansi-styles-3.2.1.tgz?cache=0&sync_timestamp=1606792255762&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fansi-styles%2Fdownload%2Fansi-styles-3.2.1.tgz#41fbb20243e50b12be0f04b8dedbf07520ce841d"
+  resolved "https://registry.npm.taobao.org/ansi-styles/download/ansi-styles-3.2.1.tgz#41fbb20243e50b12be0f04b8dedbf07520ce841d"
   integrity sha1-QfuyAkPlCxK+DwS43tvwdSDOhB0=
   dependencies:
     color-convert "^1.9.0"
@@ -204,7 +204,7 @@ emojis-list@^3.0.0:
   resolved "https://registry.npm.taobao.org/emojis-list/download/emojis-list-3.0.0.tgz#5570662046ad29e2e916e71aae260abdff4f6a78"
   integrity sha1-VXBmIEatKeLpFucariYKvf9Pang=
 
-esbuild@^0.8.26:
+esbuild@^0.8.34:
   version "0.8.34"
   resolved "https://registry.npm.taobao.org/esbuild/download/esbuild-0.8.34.tgz#16b4ac58f74c821d2c5a8c2f0585ca96a38ab4e6"
   integrity sha1-FrSsWPdMgh0sWowvBYXKlqOKtOY=
@@ -449,9 +449,9 @@ resolve@^1.19.0:
     path-parse "^1.0.6"
 
 rollup@^2.35.1:
-  version "2.37.1"
-  resolved "https://registry.npm.taobao.org/rollup/download/rollup-2.37.1.tgz#aa7aadffd75c80393f9314f9857e851b0ffd34e7"
-  integrity sha1-qnqt/9dcgDk/kxT5hX6FGw/9NOc=
+  version "2.38.0"
+  resolved "https://registry.npm.taobao.org/rollup/download/rollup-2.38.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Frollup%2Fdownload%2Frollup-2.38.0.tgz#57942d5a10826cb12ed1f19c261f774efa502d2d"
+  integrity sha1-V5QtWhCCbLEu0fGcJh93TvpQLS0=
   optionalDependencies:
     fsevents "~2.1.2"
 
@@ -472,14 +472,14 @@ string-hash@^1.1.1:
 
 supports-color@^5.3.0:
   version "5.5.0"
-  resolved "https://registry.npm.taobao.org/supports-color/download/supports-color-5.5.0.tgz#e2e69a44ac8772f78a1ec0b35b689df6530efc8f"
+  resolved "https://registry.npm.taobao.org/supports-color/download/supports-color-5.5.0.tgz?cache=0&sync_timestamp=1611394404603&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fsupports-color%2Fdownload%2Fsupports-color-5.5.0.tgz#e2e69a44ac8772f78a1ec0b35b689df6530efc8f"
   integrity sha1-4uaaRKyHcveKHsCzW2id9lMO/I8=
   dependencies:
     has-flag "^3.0.0"
 
 supports-color@^6.1.0:
   version "6.1.0"
-  resolved "https://registry.npm.taobao.org/supports-color/download/supports-color-6.1.0.tgz#0764abc69c63d5ac842dd4867e8d025e880df8f3"
+  resolved "https://registry.npm.taobao.org/supports-color/download/supports-color-6.1.0.tgz?cache=0&sync_timestamp=1611394404603&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fsupports-color%2Fdownload%2Fsupports-color-6.1.0.tgz#0764abc69c63d5ac842dd4867e8d025e880df8f3"
   integrity sha1-B2Srxpxj1ayELdSGfo0CXogN+PM=
   dependencies:
     has-flag "^3.0.0"
@@ -499,12 +499,12 @@ util-deprecate@^1.0.2:
   resolved "https://registry.npm.taobao.org/util-deprecate/download/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
 
-vite@^2.0.0-beta.35:
-  version "2.0.0-beta.36"
-  resolved "https://registry.npm.taobao.org/vite/download/vite-2.0.0-beta.36.tgz#ccecac854ded0b7c0fe14c52c0460e1c23a9c70b"
-  integrity sha1-zOyshU3tC3wP4UxSwEYOHCOpxws=
+vite@^2.0.0-beta.36:
+  version "2.0.0-beta.46"
+  resolved "https://registry.npm.taobao.org/vite/download/vite-2.0.0-beta.46.tgz#9c0d35019c350fbebd17f84c4e7243fffccd1819"
+  integrity sha1-nA01AZw1D769F/hMTnJD//zNGBk=
   dependencies:
-    esbuild "^0.8.26"
+    esbuild "^0.8.34"
     postcss "^8.2.1"
     resolve "^1.19.0"
     rollup "^2.35.1"
