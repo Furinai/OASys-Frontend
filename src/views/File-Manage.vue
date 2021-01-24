@@ -32,7 +32,7 @@
         <el-button slot="append" icon="el-icon-search" :disabled="keyword === ''" @click="searchFile()">
         </el-button>
     </div>
-    <el-table :data="files" @row-click="enterFolder" style="width: 100%" empty-text="空文件夹" border>
+    <el-table :data="files" ref="table" @row-click="enterFolder" style="width: 100%" empty-text="空文件夹" border>
         <el-table-column label="名称">
             <template #default="scope">
                 <i v-if="scope.row.type === '文件夹'" class="el-icon-folder folder-icon"></i>
@@ -107,6 +107,7 @@ export default {
                 if (result.code === '0000') {
                     this.files = result.data.list
                     this.size = result.data.size
+                    this.$refs.table.doLayout()
                 }
             })
         },
@@ -146,8 +147,8 @@ export default {
         },
         createFolder() {
             this.$prompt('请输入文件夹名', '新建文件夹', {
-                inputPattern: /^.{1,20}$/,
-                inputErrorMessage: '文件夹名应为1-20个字符'
+                inputPattern: /^.{1,50}$/,
+                inputErrorMessage: '文件夹名应为1-50个字符'
             }).then(({value}) => {
                 let formData = new FormData()
                 formData.append('name', value)
@@ -170,8 +171,8 @@ export default {
         download(row) {
             this.$prompt('请输入文件名', '下载', {
                 inputValue: row.name,
-                inputPattern: /^.{1,20}$/,
-                inputErrorMessage: '文件名应为1-20个字符'
+                inputPattern: /^.{1,50}$/,
+                inputErrorMessage: '文件名应为1-50个字符'
             }).then(({value}) => {
                 downloadFile(row.id).then(result => {
                     if (result) {
@@ -189,8 +190,8 @@ export default {
         rename(row) {
             this.$prompt('请输入新文件名', '重命名', {
                 inputValue: row.name,
-                inputPattern: /^.{1,20}$/,
-                inputErrorMessage: '文件名应为1-20个字符'
+                inputPattern: /^.{1,50}$/,
+                inputErrorMessage: '文件名应为1-50个字符'
             }).then(({value}) => {
                 updateFile({id: row.id, name: value}).then(result => {
                     if (result.code === '0000') {

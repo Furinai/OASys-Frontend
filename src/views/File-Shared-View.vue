@@ -16,7 +16,7 @@
                 </div>
             </div>
         </el-card>
-        <el-table :data="files" @row-click="enterFolder" style="width: 100%" empty-text="空文件夹" border>
+        <el-table :data="files" ref="table" @row-click="enterFolder" style="width: 100%" empty-text="空文件夹" border>
             <el-table-column label="名称">
                 <template #default="scope">
                     <i v-if="scope.row.type === '文件夹'" class="el-icon-folder folder-icon"></i>
@@ -74,6 +74,7 @@ export default {
                 if (result.code === '0000') {
                     this.files = result.data.list
                     this.size = result.data.size
+                    this.$refs.table.doLayout()
                 }
             })
         },
