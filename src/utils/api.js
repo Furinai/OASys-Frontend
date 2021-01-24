@@ -119,13 +119,6 @@ export function deleteFile(pathVariable) {
     })
 }
 
-export function getUser(pathVariable) {
-    return request({
-        url: '/users/' + pathVariable,
-        method: 'get'
-    })
-}
-
 export function getUsers(params) {
     return request({
         url: '/users',
@@ -292,7 +285,7 @@ export function getMessages(params) {
 
 export function searchFile(params) {
     return request({
-        url: '/search/file',
+        url: '/search/files',
         method: 'get',
         params
     })
