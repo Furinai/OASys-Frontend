@@ -14,6 +14,30 @@ export function getAuthPermissionsOfUser() {
     })
 }
 
+export function getAttendances(params) {
+    return request({
+        url: '/attendances',
+        method: 'get',
+        params
+    })
+}
+
+export function clockIn(params) {
+    return request({
+        url: '/attendances',
+        method: 'post',
+        params
+    })
+}
+
+export function clockOut(params) {
+    return request({
+        url: '/attendances',
+        method: 'put',
+        params
+    })
+}
+
 export function getAnnouncements(params) {
     return request({
         url: '/announcements',
@@ -45,26 +69,10 @@ export function deleteAnnouncement(pathVariable) {
     })
 }
 
-export function getAttendances(params) {
+export function getMessages(params) {
     return request({
-        url: '/attendances',
+        url: '/messages',
         method: 'get',
-        params
-    })
-}
-
-export function clockIn(params) {
-    return request({
-        url: '/attendances',
-        method: 'post',
-        params
-    })
-}
-
-export function clockOut(params) {
-    return request({
-        url: '/attendances',
-        method: 'put',
         params
     })
 }
@@ -275,17 +283,9 @@ export function uploadProfilePicture(data) {
     })
 }
 
-export function getMessages(params) {
-    return request({
-        url: '/messages',
-        method: 'get',
-        params
-    })
-}
-
 export function searchFile(params) {
     return request({
-        url: '/search/files',
+        url: '/searches/files',
         method: 'get',
         params
     })
