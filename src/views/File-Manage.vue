@@ -149,9 +149,12 @@ export default {
                 inputPattern: /^.{1,20}$/,
                 inputErrorMessage: '文件夹名应为1-20个字符'
             }).then(({value}) => {
-                let parentId = this.paths[this.paths.length - 1].id
-                let userId = this.auth.id, creator = this.auth.name
-                createFolder({name: value, userId, creator, parentId}).then(result => {
+                let formData = new FormData()
+                formData.append('name', value)
+                formData.append('userId', this.auth.id)
+                formData.append('creator', this.auth.fullName)
+                formData.append('parentId', this.paths[this.paths.length - 1].id)
+                createFolder(formData).then(result => {
                     if (result.code === '0000') {
                         this.$message.success('创建文件夹成功！')
                         if (this.files.length === 10) {
