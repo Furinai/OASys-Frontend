@@ -73,6 +73,7 @@ export default {
     },
     created() {
         this.getRoles()
+        this.getPermissions()
     },
     methods: {
         getRoles(pageNumber) {
@@ -134,16 +135,10 @@ export default {
             })
         },
         createRole() {
-            if (this.permissions.length === 0) {
-                this.getPermissions()
-            }
             this.editMode = 'create'
             this.role = {}
         },
         updateRole(row) {
-            if (this.permissions.length === 0) {
-                this.getPermissions(row.id)
-            }
             this.getPermissionsOfRole(row.id)
             this.editMode = 'update'
             this.role = row
