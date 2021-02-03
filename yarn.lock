@@ -26,10 +26,10 @@
   resolved "https://registry.npm.taobao.org/@popperjs/core/download/@popperjs/core-2.6.0.tgz#f022195afdfc942e088ee2101285a1d31c7d727f"
   integrity sha1-8CIZWv38lC4IjuIQEoWh0xx9cn8=
 
-"@vitejs/plugin-vue@^1.1.0":
-  version "1.1.2"
-  resolved "https://registry.npm.taobao.org/@vitejs/plugin-vue/download/@vitejs/plugin-vue-1.1.2.tgz#64d1f0e0739675f5717015ffb4d861c53af8fe60"
-  integrity sha1-ZNHw4HOWdfVxcBX/tNhhxTr4/mA=
+"@vitejs/plugin-vue@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.npm.taobao.org/@vitejs/plugin-vue/download/@vitejs/plugin-vue-1.1.4.tgz#1dd388519b75439b7733601b55238ca691864796"
+  integrity sha1-HdOIUZt1Q5t3M2AbVSOMppGGR5Y=
 
 "@vue/compiler-core@3.0.5":
   version "3.0.5"
@@ -186,10 +186,10 @@ dayjs@1.x:
   resolved "https://registry.npm.taobao.org/dayjs/download/dayjs-1.10.4.tgz#8e544a9b8683f61783f570980a8a80eaf54ab1e2"
   integrity sha1-jlRKm4aD9heD9XCYCoqA6vVKseI=
 
-element-plus@^1.0.2-beta.28:
-  version "1.0.2-beta.28"
-  resolved "https://registry.npm.taobao.org/element-plus/download/element-plus-1.0.2-beta.28.tgz#58b337204e9448d8e59c3bb02140e6dadfca11b7"
-  integrity sha1-WLM3IE6USNjlnDuwIUDm2t/KEbc=
+element-plus@^1.0.2-beta.31:
+  version "1.0.2-beta.31"
+  resolved "https://registry.npm.taobao.org/element-plus/download/element-plus-1.0.2-beta.31.tgz#61a96111d9e9dc9d1ea511e213946db681471321"
+  integrity sha1-YalhEdnp3J0epRHiE5RttoFHEyE=
   dependencies:
     "@popperjs/core" "^2.4.4"
     async-validator "^3.4.0"
@@ -499,10 +499,10 @@ util-deprecate@^1.0.2:
   resolved "https://registry.npm.taobao.org/util-deprecate/download/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
 
-vite@^2.0.0-beta.36:
-  version "2.0.0-beta.46"
-  resolved "https://registry.npm.taobao.org/vite/download/vite-2.0.0-beta.46.tgz#9c0d35019c350fbebd17f84c4e7243fffccd1819"
-  integrity sha1-nA01AZw1D769F/hMTnJD//zNGBk=
+vite@^2.0.0-beta.62:
+  version "2.0.0-beta.62"
+  resolved "https://registry.npm.taobao.org/vite/download/vite-2.0.0-beta.62.tgz#3227fc63ecd3d6fc67b1b95add68cdcde09844b2"
+  integrity sha1-Mif8Y+zT1vxnsbla3WjNzeCYRLI=
   dependencies:
     esbuild "^0.8.34"
     postcss "^8.2.1"
