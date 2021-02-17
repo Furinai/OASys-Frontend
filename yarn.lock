@@ -186,7 +186,7 @@ dayjs@1.x:
   resolved "https://registry.npm.taobao.org/dayjs/download/dayjs-1.10.4.tgz#8e544a9b8683f61783f570980a8a80eaf54ab1e2"
   integrity sha1-jlRKm4aD9heD9XCYCoqA6vVKseI=
 
-element-plus@^1.0.2-beta.31:
+element-plus@^1.0.2-beta.32:
   version "1.0.2-beta.32"
   resolved "https://registry.npm.taobao.org/element-plus/download/element-plus-1.0.2-beta.32.tgz#228975cfc2255993ef7ccd90238cea9a707f0742"
   integrity sha1-Iol1z8IlWZPvfM2QI4zqmnB/B0I=
@@ -499,10 +499,10 @@ util-deprecate@^1.0.2:
   resolved "https://registry.npm.taobao.org/util-deprecate/download/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
 
-vite@^2.0.0-beta.62:
-  version "2.0.0-beta.70"
-  resolved "https://registry.npm.taobao.org/vite/download/vite-2.0.0-beta.70.tgz#ec0d4f2bfd02f31d2c59aa9760f27c26647f41ce"
-  integrity sha1-7A1PK/0C8x0sWaqXYPJ8JmR/Qc4=
+vite@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npm.taobao.org/vite/download/vite-2.0.0.tgz#156f35eadaa7947629aa8a24eb23129b07116ee3"
+  integrity sha1-FW816tqnlHYpqook6yMSmwcRbuM=
   dependencies:
     esbuild "^0.8.34"
     postcss "^8.2.1"

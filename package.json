@@ -5,7 +5,8 @@
   "author": "wang xiao yang",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "serve": "vite preview"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -17,6 +18,6 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.1.4",
     "@vue/compiler-sfc": "^3.0.5",
-    "vite": "^2.0.0-beta.70"
+    "vite": "^2.0.0"
   }
 }
