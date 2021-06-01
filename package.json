@@ -10,14 +10,14 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "element-plus": "^1.0.2-beta.40",
+    "element-plus": "^1.0.2-beta.45",
     "vue": "^3.0.11",
     "vue-router": "4.0.5",
     "vuex": "^4.0.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^1.2.1",
+    "@vitejs/plugin-vue": "^1.2.2",
     "@vue/compiler-sfc": "^3.0.11",
-    "vite": "^2.2.4"
+    "vite": "^2.3.4"
   }
 }
