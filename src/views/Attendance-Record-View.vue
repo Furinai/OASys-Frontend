@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import {getAttendances} from '/@/utils/api'
+import {getAttendances} from '../utils/api'
 import {mapState} from 'vuex'
 
 export default {

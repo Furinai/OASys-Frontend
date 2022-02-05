@@ -1,5 +1,5 @@
 import {createStore} from 'vuex'
-import {initAuth} from '/@/utils/auth'
+import {initAuth} from '../utils/auth'
 
 const store = createStore({
     state: {

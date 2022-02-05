@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import {createAnnouncement, deleteAnnouncement, getAnnouncements, updateAnnouncement} from '/@/utils/api'
+import {createAnnouncement, deleteAnnouncement, getAnnouncements, updateAnnouncement} from '../utils/api'
 
 export default {
     name: "Announcement-Manage",

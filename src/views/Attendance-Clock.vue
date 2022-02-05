@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import {clockIn, clockOut, getAttendances} from '/@/utils/api'
+import {clockIn, clockOut, getAttendances} from '../utils/api'
 import {mapState} from 'vuex'
 import dayjs from 'dayjs'
 

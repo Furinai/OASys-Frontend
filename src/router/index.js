@@ -1,10 +1,10 @@
-import store from '/@/store'
+import store from '../store'
 import {createRouter, createWebHistory} from 'vue-router'
 import {getAuthPermissionsOfUser} from "../utils/api";
 
-import Admin from '/@/layout/Admin.vue'
-import Index from '/@/views/Index.vue'
-import Login from '/@/views/Login.vue'
+import Admin from '../layout/Admin.vue'
+import Index from '../views/Index.vue'
+import Login from '../views/Login.vue'
 
 const routes = [
     {

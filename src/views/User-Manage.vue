@@ -111,7 +111,7 @@
 </template>
 
 <script>
-import {createUser, deleteUser, getDepts, getRoles, getUsers, updateUser, uploadProfilePicture} from '/@/utils/api'
+import {createUser, deleteUser, getDepts, getRoles, getUsers, updateUser, uploadProfilePicture} from '../utils/api'
 
 export default {
     name: "User-Manage",

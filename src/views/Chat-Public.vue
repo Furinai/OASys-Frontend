@@ -25,7 +25,7 @@
 
 <script>
 import {mapState} from 'vuex'
-import {getToken} from '/@/utils/auth'
+import {getToken} from '../utils/auth'
 
 export default {
     name: 'Chat-Public',

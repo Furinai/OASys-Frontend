@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import {getAnnouncements} from '/@/utils/api'
+import {getAnnouncements} from '../utils/api'
 
 export default {
     name: "Announcement-View",

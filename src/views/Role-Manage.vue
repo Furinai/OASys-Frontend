@@ -52,7 +52,7 @@ import {
     getRoles,
     updatePermissionsOfRole,
     updateRole
-} from '/@/utils/api'
+} from '../utils/api'
 
 export default {
     name: "Role-Manage",
