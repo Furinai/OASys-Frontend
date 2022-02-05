@@ -9,15 +9,15 @@
 
 ### 安装依赖
 ```
-yarn
+pnpm
 ```
 
 ### 运行开发服务器
 ```
-yarn dev
+pnpm run dev
 ```
 
 ### 构建项目
 ```
-yarn build
+pnpm run build
 ```
