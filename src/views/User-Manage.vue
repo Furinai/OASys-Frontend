@@ -42,14 +42,14 @@
                 <el-input type="text" v-model="user.phoneNumber" maxlength="20" show-word-limit/>
             </el-form-item>
             <el-form-item class="text-right">
-                <el-button size="small" @click="onSubmit('user')" type="primary" :loading="loading">确认
+                <el-button @click="onSubmit('user')" type="primary" :loading="loading">确认
                 </el-button>
-                <el-button size="small" @click="editMode = ''">取消</el-button>
+                <el-button @click="editMode = ''">取消</el-button>
             </el-form-item>
         </el-form>
     </div>
     <div v-else>
-        <el-table ref="table" :data="users" style="width: 100%" size="medium" border>
+        <el-table ref="table" :data="users" style="width: 100%" border>
             <el-table-column type="expand">
                 <template #default="props">
                     <el-form label-position="left" class="table-expand" inline>
@@ -71,7 +71,7 @@
             <el-table-column prop="id" label="ID" align="center" width="150"/>
             <el-table-column label="头像" align="center" width="100">
                 <template #default="scope">
-                    <el-avatar :src="scope.row.profilePicture" size="small"/>
+                    <el-avatar :src="scope.row.profilePicture"/>
                 </template>
             </el-table-column>
             <el-table-column prop="username" label="用户名" align="center" width="150"/>
@@ -80,12 +80,12 @@
             <el-table-column prop="dept.name" label="部门" align="center" width="150"/>
             <el-table-column prop="roles" label="角色" align="center">
                 <template #default="scope">
-                    <el-tag v-for="role in scope.row.roles" size="small" effect="plain">{{ role.name }}</el-tag>
+                    <el-tag v-for="role in scope.row.roles" effect="plain">{{ role.name }}</el-tag>
                 </template>
             </el-table-column>
             <el-table-column label="操作" align="center" width="150px">
                 <template #header #default="scope">
-                    <el-button type="primary" size="mini" @click="createUser">新增</el-button>
+                    <el-button type="primary" @click="createUser">新增</el-button>
                 </template>
                 <template #default="scope">
                     <el-dropdown @command="handleCommand($event,scope.row)" trigger="click">

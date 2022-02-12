@@ -9,10 +9,10 @@
                           placeholder="内容" minlength="10" maxlength="2000" show-word-limit/>
             </el-form-item>
             <el-form-item class="text-right">
-                <el-button size="small" @click="onSubmit('announcement')" type="primary" :loading="loading">
+                <el-button @click="onSubmit('announcement')" type="primary" :loading="loading">
                     确认
                 </el-button>
-                <el-button size="small" @click="editMode = ''">取消</el-button>
+                <el-button @click="editMode = ''">取消</el-button>
             </el-form-item>
         </el-form>
     </div>
@@ -23,7 +23,7 @@
             <el-table-column prop="updateTime" label="修改时间" align="center"/>
             <el-table-column label="操作" align="center" width="100px">
                 <template #header #default="scope">
-                    <el-button type="primary" size="mini" @click="createAnnouncement">新增</el-button>
+                    <el-button type="primary" @click="createAnnouncement">新增</el-button>
                 </template>
                 <template #default="scope">
                     <el-dropdown @command="handleCommand($event,scope.row)" trigger="click">

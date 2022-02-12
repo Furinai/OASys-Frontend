@@ -8,21 +8,21 @@
                 <el-tree ref="tree" :data="permissions" :props="{label: 'name'}" node-key="id" show-checkbox check-strictly/>
             </el-form-item>
             <el-form-item class="text-right">
-                <el-button size="small" @click="onSubmit('role')" type="primary" :loading="loading">
+                <el-button @click="onSubmit('role')" type="primary" :loading="loading">
                     确认
                 </el-button>
-                <el-button size="small" @click="editMode = ''">取消</el-button>
+                <el-button @click="editMode = ''">取消</el-button>
             </el-form-item>
         </el-form>
     </div>
     <div v-else>
-        <el-table ref="table" :data="roles" style="width: 100%" size="medium" border>
+        <el-table ref="table" :data="roles" style="width: 100%" border>
             <el-table-column prop="name" label="角色名" align="center" width="300"/>
             <el-table-column prop="createTime" label="创建时间" align="center"/>
             <el-table-column prop="updateTime" label="修改时间" align="center"/>
             <el-table-column label="操作" align="center" width="200">
                 <template #header #default="scope">
-                    <el-button type="primary" size="mini" @click="createRole">新增</el-button>
+                    <el-button type="primary" @click="createRole">新增</el-button>
                 </template>
                 <template #default="scope">
                     <el-dropdown @command="handleCommand($event,scope.row)" trigger="click">

@@ -53,15 +53,15 @@
                 </el-form-item>
             </div>
             <el-form-item class="text-right">
-                <el-button size="small" @click="onSubmit('permission')" type="primary" :loading="loading">
+                <el-button @click="onSubmit('permission')" type="primary" :loading="loading">
                     确认
                 </el-button>
-                <el-button size="small" @click="editMode = ''">取消</el-button>
+                <el-button @click="editMode = ''">取消</el-button>
             </el-form-item>
         </el-form>
     </div>
     <div v-else>
-        <el-table ref="table" :data="permissions" style="width: 100%" size="medium" row-key="id" max-height="1000px" border>
+        <el-table ref="table" :data="permissions" style="width: 100%" row-key="id" max-height="1000px" border>
             <el-table-column prop="name" label="名称" align="left" width="160"/>
             <el-table-column prop="icon" label="图标" align="center" width="50">
                 <template #default="scope">
@@ -75,7 +75,7 @@
             <el-table-column prop="requestMethod" label="请求方法" align="center" width="100"/>
             <el-table-column label="操作" align="center" width="100">
                 <template #header #default="scope">
-                    <el-button type="primary" size="mini" @click="createPermission">新增</el-button>
+                    <el-button type="primary" @click="createPermission">新增</el-button>
                 </template>
                 <template #default="scope">
                     <el-dropdown @command="handleCommand($event,scope.row)" trigger="click">

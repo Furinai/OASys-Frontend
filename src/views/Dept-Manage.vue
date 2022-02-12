@@ -11,15 +11,15 @@
                 <el-input type="text" v-model="dept.phoneNumber" placeholder="联系电话" maxlength="11" show-word-limit/>
             </el-form-item>
             <el-form-item class="text-right">
-                <el-button size="small" @click="onSubmit('dept')" type="primary" :loading="loading">
+                <el-button @click="onSubmit('dept')" type="primary" :loading="loading">
                     确认
                 </el-button>
-                <el-button size="small" @click="editMode = ''">取消</el-button>
+                <el-button @click="editMode = ''">取消</el-button>
             </el-form-item>
         </el-form>
     </div>
     <div v-else>
-        <el-table ref="table" :data="depts" style="width: 100%" size="medium" border>
+        <el-table ref="table" :data="depts" style="width: 100%" border>
             <el-table-column prop="name" label="部门名" align="center" width="200"/>
             <el-table-column prop="principal" label="负责人" align="center" width="200"/>
             <el-table-column prop="phoneNumber" label="联系电话" align="center" width="200"/>
@@ -27,7 +27,7 @@
             <el-table-column prop="updateTime" label="修改时间" align="center"/>
             <el-table-column label="操作" align="center" width="100">
                 <template #header #default="scope">
-                    <el-button type="primary" size="mini" @click="createDept">新增</el-button>
+                    <el-button type="primary" @click="createDept">新增</el-button>
                 </template>
                 <template #default="scope">
                     <el-dropdown @command="handleCommand($event,scope.row)" trigger="click">
