@@ -78,8 +78,8 @@ export default {
         this.getPermissions()
     },
     methods: {
-        getRoles(pageNumber) {
-            getRoles({pageNumber}).then(result => {
+        getRoles() {
+            getRoles().then(result => {
                 if (result.code === '0000') {
                     this.roles = result.data
                     this.$refs.table.doLayout()

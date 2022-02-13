@@ -103,9 +103,8 @@ export default {
         return {
             files: [],
             size: 0,
+            currentPage: 1,
             keyword: '',
-            originalData: [],
-            originalSize: 0,
             paths: [{id: 0, name: '根目录'}],
         }
     },
@@ -116,8 +115,8 @@ export default {
         'auth'
     ]),
     methods: {
-        getFiles(parentId, pageNumber) {
-            getFiles({parentId, pageNumber, userId: this.auth.id}).then(result => {
+        getFiles(parentId) {
+            getFiles({parentId, pageNumber: this.currentPage, userId: this.auth.id}).then(result => {
                 if (result.code === '0000') {
                     this.files = result.data.list
                     this.size = result.data.size
@@ -274,26 +273,22 @@ export default {
             }
         },
         //todo 搜索结果分页
-        handlePageChange(pageNumber) {
+        handlePageChange(value) {
+            this.currentPage = value
             let parentId = this.paths[this.paths.length - 1].id
-            this.getFiles(parentId, pageNumber)
+            this.getFiles(parentId)
         },
-        searchFile(pageNumber) {
-            searchFile({name: this.keyword, pageNumber}).then(result => {
+        searchFile() {
+            searchFile({name: this.keyword, pageNumber: this.currentPage}).then(result => {
                 if (result.code === '0000') {
-                    this.originalData = this.files
-                    this.originalSize = this.size
                     this.files = result.data.list
                     this.size = result.data.size
                 }
             })
         },
         resetData() {
-            if (this.originalSize > 0) {
-                this.files = this.originalData
-                this.size = this.originalSize
-                this.originalSize = 0
-            }
+            let parentId = this.paths[this.paths.length - 1].id
+            this.getFiles(parentId)
         }
     }
 }

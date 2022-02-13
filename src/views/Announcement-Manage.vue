@@ -48,7 +48,7 @@
 
 <script>
 import {createAnnouncement, deleteAnnouncement, getAnnouncements, updateAnnouncement} from '../utils/api'
-import { ElMessageBox, ElMessage } from 'element-plus'
+import {ElMessage, ElMessageBox} from 'element-plus'
 
 export default {
     name: "Announcement-Manage",
@@ -57,6 +57,7 @@ export default {
             announcement: {},
             announcements: [],
             size: 0,
+            currentPage: 1,
             editMode: '',
             loading: false,
             rules: {
@@ -75,8 +76,8 @@ export default {
         this.getAnnouncements()
     },
     methods: {
-        getAnnouncements(pageNumber) {
-            getAnnouncements({pageNumber}).then(result => {
+        getAnnouncements() {
+            getAnnouncements({pageNumber: this.currentPage}).then(result => {
                 if (result.code === '0000') {
                     this.announcements = result.data.list
                     this.size = result.data.size
@@ -138,8 +139,9 @@ export default {
                     break
             }
         },
-        handlePageChange(pageNum) {
-            this.getAnnouncements(pageNum)
+        handlePageChange(value) {
+            this.currentPage = value
+            this.getAnnouncements()
         }
     }
 }

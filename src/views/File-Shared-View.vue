@@ -61,7 +61,7 @@
 
 <script>
 import {downloadFile, getFiles} from '../utils/api'
-import { ElMessageBox, ElMessage } from 'element-plus'
+import {ElMessage, ElMessageBox} from 'element-plus'
 
 export default {
     name: 'File-Shared-View',
@@ -69,6 +69,7 @@ export default {
         return {
             files: [],
             size: 0,
+            currentPage: 1,
             paths: [{id: 0, name: '根目录'}],
         }
     },
@@ -76,8 +77,8 @@ export default {
         this.getFiles(0)
     },
     methods: {
-        getFiles(parentId, pageNumber) {
-            getFiles({parentId, pageNumber, shared: true}).then(result => {
+        getFiles(parentId) {
+            getFiles({parentId, pageNumber: this.currentPage, shared: true}).then(result => {
                 if (result.code === '0000') {
                     this.files = result.data.list
                     this.size = result.data.size
@@ -127,9 +128,10 @@ export default {
                 this.download(row)
             }
         },
-        handlePageChange(pageNumber) {
+        handlePageChange(value) {
+            this.currentPage = value
             let parentId = this.paths[this.paths.length - 1].id
-            this.getFiles(parentId, pageNumber)
+            this.getFiles(parentId)
         }
     }
 }

@@ -40,17 +40,18 @@ export default {
     data() {
         return {
             announcements: [],
+            size: 0,
+            currentPage: 1,
             dialogValue: '',
-            dialogVisible: false,
-            size: 0
+            dialogVisible: false
         }
     },
     created() {
         this.getAnnouncements()
     },
     methods: {
-        getAnnouncements(pageNumber) {
-            getAnnouncements({pageNumber}).then(result => {
+        getAnnouncements() {
+            getAnnouncements({pageNumber: this.currentPage}).then(result => {
                 if (result.code === '0000') {
                     this.announcements = result.data.list
                     this.size = result.data.size
@@ -61,8 +62,9 @@ export default {
             this.dialogVisible = true
             this.dialogValue = announcement
         },
-        handlePageChange(pageNum) {
-            this.getAnnouncements(pageNum)
+        handlePageChange(value) {
+            this.currentPage = value
+            this.getAnnouncements()
         }
     }
 }

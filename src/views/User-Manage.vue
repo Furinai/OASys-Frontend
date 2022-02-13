@@ -124,6 +124,7 @@ export default {
             depts: [],
             roles: [],
             size: 0,
+            currentPage: 1,
             editMode: '',
             uploaded: false,
             loading: false,
@@ -165,8 +166,8 @@ export default {
         this.getUsers()
     },
     methods: {
-        getUsers(pageNumber) {
-            getUsers({pageNumber}).then(result => {
+        getUsers() {
+            getUsers({pageNumber: this.currentPage}).then(result => {
                 if (result.code === '0000') {
                     this.users = result.data.list
                     this.size = result.data.size
@@ -265,8 +266,9 @@ export default {
                     break
             }
         },
-        handlePageChange(pageNum) {
-            this.getUsers(pageNum)
+        handlePageChange(value) {
+            this.currentPage = value
+            this.getUsers()
         }
     }
 }

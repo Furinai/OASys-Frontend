@@ -24,6 +24,7 @@ export default {
         return {
             messages: [],
             size: 0,
+            currentPage: 0,
             range: []
         }
     },
@@ -31,8 +32,8 @@ export default {
         this.getMessages()
     },
     methods: {
-        getMessages(pageNumber, start, end) {
-            getMessages({pageNumber, start, end}).then(result => {
+        getMessages(start, end) {
+            getMessages({pageNumber: this.currentPage, start, end}).then(result => {
                 if (result.code === '0000') {
                     this.messages = result.data.list
                     this.size = result.data.size
@@ -51,13 +52,14 @@ export default {
         },
         handleValueChange(value) {
             if (value) {
-                this.getMessages(0, value[0], value[1])
+                this.getMessages(value[0], value[1])
             } else {
-                this.getMessages(0)
+                this.getMessages()
             }
         },
-        handlePageChange(pageNum) {
-            this.getMessages(pageNum - 1)
+        handlePageChange(value) {
+            this.currentPage = value - 1
+            this.getMessages()
         }
     }
 }

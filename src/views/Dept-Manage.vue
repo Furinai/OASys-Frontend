@@ -77,8 +77,8 @@ export default {
         this.getDepts()
     },
     methods: {
-        getDepts(pageNumber) {
-            getDepts({pageNumber}).then(result => {
+        getDepts() {
+            getDepts().then(result => {
                 if (result.code === '0000') {
                     this.depts = result.data
                     this.$refs.table.doLayout()
