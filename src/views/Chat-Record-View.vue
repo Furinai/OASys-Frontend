@@ -1,24 +1,22 @@
 <template>
     <div class="text-center date-picker">
-        <el-date-picker v-model="range" start-placeholder="开始日期" end-placeholder="结束日期"
-                        type="datetimerange" @change="handleValueChange"></el-date-picker>
+        <el-date-picker v-model="range" end-placeholder="结束日期" start-placeholder="开始日期"
+                        type="datetimerange"
+                        value-format="YYYY-MM-DD HH:mm:ss" @change="handleValueChange"></el-date-picker>
     </div>
-    <el-table :data="messages" tooltipEffect="light" style="width: 100%" border>
-        <el-table-column prop="type" label="类型" align="center" width="100" :formatter="typeFormatter"/>
-        <el-table-column prop="fullName" label="发送者" align="center" width="100"/>
-        <el-table-column prop="createTime" label="发送时间" align="center" width="200"/>
-        <el-table-column prop="content" label="内容" align="center" show-overflow-tooltip/>
+    <el-table :data="messages" border style="width: 100%" tooltipEffect="light">
+        <el-table-column :formatter="typeFormatter" align="center" label="类型" prop="type" width="100"/>
+        <el-table-column align="center" label="发送者" prop="fullName" width="100"/>
+        <el-table-column align="center" label="发送时间" prop="createTime" width="200"/>
+        <el-table-column align="center" label="内容" prop="content" show-overflow-tooltip/>
     </el-table>
-    <div class="pagination">
-        <el-pagination background layout="prev, pager, next" :pager-count="5" :total="size"
-                       :hide-on-single-page="true" @current-change="handlePageChange">
-        </el-pagination>
-    </div>
+    <el-pagination :hide-on-single-page="true" :pager-count="5" :total="size" background class="pagination"
+                   layout="prev, pager, next" @current-change="handlePageChange">
+    </el-pagination>
 </template>
 
 <script>
 import {getMessages} from '../utils/api'
-import dayjs from 'dayjs'
 
 export default {
     name: "Chat-Record-View",
@@ -53,9 +51,7 @@ export default {
         },
         handleValueChange(value) {
             if (value) {
-                const start = dayjs(value[0]).format("YYYY-MM-DD HH:mm:ss")
-                const end = dayjs(value[1]).format("YYYY-MM-DD HH:mm:ss")
-                this.getMessages(0, start, end)
+                this.getMessages(0, value[0], value[1])
             } else {
                 this.getMessages(0)
             }
@@ -67,7 +63,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .date-picker {
     margin-bottom: 20px;
 }

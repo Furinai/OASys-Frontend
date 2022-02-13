@@ -1,58 +1,61 @@
 <template>
     <div v-if="editMode === 'create' || editMode === 'update'">
-        <el-form :model="user" :rules="rules" ref="user" label-width="80px">
-            <el-form-item prop="username" label="用户名">
-                <el-input type="text" v-model="user.username" maxlength="20" show-word-limit/>
+        <el-form ref="user" :model="user" :rules="rules" label-width="80px">
+            <el-form-item label="用户名" prop="username">
+                <el-input v-model="user.username" maxlength="20" show-word-limit type="text"/>
             </el-form-item>
             <el-form-item v-if="editMode === 'update'" label="密码">
-                <el-input type="password" v-model="user.password" maxlength="20"/>
+                <el-input v-model="user.password" maxlength="20" type="password"/>
             </el-form-item>
-            <el-form-item v-else prop="password" label="密码">
-                <el-input type="password" v-model="user.password" maxlength="20"/>
+            <el-form-item v-else label="密码" prop="password">
+                <el-input v-model="user.password" maxlength="20" type="password"/>
             </el-form-item>
-            <el-form-item prop="fullName" label="姓名">
-                <el-input type="text" v-model="user.fullName" maxlength="10" show-word-limit/>
+            <el-form-item label="姓名" prop="fullName">
+                <el-input v-model="user.fullName" maxlength="10" show-word-limit type="text"/>
             </el-form-item>
-            <el-form-item prop="gender" label="性别">
+            <el-form-item label="性别" prop="gender">
                 <el-radio-group v-model="user.gender">
                     <el-radio label="男"></el-radio>
                     <el-radio label="女"></el-radio>
                 </el-radio-group>
             </el-form-item>
-            <el-form-item prop="dept" label="部门">
+            <el-form-item label="部门" prop="dept">
                 <el-select v-model="user.dept" value-key="id">
                     <el-option v-for="dept in depts" :label="dept.name" :value="dept"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item prop="roles" label="角色">
-                <el-select v-model="user.roles" value-key="id" multiple>
+            <el-form-item label="角色" prop="roles">
+                <el-select v-model="user.roles" multiple value-key="id">
                     <el-option v-for="role in roles" :label="role.name" :value="role"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item prop="profilePicture" ref="pictureUploader" label="头像">
-                <el-upload class="avatar-uploader" action="" :show-file-list="false" :http-request="uploadProfilePicture">
-                    <img v-if="uploaded || user.profilePicture" :src="user.profilePicture" class="avatar" alt="头像">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            <el-form-item ref="pictureUploader" label="头像" prop="profilePicture">
+                <el-upload :http-request="uploadProfilePicture" :show-file-list="false" action=""
+                           class="avatar-uploader">
+                    <img v-if="uploaded || user.profilePicture" :src="user.profilePicture" alt="头像" class="avatar">
+                    <el-icon class="avatar-uploader-icon">
+                        <plus/>
+                    </el-icon>
                 </el-upload>
             </el-form-item>
-            <el-form-item prop="emailAddress" label="邮箱地址">
-                <el-input type="text" v-model="user.emailAddress" maxlength="20" show-word-limit/>
+            <el-form-item label="邮箱地址" prop="emailAddress">
+                <el-input v-model="user.emailAddress" maxlength="20" show-word-limit type="text"/>
             </el-form-item>
-            <el-form-item prop="phoneNumber" label="电话号码">
-                <el-input type="text" v-model="user.phoneNumber" maxlength="20" show-word-limit/>
+            <el-form-item label="电话号码" prop="phoneNumber">
+                <el-input v-model="user.phoneNumber" maxlength="20" show-word-limit type="text"/>
             </el-form-item>
             <el-form-item class="text-right">
-                <el-button @click="onSubmit('user')" type="primary" :loading="loading">确认
+                <el-button :loading="loading" type="primary" @click="onSubmit('user')">确认
                 </el-button>
                 <el-button @click="editMode = ''">取消</el-button>
             </el-form-item>
         </el-form>
     </div>
     <div v-else>
-        <el-table ref="table" :data="users" style="width: 100%" border>
+        <el-table ref="table" :data="users" border style="width: 100%">
             <el-table-column type="expand">
                 <template #default="props">
-                    <el-form label-position="left" class="table-expand" inline>
+                    <el-form class="table-expand" inline label-position="left">
                         <el-form-item label="邮箱地址">
                             <span>{{ props.row.emailAddress }}</span>
                         </el-form-item>
@@ -68,30 +71,30 @@
                     </el-form>
                 </template>
             </el-table-column>
-            <el-table-column prop="id" label="ID" align="center" width="150"/>
-            <el-table-column label="头像" align="center" width="100">
+            <el-table-column align="center" label="ID" prop="id" width="150"/>
+            <el-table-column align="center" label="头像" width="100">
                 <template #default="scope">
                     <el-avatar :src="scope.row.profilePicture"/>
                 </template>
             </el-table-column>
-            <el-table-column prop="username" label="用户名" align="center" width="150"/>
-            <el-table-column prop="fullName" label="姓名" align="center" width="150"/>
-            <el-table-column prop="gender" label="性别" align="center" width="100"/>
-            <el-table-column prop="dept.name" label="部门" align="center" width="150"/>
-            <el-table-column prop="roles" label="角色" align="center">
+            <el-table-column align="center" label="用户名" prop="username" width="150"/>
+            <el-table-column align="center" label="姓名" prop="fullName" width="150"/>
+            <el-table-column align="center" label="性别" prop="gender" width="100"/>
+            <el-table-column align="center" label="部门" prop="dept.name" width="150"/>
+            <el-table-column align="center" label="角色" prop="roles">
                 <template #default="scope">
                     <el-tag v-for="role in scope.row.roles" effect="plain">{{ role.name }}</el-tag>
                 </template>
             </el-table-column>
-            <el-table-column label="操作" align="center" width="150px">
+            <el-table-column align="center" label="操作" width="150px">
                 <template #header #default="scope">
                     <el-button type="primary" @click="createUser">新增</el-button>
                 </template>
                 <template #default="scope">
-                    <el-dropdown @command="handleCommand($event,scope.row)" trigger="click">
-                        <span class="el-dropdown-link">
-                            <i class="el-icon-s-operation"></i>
-                        </span>
+                    <el-dropdown trigger="click" @command="handleCommand($event,scope.row)">
+                        <el-icon :size="20">
+                            <operation/>
+                        </el-icon>
                         <template #dropdown>
                             <el-dropdown-menu>
                                 <el-dropdown-item command="updateUser">编辑</el-dropdown-item>
@@ -102,16 +105,15 @@
                 </template>
             </el-table-column>
         </el-table>
-        <div class="pagination">
-            <el-pagination background layout="prev, pager, next" :pager-count="5" :total="size"
-                           :hide-on-single-page="true" @current-change="handlePageChange">
-            </el-pagination>
-        </div>
+        <el-pagination :hide-on-single-page="true" :pager-count="5" :total="size" background class="pagination"
+                       layout="prev, pager, next" @current-change="handlePageChange">
+        </el-pagination>
     </div>
 </template>
 
 <script>
 import {createUser, deleteUser, getDepts, getRoles, getUsers, updateUser, uploadProfilePicture} from '../utils/api'
+import {ElMessage, ElMessageBox} from 'element-plus'
 
 export default {
     name: "User-Manage",
@@ -195,14 +197,14 @@ export default {
                             if (result.code === '0000') {
                                 this.uploaded = false
                                 this.$refs[user].resetFields()
-                                this.$message.success("新增成功！")
+                                ElMessage.success("新增成功！")
                             }
                         }).finally(() => this.loading = false)
                     }
                     if (this.editMode === 'update') {
                         updateUser(this.user).then(result => {
                             if (result.code === '0000') {
-                                this.$message.success("更新成功！")
+                                ElMessage.success("更新成功！")
                                 this.editMode = ''
                             }
                         }).finally(() => this.loading = false)
@@ -215,7 +217,7 @@ export default {
             formData.append('multipartFile', params.file)
             uploadProfilePicture(formData).then(result => {
                 if (result.code === '0000') {
-                    this.$message.success('上传成功！')
+                    ElMessage.success('上传成功！')
                     this.user.profilePicture = result.data
                     this.$refs.pictureUploader.clearValidate()
                     this.uploaded = true
@@ -243,12 +245,12 @@ export default {
             this.editMode = 'update'
         },
         deleteUser(row) {
-            this.$confirm("确定删除？").then(() => {
+            ElMessageBox.confirm("确定删除？").then(() => {
                 deleteUser(row.id).then(result => {
                     if (result.code === '0000') {
                         let index = this.users.indexOf(row)
                         this.users.splice(index, 1)
-                        this.$message.success("删除成功！")
+                        ElMessage.success("删除成功！")
                     }
                 })
             })
@@ -270,8 +272,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .table-expand {
+    margin-left: 20px;
     font-size: 0;
 }
 

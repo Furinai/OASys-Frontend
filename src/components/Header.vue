@@ -16,6 +16,7 @@
 <script>
 import {mapState} from 'vuex'
 import {removeAuth, removeToken} from '../utils/auth'
+import { ElMessageBox, ElMessage } from 'element-plus'
 
 export default {
     name: "Header",
@@ -24,13 +25,13 @@ export default {
     ]),
     methods: {
         logout() {
-            this.$confirm("确定注销？", "提示", {type: "warning"}).then(() => {
+            ElMessageBox.confirm("确定注销？", "提示", {type: "warning"}).then(() => {
                     removeAuth()
                     removeToken()
                     this.$router.push({name: "login"})
                 }
             ).catch(() => {
-                this.$message.warning("已取消！")
+                ElMessage.warning("已取消！")
             })
         }
     },

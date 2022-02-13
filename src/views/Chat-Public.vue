@@ -1,11 +1,11 @@
 <template>
-    <el-scrollbar class="frame" ref="elscrollbar">
+    <el-scrollbar ref="elscrollbar" class="frame">
         <ul class="message-list">
             <li v-for="message in messages">
                 <div v-if="message.type === 'SYSTEM'" class="system-message">
                     {{ message.content }}
                 </div>
-                <div v-else class="public-message" :class="{'mine': message.username === auth.username}">
+                <div v-else :class="{'mine': message.username === auth.username}" class="public-message">
                     <div class="user">
                         <el-avatar :src="message.profilePicture"/>
                         <div class="name">{{ message.fullName }}</div>
@@ -17,7 +17,7 @@
     </el-scrollbar>
     <div class="flex-between input-box">
         <el-input v-model.trim="content" @keyup.enter="sendMessage"></el-input>
-        <el-button class="send-button" type="primary" :disabled="content===''" @click="sendMessage">
+        <el-button :disabled="content===''" class="send-button" type="primary" @click="sendMessage">
             发送
         </el-button>
     </div>
@@ -26,6 +26,7 @@
 <script>
 import {mapState} from 'vuex'
 import {getToken} from '../utils/auth'
+import {ElMessage} from 'element-plus'
 
 export default {
     name: 'Chat-Public',
@@ -63,7 +64,7 @@ export default {
             this.messages.push(JSON.parse(event.data))
         },
         onError() {
-            this.$message.error("WebSocket连接失败")
+            ElMessage.error("WebSocket连接失败")
         },
         sendMessage() {
             this.webSocket.send(this.content)

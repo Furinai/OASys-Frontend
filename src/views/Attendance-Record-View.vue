@@ -12,28 +12,28 @@
                             签退时间：{{ data.attendance.clockOutTime }}
                         </div>
                         <template #reference>
-                            <i class="el-icon-warning" v-if="!data.attendance.clockOutTime
-                            ||data.attendance.comeLateMinutes||data.attendance.leaveEarlyMinutes">
-                                    <span v-if="!data.attendance.clockOutTime">
-                                        未签退
-                                    </span>
-                                <span v-if="data.attendance.comeLateMinutes">
-                                        迟到
-                                    </span>
-                                <span v-if="data.attendance.leaveEarlyMinutes">
-                                        早退
-                                    </span>
-                            </i>
-                            <i class="el-icon-success" v-else>
-                                正常
-                            </i>
+                            <div v-if="isAbnormalAttendance(data)">
+                                <el-icon color="#E6A23C">
+                                    <warning-filled/>
+                                </el-icon>
+                                <span style="color: #E6A23C">
+                                {{ getAbnormalDescription(data.attendance) }}
+                                </span>
+                            </div>
+                            <div v-else>
+                                <el-icon color="#67C23A">
+                                    <success-filled/>
+                                </el-icon>
+                                <span style="color: #67C23A">正常</span>
+                            </div>
                         </template>
                     </el-popover>
                 </template>
                 <template v-else>
-                    <i class='el-icon-error'>
-                        缺勤
-                    </i>
+                    <el-icon color="#F56C6C">
+                        <circle-close-filled/>
+                    </el-icon>
+                    <span style="color: #F56C6C">缺勤</span>
                 </template>
             </div>
         </template>
@@ -88,12 +88,27 @@ export default {
         },
         verifyDateRange(date) {
             return date.getMonth() === this.currentMonth && date < this.currentDay
+        },
+        isAbnormalAttendance(data) {
+            return !data.attendance.clockOutTime
+                || data.attendance.comeLateMinutes
+                || data.attendance.leaveEarlyMinutes
+        },
+        getAbnormalDescription(attendance) {
+            let description = ''
+            if (!attendance.clockOutTime)
+                description += ' 未签退'
+            if (attendance.comeLateMinutes)
+                description += ' 迟到'
+            if (attendance.leaveEarlyMinutes)
+                description += ' 早退'
+            return description
         }
     }
 }
 </script>
 
-<style>
+<style scoped>
 .clock-time {
     margin: 10px 10px;
 }

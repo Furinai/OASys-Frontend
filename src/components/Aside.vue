@@ -1,18 +1,27 @@
 <template>
     <div class="aside">
-        <el-menu background-color="#304156" text-color="#BFCBD9" active-text-color="#409EFF"
-                 unique-opened router>
+        <el-menu active-text-color="#409EFF" background-color="#304156" router
+                 text-color="#BFCBD9" unique-opened>
             <el-scrollbar style="height: 100%;">
-                <el-menu-item index="0" :route="{name: 'Index'}">
-                    <i class="el-icon-house"></i>
+                <el-menu-item :route="{name: 'Index'}" index="0">
+                    <el-icon>
+                        <house/>
+                    </el-icon>
                     <template #title>首页</template>
                 </el-menu-item>
                 <el-sub-menu v-for="(category, i) in permissions" :index="i + ''">
                     <template #title>
-                        <i v-if="category.icon" :class="category.icon"/>{{ category.name }}
+                        <el-icon>
+                            <component :is="category.icon" v-if="category.icon"/>
+                        </el-icon>
+                        {{ category.name }}
                     </template>
-                    <el-menu-item v-for="(menu, j) in category.children" :index="i + '-' + j" :route="{name: menu.routerName}">
-                        <i v-if="menu.icon" :class="menu.icon"/>{{ menu.name }}
+                    <el-menu-item v-for="(menu, j) in category.children"
+                                  :index="i + '-' + j" :route="{name: menu.routerName}">
+                        <el-icon>
+                            <component :is="menu.icon" v-if="menu.icon"/>
+                        </el-icon>
+                        {{ menu.name }}
                     </el-menu-item>
                 </el-sub-menu>
             </el-scrollbar>

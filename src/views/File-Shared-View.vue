@@ -1,10 +1,12 @@
 <template>
     <div class="files">
-        <el-card shadow="never" :body-style="{padding:'15px'}" class="breadcrumb">
+        <el-card :body-style="{padding:'15px'}" class="breadcrumb" shadow="never">
             <div class="flex-between">
                 <div class="flex-start">
                     <div class="breadcrumb-icon">
-                        <i class="el-icon-back text-icon" @click="returnParentFolder"></i>
+                        <el-icon>
+                            <back @click="returnParentFolder"/>
+                        </el-icon>
                     </div>
                     <el-breadcrumb separator="/">
                         <el-breadcrumb-item v-for="(path, index) in paths">
@@ -16,27 +18,33 @@
                 </div>
             </div>
         </el-card>
-        <el-table :data="files" ref="table" @row-click="enterFolder" style="width: 100%" empty-text="空文件夹" border>
+        <el-table ref="table" :data="files" border empty-text="空文件夹" style="width: 100%" @row-click="enterFolder">
             <el-table-column label="名称">
                 <template #default="scope">
-                    <i v-if="scope.row.type === '文件夹'" class="el-icon-folder folder-icon"></i>
-                    <i v-else class="el-icon-document file-icon"></i>
+                    <el-icon v-if="scope.row.type === '文件夹'" class="folder-icon">
+                        <folder/>
+                    </el-icon>
+                    <el-icon v-else class="file-icon">
+                        <document/>
+                    </el-icon>
                     {{ scope.row.name }}
                 </template>
             </el-table-column>
-            <el-table-column prop="type" label="类型" align="center" width="100"/>
-            <el-table-column prop="size" label="大小" align="center" width="100"/>
-            <el-table-column prop="creator" label="创建者" align="center" width="150"/>
-            <el-table-column prop="createTime" label="创建时间" align="center" width="200"/>
-            <el-table-column prop="updateTime" label="修改时间" align="center" width="200"/>
-            <el-table-column label="操作" align="center" width="100">
+            <el-table-column align="center" label="类型" prop="type" width="100"/>
+            <el-table-column align="center" label="大小" prop="size" width="100"/>
+            <el-table-column align="center" label="创建者" prop="creator" width="150"/>
+            <el-table-column align="center" label="创建时间" prop="createTime" width="200"/>
+            <el-table-column align="center" label="修改时间" prop="updateTime" width="200"/>
+            <el-table-column align="center" label="操作" width="100">
                 <template #default="scope">
                     <el-dropdown @command="handleCommand($event, scope.row)">
-                        <i class="el-icon-s-operation"></i>
+                        <el-icon :size="20">
+                            <operation/>
+                        </el-icon>
                         <template #dropdown>
                             <el-dropdown-menu>
-                                <el-dropdown-item icon="el-icon-download" command="download"
-                                                  :disabled="scope.row.type === '文件夹'">
+                                <el-dropdown-item :disabled="scope.row.type === '文件夹'" command="download"
+                                                  icon="el-icon-download">
                                     下载
                                 </el-dropdown-item>
                             </el-dropdown-menu>
@@ -45,16 +53,15 @@
                 </template>
             </el-table-column>
         </el-table>
-        <div class="pagination">
-            <el-pagination background layout="prev, pager, next" :pager-count="5" :total="size"
-                           :hide-on-single-page="true" @current-change="handlePageChange">
-            </el-pagination>
-        </div>
+        <el-pagination :hide-on-single-page="true" :pager-count="5" :total="size" background class="pagination"
+                       layout="prev, pager, next" @current-change="handlePageChange">
+        </el-pagination>
     </div>
 </template>
 
 <script>
 import {downloadFile, getFiles} from '../utils/api'
+import { ElMessageBox, ElMessage } from 'element-plus'
 
 export default {
     name: 'File-Shared-View',
@@ -97,7 +104,7 @@ export default {
             }
         },
         download(row) {
-            this.$prompt('请输入文件名', '下载', {
+            ElMessageBox.prompt('请输入文件名', '下载', {
                 inputValue: row.name,
                 inputPattern: /^.{1,20}$/,
                 inputErrorMessage: '文件名应为1-20个字符'
@@ -112,7 +119,7 @@ export default {
                     }
                 })
             }).catch(() => {
-                this.$message.warning('已取消下载！')
+                ElMessage.warning('已取消下载！')
             })
         },
         handleCommand(command, row) {

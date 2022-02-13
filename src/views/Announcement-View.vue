@@ -1,14 +1,18 @@
 <template>
     <ul class="announcements">
-        <li class="list" v-for="announcement in announcements"
+        <li v-for="announcement in announcements" class="list"
             @click="viewAnnouncement(announcement)">
             <div class="flex-between">
                 <div class="flex-start">
-                    <i class="el-icon-document"></i>
+                    <el-icon>
+                        <document/>
+                    </el-icon>
                     {{ announcement.title }}
                 </div>
                 <div class="update-time">
-                    <i class="el-icon-time"></i>
+                    <el-icon>
+                        <time/>
+                    </el-icon>
                     {{ announcement.createTime }}
                 </div>
             </div>
@@ -23,11 +27,9 @@
             更新时间：{{ dialogValue.updateTime }}
         </template>
     </el-dialog>
-    <div class="pagination">
-        <el-pagination background layout="prev, pager, next" :pager-count="5" :total="size"
-                       :hide-on-single-page="true" @current-change="handlePageChange">
-        </el-pagination>
-    </div>
+    <el-pagination :hide-on-single-page="true" :pager-count="5" :total="size" background class="pagination"
+                   layout="prev, pager, next" @current-change="handlePageChange">
+    </el-pagination>
 </template>
 
 <script>
@@ -66,7 +68,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .announcements {
     margin: 10px;
 }

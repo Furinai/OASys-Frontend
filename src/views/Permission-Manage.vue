@@ -1,51 +1,57 @@
 <template>
     <div v-if="editMode === 'create' || editMode === 'update'">
-        <el-form :model="permission" :rules="rules" ref="permission" label-width="80px">
-            <el-form-item prop="name" label="名称">
-                <el-input type="text" v-model="permission.name" placeholder="名称" maxlength="20" show-word-limit/>
+        <el-form ref="permission" :model="permission" :rules="rules" label-width="80px">
+            <el-form-item label="名称" prop="name">
+                <el-input v-model="permission.name" maxlength="20" placeholder="名称" show-word-limit type="text"/>
             </el-form-item>
-            <el-form-item v-if="editMode === 'create'" prop="type" label="类型" @change="onTypeChange">
-                <el-radio v-model="permission.type" label="category" border>分类</el-radio>
-                <el-radio v-model="permission.type" label="menu" border>菜单</el-radio>
-                <el-radio v-model="permission.type" label="resource" border>资源</el-radio>
+            <el-form-item v-if="editMode === 'create'" label="类型" prop="type" @change="onTypeChange">
+                <el-radio v-model="permission.type" border label="category">分类</el-radio>
+                <el-radio v-model="permission.type" border label="menu">菜单</el-radio>
+                <el-radio v-model="permission.type" border label="resource">资源</el-radio>
             </el-form-item>
             <div v-if="permission.type === 'category'">
-                <el-form-item prop="icon" label="图标">
-                    <el-input type="text" v-model="permission.icon" placeholder="图标" maxlength="40" show-word-limit/>
+                <el-form-item label="图标" prop="icon">
+                    <el-input v-model="permission.icon" maxlength="40" placeholder="图标" show-word-limit type="text"/>
                 </el-form-item>
             </div>
             <div v-if="permission.type === 'menu'">
-                <el-form-item prop="icon" label="图标">
-                    <el-input type="text" v-model="permission.icon" placeholder="图标" maxlength="40" show-word-limit/>
+                <el-form-item label="图标" prop="icon">
+                    <el-input v-model="permission.icon" maxlength="40" placeholder="图标" show-word-limit type="text"/>
                 </el-form-item>
-                <el-form-item v-if="editMode === 'create'" prop="parentId" label="分类">
+                <el-form-item v-if="editMode === 'create'" label="分类" prop="parentId">
                     <el-select v-model="permission.parentId">
-                        <el-option v-for="category in permissions" :label="category.name" :value="category.id"></el-option>
+                        <el-option v-for="category in permissions" :label="category.name"
+                                   :value="category.id"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item prop="routerName" label="路由名称">
-                    <el-input type="text" v-model="permission.routerName" placeholder="路由名称" maxlength="40" show-word-limit/>
+                <el-form-item label="路由名称" prop="routerName">
+                    <el-input v-model="permission.routerName" maxlength="40" placeholder="路由名称" show-word-limit
+                              type="text"/>
                 </el-form-item>
-                <el-form-item prop="routerPath" label="路由路径">
-                    <el-input type="text" v-model="permission.routerPath" placeholder="路由路径" maxlength="40" show-word-limit/>
+                <el-form-item label="路由路径" prop="routerPath">
+                    <el-input v-model="permission.routerPath" maxlength="40" placeholder="路由路径" show-word-limit
+                              type="text"/>
                 </el-form-item>
-                <el-form-item prop="componentPath" label="组件路径">
-                    <el-input type="text" v-model="permission.componentPath" placeholder="组件路径" maxlength="40" show-word-limit/>
+                <el-form-item label="组件路径" prop="componentPath">
+                    <el-input v-model="permission.componentPath" maxlength="40" placeholder="组件路径" show-word-limit
+                              type="text"/>
                 </el-form-item>
             </div>
             <div v-if="permission.type === 'resource'">
-                <el-form-item v-if="editMode === 'create'" prop="parentId" label="菜单">
+                <el-form-item v-if="editMode === 'create'" label="菜单" prop="parentId">
                     <el-select v-model="permission.parentId">
-                        <el-option-group v-for="permission in permissions" :key="permission.id" :label="permission.name">
+                        <el-option-group v-for="permission in permissions" :key="permission.id"
+                                         :label="permission.name">
                             <el-option v-for="menu in permission.children" :label="menu.name" :value="menu.id">
                             </el-option>
                         </el-option-group>
                     </el-select>
                 </el-form-item>
-                <el-form-item prop="resourcePath" label="资源路径">
-                    <el-input type="text" v-model="permission.resourcePath" placeholder="资源路径" maxlength="40" show-word-limit/>
+                <el-form-item label="资源路径" prop="resourcePath">
+                    <el-input v-model="permission.resourcePath" maxlength="40" placeholder="资源路径" show-word-limit
+                              type="text"/>
                 </el-form-item>
-                <el-form-item prop="requestMethod" label="请求方法">
+                <el-form-item label="请求方法" prop="requestMethod">
                     <el-radio v-model="permission.requestMethod" label="GET">GET</el-radio>
                     <el-radio v-model="permission.requestMethod" label="POST">POST</el-radio>
                     <el-radio v-model="permission.requestMethod" label="PUT">PUT</el-radio>
@@ -53,7 +59,7 @@
                 </el-form-item>
             </div>
             <el-form-item class="text-right">
-                <el-button @click="onSubmit('permission')" type="primary" :loading="loading">
+                <el-button :loading="loading" type="primary" @click="onSubmit('permission')">
                     确认
                 </el-button>
                 <el-button @click="editMode = ''">取消</el-button>
@@ -61,27 +67,27 @@
         </el-form>
     </div>
     <div v-else>
-        <el-table ref="table" :data="permissions" style="width: 100%" row-key="id" max-height="1000px" border>
-            <el-table-column prop="name" label="名称" align="left" width="160"/>
-            <el-table-column prop="icon" label="图标" align="center" width="50">
+        <el-table ref="table" :data="permissions" border max-height="1000px" row-key="id" style="width: 100%">
+            <el-table-column align="left" label="名称" prop="name" width="160"/>
+            <el-table-column align="center" label="图标" prop="icon" width="50">
                 <template #default="scope">
                     <el-icon :class=scope.row.icon></el-icon>
                 </template>
             </el-table-column>
-            <el-table-column prop="routerName" label="路由名称" align="center" width="180"/>
-            <el-table-column prop="routerPath" label="路由路径" align="center" width="180"/>
-            <el-table-column prop="componentPath" label="组件路径" align="center"/>
-            <el-table-column prop="resourcePath" label="资源路径" align="center" width="150"/>
-            <el-table-column prop="requestMethod" label="请求方法" align="center" width="100"/>
-            <el-table-column label="操作" align="center" width="100">
+            <el-table-column align="center" label="路由名称" prop="routerName" width="180"/>
+            <el-table-column align="center" label="路由路径" prop="routerPath" width="180"/>
+            <el-table-column align="center" label="组件路径" prop="componentPath"/>
+            <el-table-column align="center" label="资源路径" prop="resourcePath" width="150"/>
+            <el-table-column align="center" label="请求方法" prop="requestMethod" width="100"/>
+            <el-table-column align="center" label="操作" width="100">
                 <template #header #default="scope">
                     <el-button type="primary" @click="createPermission">新增</el-button>
                 </template>
                 <template #default="scope">
-                    <el-dropdown @command="handleCommand($event,scope.row)" trigger="click">
-                        <span class="el-dropdown-link">
-                            <i class="el-icon-s-operation"></i>
-                        </span>
+                    <el-dropdown trigger="click" @command="handleCommand($event,scope.row)">
+                        <el-icon :size="20">
+                            <operation/>
+                        </el-icon>
                         <template #dropdown>
                             <el-dropdown-menu>
                                 <el-dropdown-item command="updatePermission">编辑</el-dropdown-item>
@@ -97,6 +103,7 @@
 
 <script>
 import {createPermission, deletePermission, getPermissions, updatePermission} from '../utils/api'
+import {ElMessage, ElMessageBox} from 'element-plus'
 
 export default {
     name: "Permission-Manage",
@@ -166,7 +173,7 @@ export default {
                             if (result.code === '0000') {
                                 this.editMode = ''
                                 this.getPermissions()
-                                this.$message.success("新增成功！")
+                                ElMessage.success("新增成功！")
                             }
                         }).finally(() => this.loading = false)
                     }
@@ -177,7 +184,7 @@ export default {
                         updatePermission(this.permission).then(result => {
                             if (result.code === '0000') {
                                 this.editMode = ''
-                                this.$message.success("更新成功！")
+                                ElMessage.success("更新成功！")
                             }
                         }).finally(() => this.loading = false)
                     }
@@ -193,16 +200,16 @@ export default {
             this.permission = row
         },
         deletePermission(row) {
-            this.$confirm("确定删除？").then(() => {
+            ElMessageBox.confirm("确定删除？").then(() => {
                 deletePermission(row.id).then(result => {
                     if (result.code === '0000') {
                         let index = this.permissions.indexOf(row)
                         this.permissions.splice(index, 1)
-                        this.$message.success("删除成功！")
+                        ElMessage.success("删除成功！")
                     }
                 })
             }).catch(() => {
-                this.$message.warning("已取消！")
+                ElMessage.warning("已取消！")
             })
         },
         handleCommand(command, row) {

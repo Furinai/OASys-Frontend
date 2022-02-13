@@ -4,15 +4,15 @@
             <template #header>
                 <div class="card-title">OA系统登录</div>
             </template>
-            <el-form :model="user" :rules="rules" ref="user">
+            <el-form ref="user" :model="user" :rules="rules">
                 <el-form-item prop="username">
-                    <el-input type="text" v-model="user.username" placeholder="用户名"/>
+                    <el-input v-model="user.username" placeholder="用户名" type="text"/>
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input type="password" v-model="user.password" placeholder="密码" @keyup.enter="onSubmit('user')"/>
+                    <el-input v-model="user.password" placeholder="密码" type="password" @keyup.enter="onSubmit('user')"/>
                 </el-form-item>
                 <el-form-item>
-                    <el-button class="button-long" type="primary" @click="onSubmit('user')" :loading="loading" round>
+                    <el-button :loading="loading" class="button-long" round type="primary" @click="onSubmit('user')">
                         登录
                     </el-button>
                 </el-form-item>
@@ -25,6 +25,7 @@
 import axios from 'axios'
 import {getAuthUser} from '../utils/api'
 import {setAuth, setToken} from '../utils/auth'
+import {ElMessage} from 'element-plus'
 
 export default {
     name: "Login",
@@ -69,9 +70,9 @@ export default {
                         })
                     }).catch(error => {
                         if (error.response.status === 400) {
-                            this.$message.error(error.response.data.error_description)
+                            ElMessage.error(error.response.data.error_description)
                         } else {
-                            this.$message.error(error.message)
+                            ElMessage.error(error.message)
                         }
                     }).finally(() =>
                         this.loading = false
@@ -83,7 +84,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .login {
     height: 100%;
     position: relative;

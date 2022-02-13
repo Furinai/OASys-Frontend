@@ -1,17 +1,17 @@
 <template>
     <div v-if="editMode === 'create' || editMode === 'update'">
-        <el-form :model="dept" :rules="rules" ref="dept" label-width="80px">
-            <el-form-item prop="name" label="部门名">
-                <el-input type="text" v-model="dept.name" placeholder="部门名" maxlength="20" show-word-limit/>
+        <el-form ref="dept" :model="dept" :rules="rules" label-width="80px">
+            <el-form-item label="部门名" prop="name">
+                <el-input v-model="dept.name" maxlength="20" placeholder="部门名" show-word-limit type="text"/>
             </el-form-item>
-            <el-form-item prop="principal" label="负责人">
-                <el-input type="text" v-model="dept.principal" placeholder="负责人" maxlength="20" show-word-limit/>
+            <el-form-item label="负责人" prop="principal">
+                <el-input v-model="dept.principal" maxlength="20" placeholder="负责人" show-word-limit type="text"/>
             </el-form-item>
-            <el-form-item prop="phoneNumber" label="联系电话">
-                <el-input type="text" v-model="dept.phoneNumber" placeholder="联系电话" maxlength="11" show-word-limit/>
+            <el-form-item label="联系电话" prop="phoneNumber">
+                <el-input v-model="dept.phoneNumber" maxlength="11" placeholder="联系电话" show-word-limit type="text"/>
             </el-form-item>
             <el-form-item class="text-right">
-                <el-button @click="onSubmit('dept')" type="primary" :loading="loading">
+                <el-button :loading="loading" type="primary" @click="onSubmit('dept')">
                     确认
                 </el-button>
                 <el-button @click="editMode = ''">取消</el-button>
@@ -19,21 +19,21 @@
         </el-form>
     </div>
     <div v-else>
-        <el-table ref="table" :data="depts" style="width: 100%" border>
-            <el-table-column prop="name" label="部门名" align="center" width="200"/>
-            <el-table-column prop="principal" label="负责人" align="center" width="200"/>
-            <el-table-column prop="phoneNumber" label="联系电话" align="center" width="200"/>
-            <el-table-column prop="createTime" label="创建时间" align="center"/>
-            <el-table-column prop="updateTime" label="修改时间" align="center"/>
-            <el-table-column label="操作" align="center" width="100">
+        <el-table ref="table" :data="depts" border style="width: 100%">
+            <el-table-column align="center" label="部门名" prop="name" width="200"/>
+            <el-table-column align="center" label="负责人" prop="principal" width="200"/>
+            <el-table-column align="center" label="联系电话" prop="phoneNumber" width="200"/>
+            <el-table-column align="center" label="创建时间" prop="createTime"/>
+            <el-table-column align="center" label="修改时间" prop="updateTime"/>
+            <el-table-column align="center" label="操作" width="100">
                 <template #header #default="scope">
                     <el-button type="primary" @click="createDept">新增</el-button>
                 </template>
                 <template #default="scope">
-                    <el-dropdown @command="handleCommand($event,scope.row)" trigger="click">
-                        <span class="el-dropdown-link">
-                            <i class="el-icon-s-operation"></i>
-                        </span>
+                    <el-dropdown trigger="click" @command="handleCommand($event,scope.row)">
+                        <el-icon :size="20">
+                            <operation/>
+                        </el-icon>
                         <template #dropdown>
                             <el-dropdown-menu>
                                 <el-dropdown-item command="updateDept">编辑</el-dropdown-item>
@@ -49,6 +49,7 @@
 
 <script>
 import {createDept, deleteDept, getDepts, updateDept} from '../utils/api'
+import { ElMessageBox, ElMessage } from 'element-plus'
 
 export default {
     name: "Dept-Manage",
@@ -93,7 +94,7 @@ export default {
                             if (result.code === '0000') {
                                 this.editMode = ''
                                 this.getDepts()
-                                this.$message.success("新增成功！")
+                                ElMessage.success("新增成功！")
                             }
                         }).finally(() => this.loading = false)
                     }
@@ -101,7 +102,7 @@ export default {
                         updateDept(this.dept).then(result => {
                             if (result.code === '0000') {
                                 this.editMode = ''
-                                this.$message.success("更新成功！")
+                                ElMessage.success("更新成功！")
                             }
                         }).finally(() => this.loading = false)
                     }
@@ -117,16 +118,16 @@ export default {
             this.dept = row
         },
         deleteDept(row) {
-            this.$confirm("确定删除？").then(() => {
+            ElMessageBox.confirm("确定删除？").then(() => {
                 deleteDept(row.id).then(result => {
                     if (result.code === '0000') {
                         let index = this.depts.indexOf(row)
                         this.depts.splice(index, 1)
-                        this.$message.success("删除成功！")
+                        ElMessage.success("删除成功！")
                     }
                 })
             }).catch(() => {
-                this.$message.warning("已取消！")
+                ElMessage.warning("已取消！")
             })
         },
         handleCommand(command, row) {

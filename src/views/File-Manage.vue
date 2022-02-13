@@ -1,9 +1,11 @@
 <template>
-    <el-card shadow="never" :body-style="{padding:'15px'}" class="breadcrumb">
+    <el-card :body-style="{padding:'15px'}" class="breadcrumb" shadow="never">
         <div class="flex-between">
             <div class="flex-start">
                 <div class="breadcrumb-icon">
-                    <i class="el-icon-back text-icon" @click="returnParentFolder"></i>
+                    <el-icon>
+                        <back @click="returnParentFolder"/>
+                    </el-icon>
                 </div>
                 <el-breadcrumb separator="/">
                     <el-breadcrumb-item v-for="(path, index) in paths">
@@ -15,55 +17,68 @@
             </div>
             <div class="flex-end breadcrumb-icon">
                 <el-popover placement="left" trigger="hover">
-                    <el-upload action="" :http-request="upload">
-                        <i class="el-icon-folder-opened"></i>
+                    <el-upload :http-request="upload" action="">
+                        <el-icon>
+                            <folder-opened/>
+                        </el-icon>
                         选择并上传文件
                     </el-upload>
                     <template #reference>
-                        <i class="el-icon-upload text-icon"></i>
+                        <el-icon>
+                            <upload/>
+                        </el-icon>
                     </template>
                 </el-popover>
-                <i class="el-icon-folder-add" @click="createFolder"></i>
+                <el-icon>
+                    <folder-add @click="createFolder"/>
+                </el-icon>
             </div>
         </div>
     </el-card>
     <div class="flex-between search-box">
-        <el-input v-model.trim="keyword" @keyup.enter="searchFile()" @clear="resetData" clearable></el-input>
-        <el-button slot="append" icon="el-icon-search" :disabled="keyword === ''" @click="searchFile()">
+        <el-input v-model.trim="keyword" clearable @clear="resetData" @keyup.enter="searchFile()"></el-input>
+        <el-button slot="append" :disabled="keyword === ''" icon="search" @click="searchFile()">
         </el-button>
     </div>
-    <el-table :data="files" ref="table" @row-click="enterFolder" style="width: 100%" empty-text="空文件夹" border>
+    <el-table ref="table" :data="files" border empty-text="空文件夹" style="width: 100%" @row-click="enterFolder">
         <el-table-column label="名称">
             <template #default="scope">
-                <i v-if="scope.row.type === '文件夹'" class="el-icon-folder folder-icon"></i>
-                <i v-else class="el-icon-document file-icon"></i>
+                <el-icon v-if="scope.row.type === '文件夹'" class="folder-icon">
+                    <folder/>
+                </el-icon>
+                <el-icon v-else class="file-icon">
+                    <document/>
+                </el-icon>
                 {{ scope.row.name }}
             </template>
         </el-table-column>
-        <el-table-column prop="type" label="类型" align="center" width="100"/>
-        <el-table-column prop="size" label="大小" align="center" width="100"/>
-        <el-table-column prop="creator" label="创建者" align="center" width="150"/>
-        <el-table-column prop="createTime" label="创建时间" align="center" width="200"/>
-        <el-table-column prop="updateTime" label="修改时间" align="center" width="200"/>
-        <el-table-column label="操作" align="center" width="100">
+        <el-table-column align="center" label="类型" prop="type" width="100"/>
+        <el-table-column align="center" label="大小" prop="size" width="100"/>
+        <el-table-column align="center" label="创建者" prop="creator" width="150"/>
+        <el-table-column align="center" label="创建时间" prop="createTime" width="200"/>
+        <el-table-column align="center" label="修改时间" prop="updateTime" width="200"/>
+        <el-table-column align="center" label="操作" width="100">
             <template #default="scope">
                 <el-dropdown @command="handleCommand($event, scope.row)">
-                    <i class="el-icon-s-operation"></i>
+                    <el-icon :size="20">
+                        <operation/>
+                    </el-icon>
                     <template #dropdown>
                         <el-dropdown-menu>
-                            <el-dropdown-item icon="el-icon-edit" command="rename">
+                            <el-dropdown-item command="rename" icon="el-icon-edit">
                                 重命名
                             </el-dropdown-item>
-                            <el-dropdown-item icon="el-icon-delete" command="remove">
+                            <el-dropdown-item command="remove" icon="el-icon-delete">
                                 删除
                             </el-dropdown-item>
-                            <el-dropdown-item icon="el-icon-download" :disabled="scope.row.type === '文件夹'" command="download">
+                            <el-dropdown-item :disabled="scope.row.type === '文件夹'" command="download"
+                                              icon="el-icon-download">
                                 下载
                             </el-dropdown-item>
-                            <el-dropdown-item icon="el-icon-share" v-if="scope.row.shared" command="stopShare">
+                            <el-dropdown-item v-if="scope.row.shared" command="stopShare" icon="el-icon-share">
                                 停止分享
                             </el-dropdown-item>
-                            <el-dropdown-item icon="el-icon-share" v-else command="share">
+                            <el-dropdown-item v-else command="share" icon="el-icon-share">
                                 分享
                             </el-dropdown-item>
                         </el-dropdown-menu>
@@ -72,15 +87,14 @@
             </template>
         </el-table-column>
     </el-table>
-    <div class="pagination">
-        <el-pagination background layout="prev, pager, next" :pager-count="5" :total="size"
-                       :hide-on-single-page="true" @current-change="handlePageChange">
-        </el-pagination>
-    </div>
+    <el-pagination :hide-on-single-page="true" :pager-count="5" :total="size" background class="pagination"
+                   layout="prev, pager, next" @current-change="handlePageChange">
+    </el-pagination>
 </template>
 
 <script>
 import {createFolder, deleteFile, downloadFile, getFiles, searchFile, updateFile, uploadFile} from '../utils/api'
+import {ElMessage, ElMessageBox} from 'element-plus'
 import {mapState} from 'vuex'
 
 export default {
@@ -137,7 +151,7 @@ export default {
             formData.append('parentId', this.paths[this.paths.length - 1].id)
             uploadFile(formData).then(result => {
                 if (result.code === '0000') {
-                    this.$message.success('上传成功！')
+                    ElMessage.success('上传成功！')
                     if (this.files.length === 10) {
                         this.files.splice(this.files.length - 1, 1)
                     }
@@ -146,7 +160,7 @@ export default {
             })
         },
         createFolder() {
-            this.$prompt('请输入文件夹名', '新建文件夹', {
+            ElMessageBox.prompt('请输入文件夹名', '新建文件夹', {
                 inputPattern: /^.{1,50}$/,
                 inputErrorMessage: '文件夹名应为1-50个字符'
             }).then(({value}) => {
@@ -157,7 +171,7 @@ export default {
                 formData.append('parentId', this.paths[this.paths.length - 1].id)
                 createFolder(formData).then(result => {
                     if (result.code === '0000') {
-                        this.$message.success('创建文件夹成功！')
+                        ElMessage.success('创建文件夹成功！')
                         if (this.files.length === 10) {
                             this.files.splice(this.files.length - 1, 1)
                         }
@@ -165,11 +179,11 @@ export default {
                     }
                 })
             }).catch(() => {
-                this.$message.warning('已取消新建文件夹！')
+                ElMessage.warning('已取消新建文件夹！')
             })
         },
         download(row) {
-            this.$prompt('请输入文件名', '下载', {
+            ElMessageBox.prompt('请输入文件名', '下载', {
                 inputValue: row.name,
                 inputPattern: /^.{1,50}$/,
                 inputErrorMessage: '文件名应为1-50个字符'
@@ -184,11 +198,11 @@ export default {
                     }
                 })
             }).catch(() => {
-                this.$message.warning('已取消下载！')
+                ElMessage.warning('已取消下载！')
             })
         },
         rename(row) {
-            this.$prompt('请输入新文件名', '重命名', {
+            ElMessageBox.prompt('请输入新文件名', '重命名', {
                 inputValue: row.name,
                 inputPattern: /^.{1,50}$/,
                 inputErrorMessage: '文件名应为1-50个字符'
@@ -196,48 +210,48 @@ export default {
                 updateFile({id: row.id, name: value}).then(result => {
                     if (result.code === '0000') {
                         row.name = value
-                        this.$message.success('重命名成功！')
+                        ElMessage.success('重命名成功！')
                     }
                 })
             }).catch(() => {
-                this.$message.warning('已取消重命名！')
+                ElMessage.warning('已取消重命名！')
             })
         },
         remove(row) {
-            this.$confirm('确定删除“ ' + row.name + ' ”？', '删除').then(() => {
+            ElMessageBox.confirm('确定删除“ ' + row.name + ' ”？', '删除').then(() => {
                 deleteFile(row.id).then(result => {
                     if (result.code === '0000') {
                         let index = this.files.indexOf(row)
                         this.files.splice(index, 1)
-                        this.$message.success('删除成功！')
+                        ElMessage.success('删除成功！')
                     }
                 })
             }).catch(() => {
-                this.$message.warning('已取消删除！')
+                ElMessage.warning('已取消删除！')
             })
         },
         share(row) {
-            this.$confirm('确定分享“ ' + row.name + ' ”？', '分享').then(() => {
+            ElMessageBox.confirm('确定分享“ ' + row.name + ' ”？', '分享').then(() => {
                 updateFile({id: row.id, shared: true}).then(result => {
                     if (result.code === '0000') {
                         row.shared = true
-                        this.$message.success('分享成功！')
+                        ElMessage.success('分享成功！')
                     }
                 })
             }).catch(() => {
-                this.$message.warning('已取消分享！')
+                ElMessage.warning('已取消分享！')
             })
         },
         stopShare(row) {
-            this.$confirm('确定停止分享“ ' + row.name + ' ”？', '停止分享').then(() => {
+            ElMessageBox.confirm('确定停止分享“ ' + row.name + ' ”？', '停止分享').then(() => {
                 updateFile({id: row.id, shared: false}).then(result => {
                     if (result.code === '0000') {
                         row.shared = false
-                        this.$message.success('停止分享成功！')
+                        ElMessage.success('停止分享成功！')
                     }
                 })
             }).catch(() => {
-                this.$message.warning('已取消停止分享！')
+                ElMessage.warning('已取消停止分享！')
             })
         },
         handleCommand(command, row) {
@@ -285,7 +299,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .breadcrumb {
     margin-bottom: 15px;
 }

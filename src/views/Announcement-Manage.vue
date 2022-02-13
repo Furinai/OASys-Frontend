@@ -1,15 +1,15 @@
 <template>
     <div v-if="editMode === 'create' || editMode === 'update'">
-        <el-form :model="announcement" :rules="rules" ref="announcement">
+        <el-form ref="announcement" :model="announcement" :rules="rules">
             <el-form-item prop="title">
-                <el-input type="text" v-model="announcement.title" placeholder="标题" maxlength="100" show-word-limit/>
+                <el-input v-model="announcement.title" maxlength="100" placeholder="标题" show-word-limit type="text"/>
             </el-form-item>
             <el-form-item prop="content">
-                <el-input type="textarea" v-model="announcement.content" :autosize="{minRows: 6}"
-                          placeholder="内容" minlength="10" maxlength="2000" show-word-limit/>
+                <el-input v-model="announcement.content" :autosize="{minRows: 6}" maxlength="2000"
+                          minlength="10" placeholder="内容" show-word-limit type="textarea"/>
             </el-form-item>
             <el-form-item class="text-right">
-                <el-button @click="onSubmit('announcement')" type="primary" :loading="loading">
+                <el-button :loading="loading" type="primary" @click="onSubmit('announcement')">
                     确认
                 </el-button>
                 <el-button @click="editMode = ''">取消</el-button>
@@ -17,19 +17,19 @@
         </el-form>
     </div>
     <div v-else>
-        <el-table ref="table" :data="announcements" tooltipEffect="light" style="width: 100%" border>
-            <el-table-column prop="title" label="标题" align="center" width="600" show-overflow-tooltip/>
-            <el-table-column prop="createTime" label="创建时间" align="center" />
-            <el-table-column prop="updateTime" label="修改时间" align="center"/>
-            <el-table-column label="操作" align="center" width="100px">
+        <el-table ref="table" :data="announcements" border style="width: 100%" tooltipEffect="light">
+            <el-table-column align="center" label="标题" prop="title" show-overflow-tooltip width="600"/>
+            <el-table-column align="center" label="创建时间" prop="createTime"/>
+            <el-table-column align="center" label="修改时间" prop="updateTime"/>
+            <el-table-column align="center" label="操作" width="100px">
                 <template #header #default="scope">
                     <el-button type="primary" @click="createAnnouncement">新增</el-button>
                 </template>
                 <template #default="scope">
-                    <el-dropdown @command="handleCommand($event,scope.row)" trigger="click">
-                        <span class="el-dropdown-link">
-                            <i class="el-icon-s-operation"></i>
-                        </span>
+                    <el-dropdown trigger="click" @command="handleCommand($event,scope.row)">
+                        <el-icon :size="20">
+                            <operation/>
+                        </el-icon>
                         <template #dropdown>
                             <el-dropdown-menu>
                                 <el-dropdown-item command="updateAnnouncement">编辑</el-dropdown-item>
@@ -40,16 +40,15 @@
                 </template>
             </el-table-column>
         </el-table>
-        <div class="pagination">
-            <el-pagination background layout="prev, pager, next" :pager-count="5" :total="size"
-                           :hide-on-single-page="true" @current-change="handlePageChange">
-            </el-pagination>
-        </div>
+        <el-pagination :hide-on-single-page="true" :pager-count="5" :total="size" background class="pagination"
+                       layout="prev, pager, next" @current-change="handlePageChange">
+        </el-pagination>
     </div>
 </template>
 
 <script>
 import {createAnnouncement, deleteAnnouncement, getAnnouncements, updateAnnouncement} from '../utils/api'
+import { ElMessageBox, ElMessage } from 'element-plus'
 
 export default {
     name: "Announcement-Manage",
@@ -93,7 +92,7 @@ export default {
                         createAnnouncement(this.announcement).then(result => {
                             if (result.code === '0000') {
                                 this.$refs[announcement].resetFields()
-                                this.$message.success("发布成功！")
+                                ElMessage.success("发布成功！")
                             }
                         }).finally(() => this.loading = false)
                     }
@@ -101,7 +100,7 @@ export default {
                         updateAnnouncement(this.announcement).then(result => {
                             if (result.code === '0000') {
                                 this.editMode = ''
-                                this.$message.success("更新成功！")
+                                ElMessage.success("更新成功！")
                             }
                         }).finally(() => this.loading = false)
                     }
@@ -117,16 +116,16 @@ export default {
             this.announcement = row
         },
         deleteAnnouncement(row) {
-            this.$confirm("确定删除？").then(() => {
+            ElMessageBox.confirm("确定删除？").then(() => {
                 deleteAnnouncement(row.id).then(result => {
                     if (result.code === '0000') {
                         let index = this.announcements.indexOf(row)
                         this.announcements.splice(index, 1)
-                        this.$message.success("删除成功！")
+                        ElMessage.success("删除成功！")
                     }
                 })
             }).catch(() => {
-                this.$message.warning("已取消！")
+                ElMessage.warning("已取消！")
             })
         },
         handleCommand(command, row) {

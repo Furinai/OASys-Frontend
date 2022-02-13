@@ -1,5 +1,4 @@
 html, body {
-    font-family: Arial, Helvetica, "Microsoft YaHei", sans-serif;
     -webkit-tap-highlight-color: transparent;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -30,7 +29,7 @@ ul {
 
 pre {
     white-space: pre-wrap;
-    line-height: 1.5;
+    line-height: 2;
 }
 
 .list {
@@ -102,10 +101,6 @@ pre {
     text-align: right;
 }
 
-.text-icon {
-    margin-right: 10px;
-}
-
 .button-long {
     width: 100%;
 }
@@ -118,19 +113,7 @@ pre {
 
 .pagination {
     margin-top: 15px;
-    text-align: center;
-}
-
-.el-icon-success {
-    color: #67C23A;
-}
-
-.el-icon-warning {
-    color: #E6A23C;
-}
-
-.el-icon-error {
-    color: #f56c6c;
+    justify-content: center;
 }
 
 .el-tag + .el-tag {

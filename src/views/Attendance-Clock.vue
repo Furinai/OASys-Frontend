@@ -4,14 +4,12 @@
         <div class="current-date">{{ currentDate }}</div>
         <div class="clock-button">
             <el-button-group>
-                <el-button type="primary" icon="el-icon-arrow-left"
-                           @click="clockIn" :disabled="Boolean(attendance)">
+                <el-button :disabled="Boolean(attendance)" size="large" type="primary" @click="clockIn">
                     签到
                 </el-button>
-                <el-button type="primary" @click="clockOut"
-                           :disabled="Boolean(!attendance) || Boolean(attendance.clockOutTime)">
+                <el-button :disabled="Boolean(!attendance) || Boolean(attendance.clockOutTime)" size="large" type="primary"
+                           @click="clockOut">
                     签退
-                    <i class="el-icon-arrow-right el-icon--right"></i>
                 </el-button>
             </el-button-group>
         </div>
@@ -21,6 +19,7 @@
 <script>
 import {clockIn, clockOut, getAttendances} from '../utils/api'
 import {mapState} from 'vuex'
+import {ElMessage} from 'element-plus'
 import dayjs from 'dayjs'
 
 export default {
@@ -54,9 +53,9 @@ export default {
                     this.attendance = result.data
                     let minutes = this.attendance.comeLateMinutes
                     if (minutes) {
-                        this.$message.success('签到成功，迟到' + minutes + '分钟')
+                        ElMessage.success('签到成功，迟到' + minutes + '分钟')
                     } else {
-                        this.$message.success('签到成功')
+                        ElMessage.success('签到成功')
                     }
                 }
             })
@@ -67,9 +66,9 @@ export default {
                     this.attendance = result.data
                     let minutes = this.attendance.leaveEarlyMinutes
                     if (minutes) {
-                        this.$message.success('签退成功，早退' + minutes + '分钟')
+                        ElMessage.success('签退成功，早退' + minutes + '分钟')
                     } else {
-                        this.$message.success('签退成功')
+                        ElMessage.success('签退成功')
                     }
                 }
             })
