@@ -279,7 +279,7 @@ export default {
             this.getFiles(parentId)
         },
         searchFile() {
-            searchFile({name: this.keyword, pageNumber: this.currentPage}).then(result => {
+            searchFile({name: this.keyword, pageNumber: this.currentPage - 1}).then(result => {
                 if (result.code === '0000') {
                     this.files = result.data.list
                     this.size = result.data.size
